@@ -1,0 +1,192 @@
+<style>
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+
+	.orange th {
+		color: #fff;
+	}
+
+	navbar {
+		background-color: #008B8B;
+		padding: 10px 0;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+	}
+
+
+	.btn_serach {
+		background-color: #008B8B;
+		border: 1px solid #008B8B;
+		color: white;
+	}
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h2 class="title" style="text-align:center;">Alert Configuration</h2>
+	</div>
+</div>
+<div class="container">
+	<div class="row top">
+		<div class="col-sm-12">
+
+			<br />
+			<br />
+
+
+
+
+			<div class="row" ng-show="addNewTab">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Alert For <span style="color:#c00;">*</span>:</label>
+						<select class="form-control" ng-model="alertConfig.alertFor" ng-required="true">
+							<option value="">Select Alert For</option>
+							<option value="Current">Current</option>
+							<option value="Voltage">Voltage</option>
+
+						</select>
+						<span style="color: red;" ng-show="aletForErr">Alert for Is Mandetory</span>
+					</div>
+				</div>
+
+			
+</div>
+<div ng-show="addNewTab">
+	<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13"> Register Name<span style="color:#c00;">*</span>:</label>						<i 	ng-show="editFrom" class="fa fa-refresh" ng-click="vm.change()"></i>
+						<input type="text" class="form-control" ng-model="alertConfig.registerName" 	 ng-show="editFrom"
+							placeholder="Enter Register No" ng-required="true" 							disabled>
+							
+							<input  type="search" 											ng-show="!editFrom"		style="width: 100%;"	class="form-control" title="Search Register"placeholder="Search" aria-label="Search" ng-model="alertConfig.register" name="search" uib-typeahead="register as register.registerName  for register in vm.registers | filter:$viewValue | limitTo:20" typeahead-no-results="codes" required
+																								  typeahead-on-select="vm.setRegister(alertConfig.register)" />
+							                
+						<span style="color: red;" ng-show="registerErr">Register No Is Mandetory</span>
+						<span style="color: red;" ng-show="invalidErr">Register No Is In Valid</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13"> Register No	<span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="alertConfig.registerNo" ng-change="getRegisterName(alertConfig.registerNo)"
+													placeholder="Enter Register No" ng-required="true" disabled>
+
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13"> From Range<span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="alertConfig.fromRange"
+							placeholder="Enter From Range" ng-required="true">
+						<span style="color: red;" ng-show="fromRangeErr">From Range Is Mandetory</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13"> To Range<span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="alertConfig.toRange"
+							placeholder="Enter To Range" ng-required="true">
+						<span style="color: red;" ng-show="toRangeErr">To Range Is Mandetory</span>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success"
+							ng-click="vm.ok(alertConfig)">Submit</button>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<br />
+<br />
+<br />
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+
+			<div class="form-group">
+				<label for="name13">Per Page<span style="color:#c00;">*</span>:</label>
+				<input type="number" class="form-control" ng-model="vm.perPage">
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="col-md-2">
+				<button type="submit" class="btn_serach btn-sm" id="success" title="Add New"
+					style="background: #008B8B; border: 1px solid #103e57; color:white;" ng-click="vm.add()"><i
+						class="fa fa-plus-square" aria-hidden="true"></i></button>
+			</div>
+
+
+		</div>
+		<div class="col-md-2">
+
+			<div class="form-group">
+				<label for="name13">Search <span style="color:#c00;">*</span>:</label>
+				<input type="text" placeholder="Search" class="form-control" ng-model="vm.serachText"
+					ng-change="searchByPagination(vm.serachText)">
+			</div>
+		</div>
+	</div>
+	<div class="panel-body table-responsive">
+		<table id="example" class="table table-bordered ">
+			<thead class="orange">
+				<tr>
+					<th>Sr No</th>
+					<th>Alert For</th>
+					<th>Register</th>
+
+					
+					<th>Range </th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr dir-paginate="alert in vm.alerts | filter:q |itemsPerPage:vm.perPage"
+					total-items="vm.total_count" current-page="pagination.current">
+
+					<td>{{(vm.perPage*(vm.pageNo-1))+($index+1)}}</td>
+					<td> {{alert.alertFor}} </td>
+					<td>{{alert.registerNo}} - {{alert.registerName}}</td>
+					<td> {{alert.fromRange}}  					{{alert.toRange}} </td>
+
+				
+
+
+					<td class="text-nowrap">
+						<button type="button" class="btn btn-info" title="Edit" ng-click="vm.edit(alert)">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</button>
+						<button type="button" class="btn btn-danger" title="Delete"
+							ng-click="vm.deletAlert(alert)">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</button>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+	</div>
+</div>

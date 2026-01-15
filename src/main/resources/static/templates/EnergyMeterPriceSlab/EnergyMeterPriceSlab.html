@@ -1,0 +1,228 @@
+<style>
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+
+	.orange th {
+		color: #fff;
+	}
+
+	navbar {
+		background-color: #008B8B;
+		padding: 10px 0;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+	}
+
+
+	.btn_serach {
+		background-color: #008B8B;
+		border: 1px solid #008B8B;
+		color: white;
+	}
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h2 class="title" style="text-align:center;">Price Slab</h2>
+	</div>
+</div>
+<div class="container">
+	<div class="row top">
+		<div class="col-sm-12">
+
+			<br />
+			<br />
+		
+
+
+
+
+			<div class="row" 			ng-show="addNewTab">
+
+			
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Name/ID <span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="priceSlab.priceSlabId"
+							placeholder="Enter Name/ID" ng-required="true">
+						<span style="color: red;" ng-show="slabIsErr"> Name Is Mandetory</span>
+					</div>
+				</div>
+			
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Effective From<span style="color:#c00;">*</span>:</label>
+						<input type="date" class="form-control" ng-model="priceSlab.effectiveFrom"
+							placeholder="Enter Register No" ng-required="true">
+						<span style="color: red;" ng-show="effectiveErr"> 	Effective From Is Mandetory</span>
+					</div>
+				</div>
+			</div>
+			<div class="row" 			ng-show="addNewTab" >
+				<div class="col-md-6">
+					<button type="button" class="btn btn-success" title="Add Row"
+																	ng-click="vm.addRow()">
+																	<i class="fa fa-plus" aria-hidden="true"></i>
+																</button>
+																<span style="color: red;" ng-show="listErr"> 	At leat One Row is Mandetory</span>				
+				</div>
+			</div>	
+			<div class="row"  			ng-show="addNewTab">
+				<div class="col-md-12">
+					
+					<table id="example" class="table table-bordered ">
+								<thead class="orange">
+									<tr>
+										<th>Sr No</th>
+					
+										<th>From </th>
+										<th>To</th>
+										<th>Rate</th>
+										
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+					
+									<tr ng-repeat="priceSlabItem in vm.priceSlabItems">
+					
+										<td>{{$index+1}}</td>
+										<td><input type="number" class="form-control" ng-model="priceSlabItem.fromRange"placeholder="Enter From Range" ng-required="true"></td>
+										<td> <input type="number" class="form-control" ng-model="priceSlabItem.toRange" placeholder="Enter To Range" ng-required="true"></td>
+										<td> <input type="number" class="form-control" ng-model="priceSlabItem.price" placeholder="Enter Rate" ng-required="true"></td>
+										
+										<td class="text-nowrap">
+											
+											<button type="button" class="btn btn-danger" title="Delete"
+												ng-click="vm.remove(priceSlabItem)">
+												<i class="fa fa-trash" aria-hidden="true"></i>
+											</button>
+					
+										</td>
+									</tr>
+								</tbody>
+							</table>
+					
+					
+					
+					
+					
+					
+					
+				</div>
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success"
+							ng-click="vm.ok(priceSlab)">Submit</button>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<br />
+<br />
+<br />
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+
+			<div class="form-group">
+				<label for="name13">Per Page<span style="color:#c00;">*</span>:</label>
+				<input type="number" class="form-control" ng-model="vm.perPage">
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="col-md-2">
+				<button type="submit" class="btn_serach btn-sm" id="success" title="Add New"
+					style="background: #008B8B; border: 1px solid #103e57; color:white;" ng-click="vm.add()"><i
+						class="fa fa-plus-square" aria-hidden="true"></i></button>
+			</div>
+			
+
+			<div class="col-md-2">
+				<button type="button" class="btn_serach btn-sm" id="success"
+					style="background: #008B8B; border: 1px solid #103e57; color:white;" ng-click="vm.export()"> <i
+						class="	fa fa-cloud-download" aria-hidden="true"></i></button>
+			</div>
+		</div>
+		<div class="col-md-2">
+
+			<div class="form-group">
+				<label for="name13">Search <span style="color:#c00;">*</span>:</label>
+				<input type="text" placeholder="Search" class="form-control" ng-model="vm.serachText"
+					ng-change="searchByPagination(vm.serachText)">
+			</div>
+		</div>
+	</div>
+	<div class="panel-body table-responsive">
+		<table id="example" class="table table-bordered ">
+			<thead class="orange">
+				<tr>
+					<th>Sr No</th>
+
+					<th>Slab Name/Id </th>
+					<th>Effective From</th>
+					<th>Effective Upto</th>
+					<th>Added Date</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr dir-paginate="priceSlab in vm.priceSlabs | filter:q |itemsPerPage:vm.perPage"
+					total-items="vm.total_count" current-page="pagination.current">
+
+					<td>{{(vm.perPage*(vm.pageNo-1))+($index+1)}}</td>
+					<td>{{priceSlab.priceSlabId}}</td>
+					<td> {{priceSlab.effectiveFrom|date:'dd-MM-yyyy'}} </td>
+					<td> {{priceSlab.effectiveUptoDate|date:'dd-MM-yyyy'}} </td>
+					<td> {{priceSlab.addedDate|date:'dd-MM-yyyy'}} </td>
+
+					<td>					<button type="button" class="btn btn-success" title="Active"  ng-if="priceSlab.active==1">
+												<i class="fa fa-check" aria-hidden="true"></i>
+											</button>
+										
+											<button type="button" class="btn btn-danger" title="Inactive"  ng-if="priceSlab.active!=1">
+																						<i class="fa fa-close" aria-hidden="true"></i>
+																					</button>
+										
+										</td>
+					<td class="text-nowrap">
+						<button type="button" class="btn btn-info" title="Edit" ng-click="vm.edit(priceSlab)">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</button>
+						<button type="button" class="btn btn-info" title="View" ng-click="vm.view(priceSlab)">
+													<i class="fa fa-eye" aria-hidden="true"></i>
+						</button>
+						<button type="button" class="btn btn-danger" title="Delete"
+							ng-click="vm.deletMeterRegister(priceSlab)">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</button>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+	</div>
+</div>

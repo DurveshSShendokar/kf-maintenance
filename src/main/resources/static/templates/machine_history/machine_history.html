@@ -1,0 +1,455 @@
+<style>
+
+.container-fluid {
+     background-color: #e9ecef; 
+}
+
+.page-title-div{
+    background-color: #e9ecef;
+}
+
+
+.dash-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 16px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+    height: 140px;
+    flex: 0 0 calc(25% - 20px);
+   
+
+}
+.dash-card:hover {
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transform: scale(1.1);
+	transition: all 0.5s ease;
+ }
+
+.dash-card .card-header {
+	border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+	
+    padding: 0px 13px;
+
+}
+
+.dash-card .card-body {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dash-card .card-title {
+    color: #212529;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.dash-card:hover .card-title {
+  color: white;
+}
+
+.dash-card .card-text {
+    
+    font-size: 1.6rem;
+    line-height: 1.6;
+    
+}
+
+
+.h4
+ {
+ margin: 10% auto;
+ }
+
+
+.card-bodyy {
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 0 0 16px 16px; 
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.card-headerr {
+    font-size: 24px;
+   
+    padding: 20px; 
+    background-color: #f8f9fa;
+    color: black; 
+    border-radius: 16px 16px 0 0; 
+    
+       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.card-headerr:hover
+{
+ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transition: all 0.5s ease;
+}
+
+.total-users-card{
+    margin-right: 10px; 
+    
+}
+
+.total-machines-card {
+   
+    margin-left: 10px; 
+}
+
+
+.total-card{
+    margin-right: 10px; 
+    
+}
+
+.open-card {
+   
+    margin-left: 10px;
+}
+
+.trial-card{
+    margin-right: 10px; 
+    
+}
+
+.closed-card {
+   
+    margin-left: 10px; 
+}
+
+.today-fetch-card{
+    margin-right: 10px; 
+    
+}
+
+
+
+
+.table-container {
+    width: 70%; /* Adjust the width as needed */
+    margin: 10;
+  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 16px;
+    background-color: #fff;
+}
+.table_header {
+    width: 100%;
+    font-size: 24px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: black;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Ensure no margins around the header */
+}
+
+.table_header:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background-color: #008B8B;
+    color: #ffffff !important;
+    transition: all 0.5s ease;
+}
+
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange { background-color: #008B8B; }
+.orange th { color: #fff; }
+.navbar {
+    background-color: #008B8B;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.btn_search {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.form-control {
+    width: 100%;
+}
+.table-bordered {
+    width: 70%;
+    margin: 0 auto; 
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.table {
+    width: 100%;
+    margin-bottom: 1	rem;
+    background-color: #fff;
+    border-collapse: collapse;
+     font-size: 1.2rem; 
+      border-radius: 16px; /* Add rounded corners */
+    overflow: hidden; /* Ensure the rounded corners are visible */
+}
+
+.table th, .table td {
+    padding: 0.5rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.move-right {
+    margin-left: 50%; 
+    text-align: left; 
+}
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-left: 3px solid #6c757d;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -8px;
+    width: 16px;
+    height: 16px;
+    background-color: #6c757d;
+    border-radius: 50%;
+}
+
+
+</style>
+
+
+<div class="container-fluid">
+	
+    <div class="row page-title-div">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <h2 class="title move-right"> Machine History</h2>
+
+         
+			
+			
+			
+			<div class="row">
+			    <!-- Lab Dropdown -->
+			    <div class="col-md-4">
+			        <label>Select Lab <span style="color:#c00;">*</span>:</label>
+			        <select ng-model="vm.selectedLab"
+			                ng-options="lab for lab in vm.labNames"
+			                ng-change="vm.onLabSelect(vm.selectedLab)"
+			                class="form-control" required>
+			            <option value="">Select Lab</option>
+			        </select>
+			    </div>
+
+			    <!-- Machine Name Dropdown (depends on Lab) -->
+				<div class="col-md-4" ng-if="vm.selectedLab && vm.machineNames.length > 0">
+				    <label>Select Machine Name <span style="color:#c00;">*</span>:</label>
+				    <select ng-model="vm.selectedMachineName"
+				            ng-options="name for name in vm.machineNames"
+				            ng-change="vm.onMachineNameSelect(vm.selectedMachineName)"
+				            class="form-control" required>
+				        <option value="">Select Machine Name</option>
+				    </select>
+				</div>
+
+			    <!-- Eqid Dropdown (depends on Machine Name) -->
+				<div class="col-md-4" ng-if="vm.selectedMachineName && vm.eqidList.length > 0">
+				       <label>Select Eqid <span style="color:#c00;">*</span>:</label>
+				       <select ng-model="vm.selectedEqid"
+				               ng-options="m as m.eqid for m in vm.eqidList track by m.machine_id"
+				               ng-change="vm.onEqidSelect(vm.selectedEqid)"
+				               class="form-control" required>
+				           <option value="">Select Eqid</option>
+				       </select>
+				   </div>
+			</div>
+
+			
+			
+        </div>
+    </div>
+    
+
+    <!-- ================= Breakdown Section ================= -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <h3 class="card-headerr">Breakdown Section</h3>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card" ng-click="handleUsersCardClickover('overallBreakdownByMachine')">
+                <div class="card-header">Total Breakdown</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.total_breaks.totalBreakdownCount : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card" ng-click="handleUsersCardClickRepeat('totalRepeatBreakdownByMachine')">
+                <div class="card-header">Repetitive Breakdown</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.ATRepo.count : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="handleUsersCardClickopen('totalopenBreakdownByMachine')">
+                <div class="card-header">Open Breakdown</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.open_breaks.openCount : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="handleUsersCardClickclosed('totalclosedBreakdownByMachine')">
+                <div class="card-header">Closed Breakdown</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.closed_breaks.closedCount : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="handleUsersCardClicktrial('totaltrialBreakdownByMachine')">
+                <div class="card-header">Trial Breakdown</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.trial_breaks.trialCount : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= PPM Section ================= -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="card-headerr">PPM Section</h3>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="handleMaintainceCardClick('totalMaintainceByMachine')">
+                <div class="card-header">Total PPM</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.MaintainceCount.totalMaintence : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="totalopenMaintainceCardClick('totalopenMaintainceByMachine')">
+                <div class="card-header">Open PPM</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.MaintainceCount.totalOpenMaintenance : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="totalclosedMaintainceCardClick('totalclosedMaintainceByMachine')">
+                <div class="card-header">Closed PPM</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.MaintainceCount.totalClosedMaintenance : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="TodayMaintainceCardClick('TodayMaintainceByMachine')">
+                <div class="card-header">Overdue PPM</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.MaintainceCount.overduesMaintenace : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="handleApprovedCardClick('totalApprovedByMachine')">
+                <div class="card-header">Closed Approved PPM</div>
+                <div class="card-body">
+					<h5 class="card-text card-title">
+					  {{ vm.selectedmachine ? ((vm.ApprovedCount && vm.ApprovedCount.count) || 0) : 0 }}
+					</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card"  ng-click="handleUnApprovedCardClick('totalUnApprovedByMachine')">
+                <div class="card-header">ClosedUnApproved PPM</div>
+                <div class="card-body">
+
+					<h5 class="card-text card-title">
+					  {{ vm.selectedmachine ? ((vm.UnApprovedCount && vm.UnApprovedCount.count) || 0) : 0 }}
+					</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+	 
+	 
+	
+	
+	
+	

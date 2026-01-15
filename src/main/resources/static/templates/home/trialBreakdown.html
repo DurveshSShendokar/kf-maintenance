@@ -1,0 +1,108 @@
+
+<style>
+
+
+.btnn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+        background: #008B8B;
+    border: 1px solid #008B
+}
+    
+
+</style>
+
+<div class="container-fluid" style="padding-top:5px;">
+    		
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Trial Breakdown</h2>
+    </div>
+</div>
+		
+<div class="row">
+
+	<div class="col-md-6">
+	</div>
+	
+	<div class="col-md-2">
+		</div>
+	<div class="col-md-3">
+		<button type="submit" class="btnn_serach" id="success" style="background: #008B8B; border: 1px solid #103e57; color:white;"															
+			ng-click="export()"> Export</i></button>
+
+		<button id="btnExport" ng-json-export-excel data="vm.trialBreakdown" report-fields="vm.labels"
+			style="display:none" filename="'Trail Breakdown'"></button>
+
+	</div>
+</div>
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered " 							style="background-color:#008B8B;">
+						<thead class="orange">
+							<tr>
+								<th>Sr.No</th>
+						    	<th>Slip Number</th>
+							
+								
+								
+								<th>Machine</th>
+								<th>Description of Berakdown </th>
+								<th>Root Cause</th>
+								<th>Corrective Action </th>
+							
+								<th>Trial Date</th>
+								<th>Raised by</th>
+								
+								<th>Status</th>
+								
+								
+								
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="breakdownupdate in vm.trialBreakdown">
+							
+								<td>{{$index+1}}</td>
+								<td>{{breakdownupdate.bd_slip}}</td>		
+							
+							
+
+					
+					<td>{{breakdownupdate.machine.machine_name}} - {{breakdownupdate.machine.eqid}} </td>
+					<td>{{breakdownupdate.observation}}</td>
+					<td>{{breakdownupdate.root_cause}}</td>
+					<td>{{breakdownupdate.action_taken}}</td>
+				
+					<td>{{breakdownupdate.ticket_trial_time | date:'dd-MM-yyyy'}}</td>
+					<td>{{breakdownupdate.addedBy.firstName}} {{breakdownupdate.addedBy.lastName}}</td>
+					 <td>
+			                        <span ng-switch="breakdownupdate.status">
+			                            <span ng-switch-when="1">Open</span>
+			                            <span ng-switch-when="2">Trial</span>
+			                            <span ng-switch-when="3">Closed</span>
+			                          
+			                        </span>
+			                    </td>
+												
+								
+								
+								
+								
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+ 	
+ 
+
+ 
+ 
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

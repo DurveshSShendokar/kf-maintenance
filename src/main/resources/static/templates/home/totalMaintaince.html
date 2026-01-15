@@ -1,0 +1,234 @@
+<style>
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008b8b;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+
+	.orange th {
+		color: #fff;
+	}
+	
+
+	
+	.table-responsive {
+	    width: 130%;
+	    overflow-x: auto;
+	}
+
+	table {
+	    width: 100%;
+	   
+	}
+
+
+	navbar {
+		background-color: #008B8B;
+		padding: 10px 0;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+	}
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h2 class="title" style="text-align:center;">Total Maintenance</h2>
+	</div>
+</div>
+<div class="container mt-3">
+    <!-- Filter Type Dropdown -->
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label for="filterType">Select Filter Type</label>
+            <select id="filterType" class="form-control" ng-model="vm.selectedFilterType" ng-change="vm.onFilterTypeChange()">
+                <option value="">-- Select --</option>
+                <option value="month">Month & Year</option>
+                <option value="year">Year</option>
+               <option value="dateRange">Date Range</option>
+				<option value="lab">Lab</option>
+				<option value="allPpm">All PPM</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Month and Year Filter -->
+    <div class="row mb-3" ng-show="vm.selectedFilterType === 'month'">
+        <div class="col-md-3">
+            <label for="month">Select Month</label>
+            <select class="form-control" id="month" ng-model="vm.selectedMonth" 
+                    ng-options="month.value as month.name for month in vm.months">
+                <option value="">-- Select Month --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="year">Select Year</label>
+            <select class="form-control" id="year" ng-model="vm.selectedYear" 
+                    ng-options="year for year in vm.years">
+                <option value="">-- Select Year --</option>
+            </select>
+        </div>
+		<div class="col-md-3" ng-show="vm.selectedFilterType === 'month'">
+			    <label for="labSelect">Select Lab (Optional)</label>
+			    <select class="form-control" id="labSelect" ng-model="vm.selectedLabId"
+			        ng-options="lab.lab_id as lab.labName for lab in vm.labs">
+			        <option value="">-- Select Lab --</option>
+			    </select>
+			</div>
+    </div>
+
+    <!-- Year Only Filter -->
+    <div class="row mb-3" ng-show="vm.selectedFilterType === 'year'">
+        <div class="col-md-3">
+            <label for="yearOnly">Select Year</label>
+            <select class="form-control" id="yearOnly" ng-model="vm.selectedYear" 
+                    ng-options="year for year in vm.years">
+                <option value="">-- Select Year --</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Date Range Filter -->
+    <div class="row mb-3" ng-show="vm.selectedFilterType === 'dateRange'">
+        <div class="col-md-3">
+            <label for="fromDate">From Date</label>
+            <input type="date" class="form-control" id="fromDate" ng-model="vm.fromDate">
+        </div>
+        <div class="col-md-3">
+            <label for="toDate">To Date</label>
+            <input type="date" class="form-control" id="toDate" ng-model="vm.toDate">
+        </div>
+		<!-- Lab Filter inside Date Range -->
+		<div class="col-md-3" ng-show="vm.selectedFilterType === 'dateRange'">
+		    <label for="labSelect">Select Lab (Optional)</label>
+		    <select class="form-control" id="labSelect" ng-model="vm.selectedLabId"
+		        ng-options="lab.lab_id as lab.labName for lab in vm.labs">
+		        <option value="">-- Select Lab --</option>
+		    </select>
+		</div>
+
+    </div>
+	<!-- Lab Filter -->
+	<div class="row mb-3" ng-show="vm.selectedFilterType === 'lab'">
+		<div class="col-md-3">
+			<label for="labSelect">Select Lab</label>
+			<select class="form-control" id="labSelect" ng-model="vm.selectedLabId"
+				ng-options="lab.lab_id as lab.labName for lab in vm.labs">
+				<option value="">-- Select Lab --</option>
+			</select>
+		</div>
+	</div>
+	
+
+    <!-- Buttons -->
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <button class="btn btn-primary" ng-click="vm.filterComplaints()">Search</button>
+            <button class="btn btn-success ml-2" ng-click="vm.exportToExcel()">Export</button>
+        </div>
+    </div>
+</div>
+
+
+	<div class="col-md-8">
+		</div>
+	 <div class="col-md-1" >
+                   
+                        
+                </div>
+</div>
+
+<div class="container">
+  <div class="panel-body table-responsive">
+    <table datatable="ng" id="example" class="table table-bordered" style="background-color:#008B8B;">
+      <thead class="orange">
+        <tr>
+          <th>Sr.No</th>
+          <th>Machine Name</th>
+          <th>Overall Status</th>
+          <th>Location</th>
+          <th>Lab</th>
+          <th>Frequency</th>
+          <th>Executive Remark</th>
+          <th>PPM Status</th>
+          <th>Raised By</th>
+          <th>Closed By</th>
+		  <th>Total Counts</th>
+        <!--  <th>Total Closed Counts</th>-->
+          <th>Total Open Counts</th>
+		  
+		  <th>OpenClosed Counts</th>
+		  <th>OverdueClosed Counts</th>
+		  
+          <th>Approved Counts</th>
+          <th>Unapproved Counts</th>
+          <th>Schedule Date</th>
+          <th>Closed Date</th>
+          <th>Approved Date</th>
+          <th>Unapproved Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="maint in vm.filteredComplaints.maintList track by $index">
+          <td>{{$index + 1}}</td>
+          <td>{{maint.machine.machine_name}} - {{maint.machine.eqid}}</td>
+          <td>{{maint.overall_status}}</td>
+          <td>{{maint.machine.location}}</td>
+          <td>{{maint.lab.labName}}</td>
+          <td>{{maint.frequency}}</td>
+          <td>
+            {{
+              ( (maint.statusCode === 2 && maint.approvalBit === 1) || 
+                (maint.statusCode === 1 && maint.approvalBit === 2) ) 
+              ? maint.executiveRemark 
+              : 'Pending Approval' 
+            }}
+          </td>
+		  <td>{{ getPPMStatus(maint) }}</td>
+
+          <td>{{maint.raisedBy.firstName}} {{maint.raisedBy.lastName}}</td>
+          <td>{{maint.done_by.firstName}} {{maint.done_by.lastName}}</td>
+
+          <!-- Fetching counts from summary -->
+		  <td>{{ vm.getCountForStatus(maint.machine.machine_name, 'Total') }}</td>
+		 <!--s <td>{{ vm.getCountForStatus(maint.machine.machine_name, 'TotalClosed') }}</td>-->
+		  <td>{{ vm.getCountForStatus(maint.machine.machine_name, 'TotalOpen') }}</td>
+		  <td>{{ vm.getCountForStatus(maint.machine.machine_name, 'OpenClosed') }}</td>
+		  <td>{{ vm.getCountForStatus(maint.machine.machine_name, 'OverdueClosed') }}</td>
+		  <td>{{ vm.getCountForStatus(maint.machine.machine_name, 'Approved') }}</td>
+		  <td>{{ vm.getCountForStatus(maint.machine.machine_name, 'Unapproved') }}</td>
+
+
+          <td>{{maint.schedule_date | date:'dd-MM-yyyy'}}</td>
+          <td>{{maint.closedDate | date:'dd-MM-yyyy'}}</td>
+          <td>
+            {{
+              (maint.statusCode === 2 && maint.approvalBit === 1) 
+              ? (maint.closedApprovalDate | date:'dd-MM-yyyy') 
+              : 'N/A'
+            }}
+          </td>
+          <td>
+            {{
+              (maint.statusCode === 1 && maint.approvalBit === 2) 
+              ? (maint.unApprovalDate | date:'dd-MM-yyyy') 
+              : 'N/A'
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

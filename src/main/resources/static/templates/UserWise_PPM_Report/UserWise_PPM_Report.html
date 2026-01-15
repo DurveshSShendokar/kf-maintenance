@@ -1,0 +1,257 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange { background-color: #008B8B; }
+.orange th { color: #fff; }
+.navbar {
+    background-color: #008B8B;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.btn_search {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.form-control {
+    width: 100%;
+}
+.table-bordered {
+    width: 70%;
+    margin: 0 auto; 
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+</style>
+
+<div class="container">
+    <div class="row page-title-div">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2 class="title" style="text-align: center;">User wise PPM Report </h2>
+        </div>
+        
+       
+        
+    </div>
+    <br>
+	<div class="col-md-3">
+	           <div class="form-group">
+	               <label for="fromDate">From Date:</label>
+	               <input type="date" id="fromDate" class="form-control" ng-model="vm.fromDate">
+	           </div>
+	       </div>
+
+	       <div class="col-md-3">
+	           <div class="form-group">
+	               <label for="toDate">To Date:</label>
+	               <input type="date" id="toDate" class="form-control" ng-model="vm.toDate">
+	           </div>
+	       </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="userSelect">Select User <span style="color:#c00;">*</span>:</label>
+               <select 
+		  ng-model="vm.selectedUser" 
+		  ng-change="vm.generateUserWiseReport(vm.selectedUser,vm.fromDate, vm.toDate)" 
+		  ng-options="userDetails.id as (userDetails.firstName + ' ' + userDetails.lastName) for userDetails in vm.users"
+		  class="form-control" 
+		 ng-disabled="!vm.fromDate || !vm.toDate" required>
+		  <option value="">Select User:</option>
+		</select>
+
+            </div>
+        </div>
+        
+
+		<div class="col-md-13 center-button" >
+			           <button type="button" class="btn_search" ng-click="vm.exportToExcel()">Export</button>
+			       </div>
+        
+    </div>
+	
+	
+	       
+</div>
+
+
+
+
+
+
+
+<div class="container">
+		    <div class="row top">
+		        <div class="col-sm-12">
+		
+		
+		 <div class="row form-border" ng-show="addNewTab">
+		            
+						<div class="row">
+									
+									
+									
+								<div style="margin-top: 3%;width: 100%">
+										
+									<div class="col-sm-12">
+											
+										
+										
+										<div class="row">
+											
+											<div class="col-sm-2">
+											</div>
+											
+											<div class="col-sm-2" style="margin-left:-3%">
+												<p class="control-label" style="text-align:center;font-weight:600;text-transform: uppercase;">Equipment :</p>
+											</div>
+											
+											<div class="col-sm-6">
+												<input type="text" class="form-control" ng-disabled="true" ng-model="equipment" name="equipment" id="equipment">
+
+											</div>
+											
+											<div class="col-sm-2">
+											</div>
+											
+										</div>
+										
+									</div>
+										
+							   </div>
+							</div>
+		            
+							<div class="col-sm-12">
+								<table id="assembly_list_QR" datatable="ng" class="table table-bordered margin-tb" style="width:100%">
+								    <thead>
+								        <tr class="orange">
+								            <th class="dark-cyan-bg">#</th>
+								            <th class="dark-cyan-bg">Checklist</th>
+								            <th class="dark-cyan-bg">Acceptable Range</th> 
+								            <th class="dark-cyan-bg">Value</th>
+								        </tr>
+								    </thead>
+								    <tbody>
+								        <tr ng-repeat="arr in vm.loadChecklist">
+								            <td>{{$index + 1}}</td>
+								            <td>{{arr.task}}</td>                         
+								            <td>{{arr.acceptableRange}}</td>                         
+								            <td>{{arr.status}}</td>
+								        </tr>
+								    </tbody>
+								</table>
+
+							
+										 
+									     
+										 
+										 <div class="row right create-break margin-tb">
+										 						     	<div class="col-sm-8">
+										 						     		<button class="btn btn-primary" ng-click="vm.cancel()">cancel</button>
+										 						     	</div>
+										 								
+										 						     </div>
+										 
+						</div>
+								
+							
+		              
+		                
+		                
+						
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		
+		
+		
+
+
+
+
+
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+            <tr>
+                <th>Sr No</th>
+                <th>Machine Name</th>
+                <th>Machine Eqid</th>
+				
+                <th>Frequency</th>
+               
+				<th>Overall Status</th>
+				
+			<!--	<th>status</th>-->
+                <th>Schedule Date</th>
+                <th>Closed Date</th>
+				<th>Approve Date</th>
+				<th>Approve By</th>
+				<th>Action</th>
+              
+              
+            </tr>
+        </thead>
+        <tbody>
+			<tr ng-repeat="repo in vm.PPMRepo.maintenanceReports">
+			    <td>{{$index + 1}}</td>
+			    <td>{{repo.maint.machine.machine_name}}</td>
+			    <td>{{repo.maint.machine.eqid}}</td>
+				
+				<td>
+				 <span ng-if="!repo.frequency">N/A</span>
+			        <span ng-if="repo.frequency">{{repo.maint.frequency}}</span>
+				</td>
+				
+				
+							<td>
+								 <span ng-if="!repo.maint.overall_status">N/A</span>
+						       <span ng-if="repo.maint.overall_status">{{repo.maint.overall_status}}</span>
+								</td>
+				
+				
+						<!--	<td>
+								 <span ng-if="!repo.checklist">N/A</span>
+						       <span ng-if="repo.checklist">{{repo.checklist}}</span>
+								</td>-->
+				
+			   
+			   
+			    <td> {{repo.maint.schedule_date | date:'dd-MM-yyyy : hh:mm a'}} </td>
+			    <td>
+			        <span ng-if="!repo.maint.closedDate">Still Not Closed</span>
+			        <span ng-if="repo.maint.closedDate">{{repo.maint.closedDate | date:'dd-MM-yyyy : hh:mm a'}}</span>
+			    </td>
+						<td>
+						        <span ng-if="!repo.maint.closedApprovalDate">Still Not Approved</span>
+						        <span ng-if="repo.maint.closedApprovalDate">{{repo.maint.closedApprovalDate | date:'dd-MM-yyyy : hh:mm a'}}</span>
+						    </td>
+							
+												<td>
+													        <span ng-if="!repo.maint.approvalBy">Still Not Approved</span>
+													        <span ng-if="repo.maint.approvalBy">{{repo.maint.approvalBy.firstName}}-{{repo.maint.approvalBy.lastName}}</span>
+													    </td>
+				
+				
+				<td class="text-nowrap">
+										<button type="button" class="btn btn-info" title="Edit"	ng-click="vm.add(repo.maint)">
+												<i class="fa fa-edit" aria-hidden="true"></i>
+										</button>
+																													
+																													
+				</td>
+				
+				
+			</tr>
+        </tbody>
+    </table>
+</div>
+</div>

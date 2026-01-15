@@ -1,0 +1,425 @@
+<style>
+
+.container-fluid {
+     background-color: #e9ecef; 
+}
+
+.page-title-div{
+    background-color: #e9ecef;
+}
+
+
+.dash-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 16px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+    height: 140px;
+    flex: 0 0 calc(25% - 20px);
+   
+
+}
+.dash-card:hover {
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transform: scale(1.1);
+	transition: all 0.5s ease;
+ }
+
+.dash-card .card-header {
+	border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+	
+    padding: 0px 13px;
+
+}
+
+.dash-card .card-body {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dash-card .card-title {
+    color: #212529;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.dash-card:hover .card-title {
+  color: white;
+}
+
+.dash-card .card-text {
+    
+    font-size: 1.6rem;
+    line-height: 1.6;
+    
+}
+
+
+.h4
+ {
+ margin: 10% auto;
+ }
+
+
+.card-bodyy {
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 0 0 16px 16px; 
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.card-headerr {
+    font-size: 24px;
+   
+    padding: 20px; 
+    background-color: #f8f9fa;
+    color: black; 
+    border-radius: 16px 16px 0 0; 
+    
+       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.card-headerr:hover
+{
+ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transition: all 0.5s ease;
+}
+
+.total-users-card{
+    margin-right: 10px; 
+    
+}
+
+.total-machines-card {
+   
+    margin-left: 10px; 
+}
+
+
+.total-card{
+    margin-right: 10px; 
+    
+}
+
+.open-card {
+   
+    margin-left: 10px;
+}
+
+.trial-card{
+    margin-right: 10px; 
+    
+}
+
+.closed-card {
+   
+    margin-left: 10px; 
+}
+
+.today-fetch-card{
+    margin-right: 10px; 
+    
+}
+
+
+
+
+.table-container {
+    width: 70%; /* Adjust the width as needed */
+    margin: 10;
+  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 16px;
+    background-color: #fff;
+}
+.table_header {
+    width: 100%;
+    font-size: 24px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: black;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Ensure no margins around the header */
+}
+
+.table_header:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background-color: #008B8B;
+    color: #ffffff !important;
+    transition: all 0.5s ease;
+}
+
+
+.table {
+    width: 100%;
+    margin-bottom: 1	rem;
+    background-color: #fff;
+    border-collapse: collapse;
+     font-size: 1.2rem; 
+      border-radius: 16px; /* Add rounded corners */
+    overflow: hidden; /* Ensure the rounded corners are visible */
+}
+
+.table th, .table td {
+    padding: 0.5rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+
+
+</style>
+
+
+	<div class="container-fluid">
+    <div class="row page-title-div">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <h2 class="title">DASHBOARD</h2>
+             <div class="row">
+            
+
+            </div>
+        </div>
+
+        <div class="col-md-3" 		ng-show="vm.user.role.roleName=='Admin'">
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="handleCardClick('totalAssets')">
+                <div class="card-header">Total Assets</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{vm.TotalCount.totalAssets}}</h5>
+                </div>
+            </div>
+        </div>
+        
+         <div class="col-md-3" 		ng-show="vm.user.role.roleName=='Admin'">
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="handleCardClickComp('totalComplaints')">
+                <div class="card-header">Total No of Complaints</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.ComplaintCount.Total_Complaint.totalComplaints }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3" 		ng-show="vm.user.role.roleName=='Admin'">
+            <div class="card mb-sm-1 dash-card total-users-card"  ng-click="handleCardClickAllocates('totalAllocates')">
+                <div class="card-header">Allocated</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.ComplaintCount.Total_Complaint.allocateComplaintCount}}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3" 		ng-show="vm.user.role.roleName=='Admin'">
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="handleCardClickNonAllocates('totalNonAllocates')">
+                <div class="card-header">Non-Allocated</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.ComplaintCount.Total_Complaint.nonallocateComplaintCount}}</h5>
+                </div>
+            </div>
+        </div>
+        
+        
+       
+        
+    </div>
+</div>
+
+<div class="container-fluid" ng-show="vm.user.role.roleName=='Admin'">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Complaints</h3>
+        </div>
+    </div>
+
+    <div class="row">
+       
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="handleCardClickCompOpen('OpenComplaints')">
+                <div class="card-header">Open</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.ComplaintCount.Total_Complaint.activeComplaintCount }}</h5>
+                </div>
+            </div>
+        </div>
+        
+         <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="handleCardClickCompInprocess('InprocessComplaints')">
+                <div class="card-header">In-Process </div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.ComplaintCount.Total_Complaint.inprocessComplaintCount }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="handleCardClickCompClosed('ClosedComplaints')">
+                <div class="card-header">Closed</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.ComplaintCount.Total_Complaint.inactiveComplaintCount }}</h5>
+                </div>
+            </div>
+        </div>
+
+	<div class="row" >	
+			
+        <div class="col-md-6">
+			    <div class="panel-body container-fluid">
+			    
+			        <div class="card2">
+			         <select ng-model="vm.selectedYear" ng-change="vm.loadMonthlyComplaintCounts()">
+							    <option value="2024">2024</option>
+							    <option value="2025">2025</option>
+							     <option value="2026">2026</option>
+							    <option value="2027">2027</option>
+							</select>
+			            <h4 class="card-headerr">Monthly Complaint Counts</h4>
+			            <div class="card-bodyy">
+			                
+
+
+                <canvas class="chart chart-bar"
+                    chart-data="vm.chartData"
+                    chart-labels="vm.chartLabels"
+                    chart-series="vm.chartSeries1"
+                    chart-options="vm.chartOptions"
+                    chart-colors="vm.chartColors"
+                    chart-type="vm.chartType"
+                    style="display: block; width: 100%; height: 600px;">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
+        
+        
+        	<div class="col-md-6">
+        	<div class="panel-body container-fluid">
+			   <div class="card2">
+			     <div class="col-md-3">
+			         <select ng-model="vm.selectedEngineer" ng-change="vm.selectEngineer(vm.selectedEngineer)">
+				        <option value="">Select All</option>
+				        <option ng-repeat="engineer in vm.engineerComplaints" value="{{ engineer.name }}">{{ engineer.name }}</option>
+				    </select>
+			    </div>
+			    <h4 class="card-headerr">Engineer Complaint Counts </h4>
+				    <div class="card-bodyy">
+				      <canvas 
+					    id="engineerComplaintsChart" 
+					    class="chart chart-horizontalBar" 
+					    chart-data="vm.engineerChartData" 
+					    chart-labels="vm.engineerChartLabels" 
+					    chart-series="vm.chartSeries" 
+					    chart-colors="vm.engineerChartColors" 
+					    chart-options="vm.engineerChartOptions">
+					</canvas>
+
+      
+			    </div>
+			  </div>
+			</div>
+			</div>
+			
+			</div>
+			
+			
+			
+			
+			<div class="container-fluid">
+    			
+       
+            
+              <div class="table-container">
+               <h4 class="card-headerr">Engineer Complaints </h4>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                    	<th> SrNo. </th>
+                        <th>Engineer Name</th>
+                       
+                        <th>Allocated Complaints</th>
+                        <th>In-Process Complaints</th>
+                        <th>Closed Complaints</th>
+                         <th>Total Complaints</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="engineer in vm.engineerComplaints">
+                    	 <td>{{$index + 1}}</td>
+                        <td>{{ engineer.name }}</td>
+                       
+                        <td>{{ engineer.allocateComplaints }}</td>
+                        <td>{{ engineer.inprocessComplaints }}</td>
+                        <td>{{ engineer.closedComplaints }}</td>
+                         <td>{{ engineer.totalComplaints }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+			
+       </div> 
+        
+   
+
+				
+				
+
+   
+		
+			 
+
+
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+	 
+	 
+	
+	
+	
+	

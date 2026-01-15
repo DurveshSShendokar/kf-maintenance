@@ -1,0 +1,116 @@
+<style>
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008b8b;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+
+	.orange th {
+		color: #fff;
+	}
+
+	navbar {
+		background-color: #008B8B;
+		padding: 10px 0;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+	}
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h2 class="title" style="text-align:center;">		Overdue Sheduale</h2>
+	</div>
+	
+	 <div class="row">
+     <div class="col-md-4"></div> 
+    <div class="col-md-2">
+        <label for="fromDate">From Date</label>
+        <input type="date" id="fromDate" ng-model="vm.fromDate" class="form-control" >
+    </div>
+    <div class="col-md-2">
+        <label for="toDate">To Date</label>
+        <input type="date" id="toDate" ng-model="vm.toDate" class="form-control" ng-change="vm.filterComplaints()">
+    </div>
+</div>
+</div>
+
+<div class="row">
+
+	<div class="col-md-8">
+	</div>
+	<!--  <div class="col-md-3">
+		<div class="form-group">
+			<label for="exampleInputPassword13">Machine <span style="color:#c00;">*</span> :</label>
+			<select ng-model="report.machienName" ng-change="filterData(report.machienName)"
+				ng-options="machienName as machienName for machienName in vm.machienNames" class="form-control"
+				required>
+				<option value="">Select Machine :</option>
+			</select>
+
+		</div>
+	</div>
+	<div class="col-md-2">
+		</div>-->
+	 <div class="col-md-1" >
+                    <button type="button" class="btn_serach" id="success"
+                        style="background: #008B8B; border: 1px solid #103e57; color:white;"
+                        ng-click="vm.exportToExcel(vm.fromDate, vm.toDate)">Export</button>
+                        
+                </div>
+</div>
+<div class="container">
+	<div class="panel-body table-responsive">
+		<table datatable="ng" id="example" class="table table-bordered " style="background-color:#008B8B;">
+			<thead class="orange">
+				<tr>
+					<th>Sr.No</th>
+					<th>Machine Name</th>
+					<th>Machine ID</th>
+					<th>Location</th>
+					<th>Lab</th>
+					<th>Frequency</th>
+					<th>Week No</th>
+					<th>Raised By</th>
+					<th>Date</th>
+
+					<th>Overdues Day</th>
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="maint in vm.filteredComplaints">
+					<td>{{$index+1}}</td>
+																<td>{{maint.machine.machine_name}} </td>
+																<td>{{maint.machine.eqid}}</td>
+																<td>{{maint.machine.location}}</td>
+																<td>{{maint.lab.labName}}</td>
+																<td>{{maint.frequency}}</td>
+																<td>{{maint.week}}</td>
+																<td>{{maint.raisedBy.firstName}} {{maint.raisedBy.lastName}}</td>
+																<td>{{maint.schedule_date | date:'dd-MM-yyyy'}}</td>
+																<td>{{maint.overdues}}</td>
+												
+												
+
+
+
+
+
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>

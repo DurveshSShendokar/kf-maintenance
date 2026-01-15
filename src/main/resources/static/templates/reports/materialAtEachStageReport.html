@@ -1,0 +1,206 @@
+<style type="text/css">
+.btn-orange {
+	background-color: #008B8B;
+	color: #fff;
+}
+
+.btn-red {
+	background-color: rgb(237, 27, 37);
+	color: #fff;
+}
+
+* {
+	margin: 0px;
+}
+
+.header-name {
+	text-align: center;
+	margin-top: 3%;
+}
+
+.header-name span {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.right {
+	text-align: right;
+}
+
+.oranage, .oranage:hover {
+	color: #fff;
+	background-color: #008B8B;
+}
+
+.create-break {
+	float: right;
+}
+
+.margin-tb {
+	margin: 2% 0;
+}
+
+.create-break .btn {
+	width: 245px;
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.btn-primary, .btn-primary:hover {
+	background-color: #008B8B;
+}
+
+.btn-botm .btn-primary {
+	width: 60%;
+	margin-left: 27%;
+}
+
+.btn-botm .btn-warning {
+	width: 60%;
+	margin-left: 13%;
+}
+
+.c_check {
+	visibility: hidden;
+	position: relative;
+	margin-right: .4em;
+	font-size: 2em;
+	height: .9em;
+	width: .9em;
+}
+
+.c_check:before, .c_check:after {
+	box-sizing: border-box;
+	visibility: visible;
+	display: inline-block;
+	content: '';
+	touch-action: manipulation;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: .9em;
+	height: .9em;
+	border: .1em solid grey;
+	border-radius: .1em;
+	transition: all .3s ease-in-out;
+}
+
+.c_check:checked:after {
+	height: .4em;
+	border-top: none;
+	border-right: none;
+	border-width: .15em;
+	border-radius: 0px;
+	border-bottom-left-radius: .05em;
+	border-color: #008B8B;
+	transform: rotate(-45deg) translate(0.1em, 0.2em) scale(1.1);
+	box-shadow: -0.05em 0.08em 0.1em rgba(0, 0, 0, 0.5);
+}
+
+.c_check:after {
+	transition: all .3s ease-in-out, border-top, border-right;
+	transition-delay: 0s, .3s, .3s;
+	z-index: 2;
+}
+
+.main {
+	margin: 5% auto;
+}
+
+.b {
+	border-style: ridge;
+	border-color: #008B8B;
+	border-width: thin;
+	padding-top: 2vh;
+}
+
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr {
+	border: 1px solid #ccc !important;
+}
+
+.orange {
+	background-color: #008B8B;
+}
+
+.orange th {
+	color: #fff;
+}
+</style>
+<!-- </head>
+<body> -->
+<div class="container">
+	<div>
+		<div class="col-sm-12 header-name" style="margin: 5% auto;">
+			<img src="img/quarantine.png"> <span>Material At Each Stage</span>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-4">
+						<p class="text-right col-sm-12" style="font-weight: 600;">
+							Start Date:<span style="color: red;">*</span>
+						</p>
+					</div>
+					<div class="col-sm-8">
+						<input type="date" class="form-control" id="fromDate"
+							ng-model="fromDate" ng-change="vm.generateReport();">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-4">
+						<p class="text-right col-sm-12" style="font-weight: 600;">
+							End Date:<span style="color: red;">*</span>
+						</p>
+					</div>
+					<div class="col-sm-8">
+						<input type="date" class="form-control" id="toDate"
+							ng-model="toDate" ng-change="vm.generateReport();">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12" style="width: 100%; margin: 0 auto;">
+			<table id="material_yeild_report" class="table table1 table-bordered"
+				datatable="ng" style="width: 100%">
+				<thead>
+					<tr class="oranage">
+						<th>#</th>
+						<th>Item Code</th>
+						<th>Item Name</th>
+						<!--  <th>UOM</th> -->
+						<!-- <th>Waiting For Assembly</th> -->
+						<th>Waiting For Inspection</th>
+						<th>Waiting For Packaging</th>
+						<th>Waiting For FG Receipt</th>
+						<!-- <th>FG Receipt</th> -->
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="arr in vm.reportsList track by $index">
+						<td>{{$index + 1}}</td>
+						<td>{{arr.itemId}}</td>
+						<td>{{arr.itemName}}</td>
+						<!--  <td>{{arr.uom}}</td> -->
+						<!--  <td>{{arr.uom}}</td> -->
+						<td>{{arr.wipInspection}}</td>
+						<td>{{arr.wipPacking}}</td>
+						<td>{{arr.wipFinshGoods}}</td>
+						<!-- <td>{{arr.uom}}</td> -->
+						<td>{{arr.wipInspection + arr.wipPacking +
+							arr.wipFinshGoods}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm-12" style="margin-bottom: 2%;">
+			<button class="btn btn-info" ng-show="vm.reportsList.length > 0"
+				style="width: 20%; float: right;" export-to-csv
+				div-id="material_yeild_report" name="Material At Each Stage">
+				Export</button>
+		</div>
+	</div>
+</div>

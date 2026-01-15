@@ -1,0 +1,476 @@
+<script src="templates/views/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="templates/views/js/main.js"></script>
+
+<link rel="stylesheet"
+	href="assets_menubar/fonts/fa/css/font-awesome.css">
+<link rel="stylesheet" href="assets_menubar/css/styles.css">
+<!-- <link rel="stylesheet" href="assets_menubar/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="assets_menubar/css/animate.css">
+<link rel="stylesheet"
+	href="assets_menubar/css/jquery.dataTables.min.css">
+<style>
+.nav>li>a {
+	padding: 8px 8px !important;
+	font-size: 14px !important;
+}
+
+.navbar {
+	background-color: #008B8B;
+}
+
+.navbar a, .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text
+	{
+	color: #fff !important;
+}
+
+.navbar a:hover, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-text:hover
+	{
+	color: #000 !important;
+}
+
+.dropdown-menu>li.kopie>a {
+	
+}
+
+.dropdown-submenu {
+	position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu.left-space-my {
+	left: -93.4%;
+}
+
+.dropdown-submenu>.dropdown-menu.left-space {
+	left: 99%;
+}
+
+.dropdown-menu.left-minus {
+	left: -149%;
+}
+
+.dropdown-menu.left-minus1 {
+	left: -243%;
+}
+
+.dropdown-submenu>.dropdown-menu {
+	top: 0;
+	left: -110%;
+	margin-top: -6px;
+	margin-left: -1px;
+	-webkit-border-radius: 0 6px 6px 6px;
+	-moz-border-radius: 0 6px 6px 6px;
+	border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-menu>li>a {
+	color: #fff !important;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+	text-decoration: none;
+	color: #262626;
+	background-color: #000;
+	color: #fff !important;
+}
+
+.dropdown-menu li {
+	position: relative;
+	background-color: #000;
+}
+
+.dropdown-submenu>a:after {
+	border-color: transparent transparent transparent #f2f2f2;
+	border-style: solid;
+	border-width: 5px 0 5px 5px;
+	content: " ";
+	display: block;
+	float: right;
+	height: 0;
+	margin-right: -10px;
+	margin-top: 5px;
+	width: 0;
+}
+
+.navbar {
+	min-height: 40px;
+}
+
+.dropdown-submenu:hover>a:after {
+	border-left-color: #555;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>.active>a:hover {
+	text-decoration: none;
+}
+
+@media ( max-width : 767px) {
+	.navbar-nav {
+		display: inline;
+	}
+	.navbar-default .navbar-brand {
+		display: inline;
+	}
+	.navbar-default .navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+	.navbar-default .navbar-nav .dropdown-menu>li>a {
+		color: red;
+		background-color: #ccc;
+		border-radius: 4px;
+		margin-top: 2px;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+		color: #333;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,
+		.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus {
+		background-color: #ccc;
+	}
+	.navbar-nav .open .dropdown-menu {
+		border-bottom: 1px solid white;
+		border-radius: 0;
+	}
+	.dropdown-menu {
+		padding-left: 10px;
+	}
+	.dropdown-menu .dropdown-menu {
+		padding-left: 20px;
+	}
+	.dropdown-menu .dropdown-menu .dropdown-menu {
+		padding-left: 30px;
+	}
+	li.dropdown.open {
+		border: 0px solid red;
+	}
+}
+
+@media ( min-width : 768px) {
+	ul.nav li:hover>ul.dropdown-menu {
+		display: block;
+	}
+	#navbar {
+		text-align: center;
+	}
+}
+</style>
+<div class="main-wrapper">
+	<div class="row">
+		<div class="col-sm-12 top_nav">
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="assets_menubar/img/adplogo.jpg" class="logo">
+				</div>
+				<div class="col-sm-6">
+					<div class="top_text">
+						<!-- <h2>GOODS RECEIPT NOTE - GRN</h2>-->
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div class="top_text">
+						<h3>	<i class="fa fa-user " aria-hidden="true" style="color:#fcfcfc"></i>  &nbsp &nbsp <span style="color:#fcfcfc">{{vm.user.firstName}} {{vm.user.lastName}}</span></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="main-wrapper" style="width: 100%; clear: both;">
+			<div id="navbar">
+				<nav class="navbar navbar-default navbar-static-top"
+					role="navigation">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target="#navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+
+					</div>
+
+					<div class="collapse navbar-collapse" id="navbar-collapse-1">
+						<ul class="nav navbar-nav" id="nav" style="margin-left: 1%;">
+							<!--  <li><a href="javascript:void(0);">Home</a></li> -->
+							<!-- <li class="dropdown" ng-show="showIncomingMaterial"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">GRN</a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.grn'>Qr Code
+											Generation</a></li>
+									<li><a ui-sref='main.materialIssue'>Material Issue</a></li>
+									<li><a ui-sref='main.unusedRequests'>Unused Runner</a></li>
+								</ul></li>
+							<li class="dropdown" ng-show="showStoreOperator"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Store Operator</a>
+								<ul class="dropdown-menu">
+									<li><a ui-sref='main.materialIssue' >Material Issue</a></li>
+									<li><a ui-sref='main.unusedRequests'>Unused Runner
+											Entry</a></li>
+								</ul></li>
+							<li class="dropdown" ng-show="showQuarantine"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Quarantine store </a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.quarantineStore'>Quarantine
+											Store</a></li>
+								</ul></li>
+							<li class="dropdown" ng-show="showProduction"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Production </a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.productionQr'>QR
+											code generation</a></li>
+									<li><a ui-sref='main.materialReturn'>Material Return
+											Slip</a></li>
+								</ul></li>
+							<li class="dropdown" ng-show="showFinalInspection"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Final inspection </a>
+								<ul class="dropdown-menu">
+									<li><a ui-sref='main.finalInspectionQc'>Main Line
+											Final Inspection List</a></li>
+								</ul></li>
+							<li class="dropdown" ng-show="showAssembly"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Assembly Operator</a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.assembly'>Assembly
+											Qr Code Generation</a></li>
+								</ul></li>
+
+							<li class="dropdown" ng-show="showPackaging"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Packaging </a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.packaging'>Stage I
+											Packaging</a></li>
+									<li><a ui-sref='main.packaging2'>Stage II Packaging</a></li>
+								</ul></li>
+
+							<li class="dropdown" ng-show="showFinishGoods"><a href="#"
+								class="dropdown-toggle" data-toggle="dropdown">FG Store
+									Operator </a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.finishGoods'>Finish
+											Goods Receipt</a></li>
+								</ul></li>
+
+							<li class="dropdown" ng-show="showFinalDispatch"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Dispatch Operator </a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.dispatch'>Dispatch
+											list</a></li>
+								</ul></li>
+
+							<li class="dropdown" ng-show="showScrapEntry"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Scrap Entry</a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.scrap'>Scrap Entry
+											And Edit</a></li>
+								</ul></li>
+
+							<li class="dropdown" ng-show="showScrapApproval"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Scrap Approval</a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.scrapdepartment'>Dept
+											Head</a></li>
+								</ul></li> -->
+
+							<!-- <li class="dropdown" ng-show="showScrapApproval"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Scrap Approval</a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.scrapdepartment'>Dept
+											Head</a></li>
+								</ul></li> -->
+
+						<!-- 	<li class="dropdown" ng-show="showScrapYard"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Scrap Yard Head</a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref='main.scrapyard'>Yard
+											Approval</a></li>
+								</ul></li>
+
+							<li class="dropdown" ng-show="showScrapReports"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Scrap Reports</a>
+								<ul class="dropdown-menu">
+									<li class="kopie"><a ui-sref="main.scraptypereport">Scrap
+											type wise </a></li>
+									<li class="kopie"><a ui-sref="main.scrapdeptreport">Department
+											wise </a></li>
+								</ul></li> -->
+
+							<li class="dropdown" ><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Breakdown  </a>
+								<ul class="dropdown-menu left-space">
+											<li class="kopie"><a ui-sref="main.breakdown">Create Ticket</a></li>
+											<li><a ui-sref="main.breakdownupdate">Update
+													Breakdown Memo</a></li>
+											<li><a ui-sref="main.trial">Trial Entry</a></li>
+												<li><a ui-sref='main.breakdownhistory'>BD
+													History </a></li>
+										<ul class="dropdown-menu left-space">
+											
+											
+										</ul></li>
+									<!-- <li class="dropdown dropdown-submenu"><a href="#"
+										class="dropdown-toggle" data-toggle="dropdown">Mould</a>
+										<ul class="dropdown-menu left-space">
+											<li class="kopie"><a ui-sref="main.mouldBDSlip">Create Ticket</a></li>
+											<li><a ui-sref="main.mouldtrial">Trial Entry</a></li>
+											<li><a ui-sref='main.mouldbreakdown'>Alerts</a></li>
+										</ul></li> -->
+								</ul></li>
+								
+							<li class="dropdown" ><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown"> Master</a>
+								<ul class="dropdown-menu">
+<!-- 									<li  class="kopie"><a ui-sref="main.category">Machine Category</a></li>
+ -->									<li><a ui-sref="main.machine_mst">Machine Master</a></li>
+									<li><a ui-sref="main.checklist">Machine/Auxiliary Checklist</a></li>
+								<!-- 	<li><a ui-sref="main.mould">Mould Master</a></li>
+									<li><a ui-sref="main.mouldchecklist">Mould Checklist</a></li> -->
+<!-- 									<li><a ui-sref="main.shift">Target Master</a></li>
+ 								<li  class="kopie"><a ui-sref="main.cunsumption_device">Consumption Device Matser</a></li>
+									<li  class="kopie"><a ui-sref="main.maintDepertment">Department</a></li>-->	
+									<li><a ui-sref='main.machineOwner'>Machine Owner</a></li>
+								</ul>
+							</li>
+
+							<li class="dropdown" ><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Maintenance Of Machine</a>
+								<ul class="dropdown-menu left-space">
+									<li class="dropdown dropdown-submenu"><a href="#"
+										class="dropdown-toggle" data-toggle="dropdown">Planned
+											Maintenance</a>
+										<ul class="dropdown-menu left-space-my">
+											<li class="kopie"><a ui-sref="main.machine">Scheduling</a></li>
+											<li><a ui-sref="main.maintlist">Plan Maintenance</a></li>
+										</ul></li>
+										
+										<!-- <li><a ui-sref="main.breakdownupdate">Update Breakdown Memo</a></li> -->
+
+								<!-- <li class="dropdown dropdown-submenu"><a
+										href="javascript:void(0);" class="dropdown-toggle"
+										data-toggle="dropdown">Breakdown</a>
+										<ul class="dropdown-menu left-space">
+											<li class="kopie"><a ui-sref="main.breakdown">Create
+													BD Slip</a></li>
+											<li><a ui-sref="main.breakdownupdate">Update
+													Breakdown Memo</a></li>
+											<li><a ui-sref="main.trial">Trials Entry</a></li>
+										</ul></li> -->
+									<!-- <li><a ui-sref='main.machinealert'>Alerts</a></li> -->
+								
+										
+
+								</ul></li>
+
+								<!-- <li class="dropdown dropdown-submenu"><a
+										href="javascript:void(0);" class="dropdown-toggle"
+										data-toggle="dropdown">Upload</a>
+										<ul class="dropdown-menu left-space-my">
+											<li class="kopie"><a ui-sref="main.uploadMachine">Upload Machines</a></li>
+											<li class="kopie"><a ui-sref="main.uploadCheckList">Upload CheckList</a></li>
+											
+										</ul></li> -->
+			
+								<li class="dropdown dropdown-submenu"><a
+										href="javascript:void(0);" class="dropdown-toggle"
+										data-toggle="dropdown">Reports</a>
+										<ul class="dropdown-menu left-space-my">
+											<li class="kopie"><a ui-sref="main.mttr">MTTR</a></li>
+											<li class="kopie"><a ui-sref="main.mtbf">MTBF</a></li>
+											<li class="kopie"><a ui-sref="main.ftr">FTR</a></li>
+												<li class="kopie"><a ui-sref="main.maintreport">Maintenance Report</a></li>
+											<li><a ui-sref='main.breakdownhistory'>BD
+													History </a></li>
+													<li><a ui-sref="main.consumptionReport">Consumption Report</a></li>
+										</ul></li>
+	<!-- 
+							<li class="dropdown" ng-show="showMaintenanceMould"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Maintenance Of Mould</a>
+								<ul class="dropdown-menu left-space">
+									<li class="dropdown dropdown-submenu"><a href="#"
+										class="dropdown-toggle" data-toggle="dropdown">Planned
+											Maintenance</a>
+										<ul class="dropdown-menu left-space-my">
+											<li class="kopie"><a ui-sref="main.mouldshots">Maintenance</a></li>
+										</ul></li>
+									<li><a ui-sref="main.mouldbreakdownupdate">Update Breakdown Memo</a></li>
+								<li class="dropdown dropdown-submenu"><a
+										href="javascript:void(0);" class="dropdown-toggle"
+										data-toggle="dropdown">Breakdown</a>
+										<ul class="dropdown-menu left-space">
+											<li><a ui-sref='main.mouldBDSlip'>Create BD Slip </a></li>
+											<li><a ui-sref="main.mouldbreakdownupdate">Update
+													Breakdown Memo</a></li>
+											<li><a ui-sref="main.mouldtrial">Trials Entry </a></li>
+										</ul></li> 
+									 <li><a ui-sref='main.mouldbreakdown'>Alerts</a></li> 
+									<li class="dropdown dropdown-submenu"><a
+										href="javascript:void(0);" class="dropdown-toggle"
+										data-toggle="dropdown">Reports</a>
+										<ul class="dropdown-menu left-space-my">
+											<li><a ui-sref="main.mouldmttr">MTTR </a></li>
+											<li><a ui-sref="main.mouldmtbf">MTBF </a></li>
+											<li><a ui-sref="main.mouldftr">FTR </a></li>
+											<li><a ui-sref='main.mouldbreakdownhistory'>BD
+													History </a></li>
+										</ul></li>
+
+								</ul></li>
+
+							<li class="dropdown" ng-show="showReports"><a href="javascript:void(0);"
+								class="dropdown-toggle" data-toggle="dropdown">Reports </a>
+								<ul class="dropdown-menu left-minus1">
+									<li><a ui-sref='main.incomingAssembly'>Incoming/Assembly
+									</a></li>
+									<li><a ui-sref='main.qrcodeTraverse'>QR code Traverse</a></li>
+									<li><a ui-sref='main.materialIssuedHistory'>Material
+											Issue History</a></li>
+									<li><a ui-sref='main.materialAtEachStageReport'>Material
+											At Each Stage</a></li>
+									<li class="dropdown dropdown-submenu"><a href="#"
+										class="dropdown-toggle" data-toggle="dropdown">RM Yield
+											Report</a>
+										<ul class="dropdown-menu left-space-my">
+											<li><a ui-sref="main.itemwiseMonthlyReport">Item-wise
+													Monthly </a></li>
+											<li><a ui-sref='main.monthlyYieldReport'>Plant
+													Monthly </a></li>
+										</ul></li>
+								</ul></li> -->
+								
+							<li class="dropdown" ng-show="showAccessManagement"><a
+								href="javascript:void(0);" class="dropdown-toggle"
+								data-toggle="dropdown">Admin </a>
+								<ul class="dropdown-menu left-minus">
+									<li><a ui-sref='main.maintDepertment'>Department</a></li>
+									<li><a ui-sref='main.roleManagement'>Role Management</a></li>
+									<li><a ui-sref='main.user'>User Management</a></li>
+									<li><a ui-sref='main.roleToUser'>Role to User</a></li>
+									<li><a ui-sref='main.userToRole'>User to Role</a></li>
+									
+								</ul></li>
+							
+							<li ng-click="vm.logout();" class="dropdown"><a
+								class="dropdown-toggle" data-toggle="dropdown">Logout </a></li>
+
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+	<div ui-view="sub"></div>
+</div>

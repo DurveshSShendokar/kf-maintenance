@@ -1,0 +1,79 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Renata - User to Role</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="fonts/fa/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/dataTable.css">
+  <link href="css/style.css" rel="stylesheet">
+</head> -->
+<style type="text/css">
+  .mainform{margin-top: 3%;}
+  .mainform form{margin-top: 3%;    margin-left: -14%;}
+  .btn-oranage{background-color: #008B8B ;color:#fff;}
+  .oranage{background-color:#008B8B}
+  .margin-bt{margin:1% 0;}
+  .header-name span{font-size:25px;}
+  .table-bordered th, .table-bordered td,.table-bordered tr{border:none;background-color: #f3f3f3;}
+</style>
+<!-- <body> -->
+
+<div class="container mainform">
+  <h4 class="text-center">User to Role</h4>
+  <div style="margin:0 auto;width:30%;">
+	<div class="form-group text-center">
+		<label class="control-label">User:<span style="color: red;">*</span></label>
+		<select class="form-control" id="selectUser" ng-model="selectUser" ng-change="vm.changeUser(selectUser);">
+			<option  value="selectUser">Select User</option>	<!-- ng-hide="hideSelectRawMaterial" -->
+			<option ng-repeat="opts in vm.usersList track by $index" value="{{opts}}">{{opts.id}} </option>
+		</select>
+		<label class="control-label">Role</label>
+	</div>
+  </div>
+  <div class="container">
+	<div class="row" style="width: 65%;margin: 0 auto;">
+		<div class="col-sm-5">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<td>#</td>
+						<td>Role</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat = "arr in vm.tempRolesList track by $index">
+						<td><input type="checkbox" ng-checked="arr.select" ng-click="arr.select = !arr.select"></td>
+						<td>{{arr.roleName}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm-2" style="text-align:center;padding: 0 6.4%;">
+			<button class="btn btn-success" ng-click="vm.assignRole();"><i class="fa fa-share" aria-hidden="true"></i></button><br/><br/>
+			<button class="btn btn-info" style="transform: scaleY(-1);" ng-click="vm.removeRole();"><i class="fa fa-reply" aria-hidden="true"></i></button>
+		</div>
+		<div class="col-sm-5">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<td>#</td>
+						<td>Name</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat = "arr in vm.userRolesList track by $index">
+						<td><input type="checkbox" ng-checked="arr.select" disabled="arr.id='001'" ng-click="arr.select = !arr.select"></td>
+						<td>{{arr.roleName}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+  </div>
+</div>
+
+<!-- </body>
+</html> -->
+

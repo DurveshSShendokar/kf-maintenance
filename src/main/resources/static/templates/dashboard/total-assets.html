@@ -1,0 +1,107 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+    padding: 10px 10px; 
+    font-size: 12px; 
+    border-radius: 4px; 
+    width: 100px; 
+    text-align: center; 
+}
+
+
+</style>
+
+
+<div class="container-fluid" style="padding-top:5px;">
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Total Assets</h2>
+    </div>
+</div>
+
+<div class="row">
+                <div class="col-md-8"></div>
+                
+                <div class="col-md-2">
+                    <button type="button" class="btn_serach btn-sm" id="success"
+                        style="background: #008B8B; border: 1px solid #103e57; color:white;"
+                        ng-click="vm.export()">Export</button>
+                        
+                </div>
+            </div>
+
+
+
+<!-- templates/dashboard/total-assets.html -->
+<div class="container">
+    <div class="panel-body table-responsive">
+        <div class="col-md-12">
+           
+            <table datatable="ng" id="example" class="table table-bordered ">
+                <thead class="orange">
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Machine Name</th>
+                        <th>Comp Name</th>
+                        <th>Login Name</th>
+                        <th>Model</th>
+                        <th>Op System</th>
+                        <th>Ram Capacity</th>
+                        <th>Hard Disk Cap</th>
+                        <th>Equipment Id</th>
+                        <th>Category</th>
+                        <th>SubCategory</th>
+                        <th>Lab</th>
+                        <th>It_Dept_Code</th>
+                        <th>Plant_Loc</th>
+                        <th>Lab_Code</th>
+                        <th>Lab_Inside_Loc</th>
+                        <th>Laser Printer</th>
+                        <th>BarCode Printer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="asset in vm.cardData">
+                        <td>{{$index + 1}}</td>
+                        <td>{{asset.machine}}</td>
+                        <td>{{asset.comapnyName}}</td>
+                        <td>{{asset.loginName}}</td>
+                        <td>{{asset.model}}</td>
+                        <td>{{asset.opSystem}}</td>
+                        <td>{{asset.ramCapacity}}</td>
+                        <td>{{asset.hardDiskCap}}</td>
+                        <td>{{asset.equipmentId}}</td>
+                        <td>{{asset.category.cat_name}}</td>
+                        <td>{{asset.subCat}}</td>
+                        <td>{{asset.lab.labName}}</td>
+                        <td>{{asset.it_Dept}}</td>
+                        <td>{{asset.plant_Loc}}</td>
+                        <td>{{asset.labCode}}</td>
+                        <td>{{asset.labInsideLoc}}</td>
+                        <td>{{asset.laserPrint}}</td>
+                        <td>{{asset.barCodePrint}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

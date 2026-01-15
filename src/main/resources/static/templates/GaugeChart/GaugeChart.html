@@ -1,0 +1,450 @@
+	<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard Layout</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.custom-card {
+			margin-top: 0;
+		}
+
+		.card {
+			text-align: center;
+			height: 250px;
+			/* Fixed height for all cards */
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+			box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+		}
+		/* Hover effect */
+		.card:hover {
+			transform: scale(1.05); /* Slight scaling on hover */
+			box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px !important;
+			
+		}
+
+		.card h5 {
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		.value {
+			font-size: 3rem;
+			font-weight: bold;
+		}
+
+		.value1 {
+			font-size: 2rem !important;
+			font-weight: bold;
+		}
+
+		.label {
+			font-size: 1rem;
+
+		}
+
+		.small-text {
+			font-size: 0.9rem;
+		}
+
+		.row {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.col-md-3 {
+			display: flex;
+			justify-content: center;
+		}
+
+		.card {
+			width: 100%;
+		}
+
+		.gauge-container {
+			max-width: 100vw;
+		}
+
+		.svg {
+			display: block;
+			margin: 0 auto;
+		}
+
+		.progress-label {
+			text-align: center;
+			font-size: 24px;
+			font-weight: bold;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container gauge-container mt-5 mx-0">
+		<h1 class="text-center">Dashboard</h1>
+		<div class="row">
+			<!-- Switch Card -->
+			<div class="col-md-3 mb-4">
+				<div class="card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>{{vm.meterDetails.panel.locationName}} - {{vm.meterDetails.energyMeterNo}}</h5>
+						<div class="value" ng-if="vm.meterStatus.status=='ON'"><img style="width: 100px;"
+								src="templates/GaugeChart/power-button.png"></div>
+						<div class="value" ng-if="vm.meterStatus.status=='OFF'"><img style="width: 100px;"
+								src="templates/GaugeChart/switch.png"></div>
+						<p>({{vm.meterDetails.panel.plantName}})</p>
+						<!-- <small style="color: blue;">Last active ({{vm.meterStatus.lastActiveDate}})</small> -->
+					</div>
+				</div>
+			</div>
+
+			<!-- Voltage Card -->
+			<div class="col-md-3 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Voltage</h5>
+						<svg width="200" height="120" viewBox="0 0 200 120">
+							<!-- Background half-circle (gray) -->
+							<path d="M 10 110 A 90 90 0 0 1 190 110" stroke="#e6e6e6" stroke-width="20" fill="none">
+							</path>
+
+							<!-- Foreground half-circle (progress) -->
+							<path d="{{ progressPath }}" stroke="#4caf50" stroke-width="20" fill="none"></path>
+						</svg>
+						<div class="progress-label">{{voltageValueshow}}</div> V
+					</div>
+				</div>
+			</div>
+
+			<!-- Current Card -->
+			<div class="col-md-3 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Current</h5>
+						<svg width="200" height="120" viewBox="0 0 200 120">
+							<!-- Background half-circle (gray) -->
+							<path d="M 10 110 A 90 90 0 0 1 190 110" stroke="#e6e6e6" stroke-width="20" fill="none">
+							</path>
+
+							<!-- Foreground half-circle (progress) -->
+							<path d="{{ currentProgessPath }}" stroke="#4caf50" stroke-width="20" fill="none"></path>
+						</svg>
+						<div class="progress-label">{{ currentValueshow }} </div>A
+					</div>
+				</div>
+			</div>
+
+			<!-- Power Factor -->
+			<div class="col-md-3 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Power Factor</h5>
+						<div id="currentGauge"></div>
+						<svg width="200" height="120" viewBox="0 0 200 120">
+							<!-- Background half-circle (gray) -->
+							<path d="M 10 110 A 90 90 0 0 1 190 110" stroke="#e6e6e6" stroke-width="20" fill="none">
+							</path>
+
+							<!-- Foreground half-circle (progress) -->
+							<path d="{{ 	powerFactorprogressPath }}" stroke="#4caf50" stroke-width="20" fill="none">
+							</path>
+						</svg>
+						<div class="progress-label">{{ pfPerValue }}</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Energy Consumed Card -->
+			<div class="col-md-3 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Energy Consumed</h5>
+						<div class="value" style="color: #b1d846;">{{vm.meterCardData.engeryConsumptionValue}} </div>
+						KWH
+						<!-- <p class="small-text" style="color: blue;">Last Updated:
+							{{vm.meterCardData.engeryConsumptionTime}}</p> -->
+					</div>
+				</div>
+			</div>
+
+			<!-- Power Card -->
+			<div class="col-md-3 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Power</h5>
+						<div class="value" style="color: #f3b83e;"> {{vm.meterCardData.powerValue}} </div> KW
+						<!-- <p class="small-text" style="color: blue;">Last Updated: {{vm.meterCardData.powerTime}}</p> -->
+					</div>
+				</div>
+			</div>
+
+			<!-- Apparent Power Card -->
+			<div class="col-md-3 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Apparent Power</h5>
+						<div class="value" style="color: #f91010;"> {{vm.meterCardData.apparantValue}}</div> KVA
+						<!-- <p class="small-text" style="color: blue;">Last Updated: {{vm.meterCardData.apparantTime}}</p> -->
+					</div>
+				</div>
+			</div>
+
+			<!-- Reactive Power Card -->
+			<div class="col-md-3 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Reactive Power</h5>
+						<div class="value" style="color:		  #e3a4a4"> {{vm.meterCardData.reactivePowerValue}}</div> KVAR
+						<!-- <p class="small-text" style="color: blue;">Last Updated: {{vm.meterCardData.reactivePowerTime}}
+						</p> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Total Energy Consumed</h5>
+						<div class="value" style="color:		  #e3a4a4"> {{vm.meterCardData.totalengeryConsumption}}</div>
+						KWH
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>						Reactive Energy</h5>
+						<div class="value" style="color:		  #e3a4a4"> {{vm.meterCardData.reactiveEnergy}}</div>
+						KVARH
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 mb-4">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<h5>Real Energy</h5>
+						<div class="value" style="color:		  #e3a4a4"> {{vm.meterCardData.realEnergy}}</div>
+						KVAH
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.currentR}}</div> A
+						<p style="font-size: 1.5rem;			 font-weight: bold;"> R Phase</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="				value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.currentY}}</div>
+						A
+						<p style="font-size: 1.5rem;			 font-weight: bold;"> Y Phase</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="					value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.currentB}}
+						</div> A
+						<p style="font-size: 1.5rem;			 font-weight: bold;"> B Phase</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.currentN}}
+						</div> A
+						<p style="font-size: 1.5rem;			 font-weight: bold;"> Cureent N</p>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.voltageRY}}
+						</div> V
+						<p style="font-size: 1.5rem;			 font-weight: bold;"> Voltage RY</p>
+					</div>
+				</div>
+			</div>
+
+
+
+			<!--<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="						value1" style="color:		  #e3a4a4"> 						{{vm.currentVoltageCard.voltageRB}}
+						</div> V
+						<p style="font-size: 1.5rem;			 font-weight: bold;">Voltage RB</p>
+					</div>
+				</div>
+			</div>
+-->
+
+
+			<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.voltageYB}}
+						</div> V
+						<p style="font-size: 1.5rem;			 font-weight: bold;"> Voltage YB</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.voltageBR}}
+						</div> V
+						<p style="font-size: 1.5rem;			 font-weight: bold;"> Voltage BR</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class=" card custom-card shadow-lg">
+					<div class="card-body">
+						<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+						<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.voltageLN}}
+						</div> V
+						<p style="font-size: 1.5rem;			 font-weight: bold;"> Voltage LN</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+						<div class=" card custom-card shadow-lg">
+							<div class="card-body">
+								<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+								<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.voltageLL}}
+								</div> V
+								<p style="font-size: 1.5rem;			 font-weight: bold;"> Voltage LL</p>
+							</div>
+						</div>
+					</div>
+			<div class="col-md-2">
+					<div class=" card custom-card shadow-lg">
+						<div class="card-body">
+							<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+							<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.voltageRN}}
+							</div> V
+							<p style="font-size: 1.5rem;			 font-weight: bold;"> Voltage RN</p>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="col-md-2">
+						<div class=" card custom-card shadow-lg">
+							<div class="card-body">
+								<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+								<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.voltageYN}}
+								</div> V
+								<p style="font-size: 1.5rem;			 font-weight: bold;"> Voltage YN</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-2">
+							<div class=" card custom-card shadow-lg">
+								<div class="card-body">
+									<img style="width: 50px;" alt="" src="templates/GaugeChart/thunderbolt.png">
+									<div class="						value1" style="color:		  #e3a4a4"> {{vm.currentVoltageCard.voltageBN}}
+									</div> V
+									<p style="font-size: 1.5rem;			 font-weight: bold;"> Voltage BN</p>
+								</div>
+							</div>
+						</div>
+						
+					
+		</div>
+		<div class="row">
+
+			<!-- Left Side: Chart -->
+			<div class="col-lg-6">
+
+				<div class="card dashboard-card" style="	height: 			540px;">
+					<h5>Voltage Trend</h5>
+					<div class="chart-container">
+						<canvas class="chart chart-line" chart-data="vm.chartDataV" chart-labels="vm.chartLabelsV"
+							chart-series="vm.chartSeriesV" chart-options="vm.chartOptions2"
+							chart-colors="vm.chartColors2" style="display: block; width: 100%; height: 530px;">
+						</canvas>
+					</div>
+				</div>
+			</div>
+			<!-- Right Side: Chart -->
+			<div class="col-lg-6">
+
+				<div class="card dashboard-card" style="	height: 			540px;">
+					<h5>Current Trend</h5>
+					<div class="chart-container">
+						<canvas class="chart chart-line" chart-data="vm.chartDataI" chart-labels="vm.chartLabelsI"
+							chart-series="vm.chartSeriesI" chart-options="vm.chartOptions2"
+							chart-colors="vm.chartColors2" style="display: block; width: 100%; height: 530px;">
+						</canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+
+
+<!--
+			<div class="container-fluid">
+				<div class="row page-title-div" ng-repeat="	registerGroup in vm.registerGroups">
+
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+						<h2 class="title">{{registerGroup.groupName}} <i class="fa fa-chevron-down" aria-hidden="true"
+								ng-click="show($index)" ng-show="!registerGroup.showView"></i> <i
+								class="fa fa-chevron-up" aria-hidden="true" ng-click="hide($index)"
+								ng-show="registerGroup.showView"></i></h2>
+					</div>
+					<div class="col-md-6" ng-show="registerGroup.showView" ng-repeat="register in 	registerGroup.list"
+						ng-style="register.registerName=='Voltage L-N Avg'||register.registerName=='Frequency'|| register.registerName=='Current B' ? {'background-color': '		#017cc0'} : {'background-color': '		#eee'}">
+						<div class="form-group">
+							<label for="name13">{{register.registerName}} :</label>
+							<input type="text" class="form-control" ng-model="register.registerValue+' '+register.unit"
+								placeholder="Enter Cause" disabled>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>-->
+
+		</div>
+	</div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Login Admin</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<style rel="stylesheet">
+.login {
+  position: absolute;
+    /* padding: 6.8% 6%; */
+    padding: 50px;
+    width: 600px;
+    top: 30%;
+    left: 34%;
+    height: 400px;
+    background: rgb(0 0 0 / 25%);
+    box-shadow: 0 8px 32px 0 rgb(0, 128, 64);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+   
+}
+ 
+.login .form-control {
+  background-color: #008B8B;
+  border: 0px;
+  border-radius: 0px;
+  border-bottom: 2px solid #fff;
+  color: #fff !important;
+}
+ 
+::placeholder {
+  color: #e4e4e4 !important;
+  opacity: 1;
+}
+ 
+ 
+.btnn {
+  background-color: rgb(0, 139, 139); /* Dark Cyan */
+  width: 100% !important;
+  margin-top: 8%;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+ 
+.ecoaxis {
+  width: 80%;
+}
+ 
+.login-logo {
+  background-color: #fff;
+  padding: 2% 6%;
+  width: 75%;
+  margin: 10% auto;
+}
+ 
+.power {
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+}
+ 
+.footer {
+  color: #fff;
+  background-color: rgb(0, 139, 139); /* Dark Cyan */
+  padding: 10px 1%;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+ 
+.footer p {
+  margin-bottom: 0px;
+}
+ 
+.back {
+  background-image: url(templates/login_form/img/kfbioplants.jpeg);
+/*  //background-image: url(templates/login_form/img/login.png); */
+  background-repeat: no-repeat;
+  background-size: cover;
+ 
+ 
+}
+ 
+.login-c {
+width: 100vw;
+background-image: url(templates/login_form/img/bio2.jpg);
+  margin: 0 !important;
+  background-size:cover;
+  /* border: 3px solid green; */
+  min-height: 100vh;
+  
+}
+.logo{
+  height: 80px;
+}
+
+.logo img{
+	mix-blend-mode: color-burn;
+
+}
+</style>
+ 
+<body>
+ 
+  <div class=" login-c">
+    <div class="logo">
+      <img src="templates/login_form/img/kfbioplants.jpeg" alt="Logo" srcset="">
+    </div>
+    <div class="" >
+ 
+      <!-- <div class="col-md-6 col-sm-6 col-xs-12"> -->
+        <div>
+        <div class="login">
+         <p class="power"><b>Login Credentials</b></p>
+            <!-- <div class="login-logo" align="center">
+          <img src="templates/login_form/img/adplogo.jpg" class="img-fluid ecoaxis">
+          </div>-->
+          <form>   <!-- action="#" method="post" -->
+            <div class="form-group">
+ 
+              <input type="text" class="form-control"
+                data-ng-model="login.userName" Placeholder="Enter Username "
+                required>
+ 
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control"
+                data-ng-model="login.password" Placeholder="Enter password"
+                required>
+            </div>
+            <button class="btn btnn" name="submit"
+             value="Sign In" ng-click="vm.doLogin(login)"><b>Submit</b></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p class="text-center">&copy COPYRIGHT RESERVED BY <a href="http://www.a2mee.com">A2MEE</p>
+  </div>
+</body>
+</html>

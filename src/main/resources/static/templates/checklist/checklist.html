@@ -1,0 +1,644 @@
+<style>
+	#loaderAi {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		z-index: 1;
+		width: 150px;
+		height: 150px;
+		margin: -75px 0 0 -75px;
+		border: 16px solid #f3f3f3;
+		border-radius: 50%;
+		border-top: 16px solid #3498db;
+		width: 120px;
+		height: 120px;
+		-webkit-animation: spin 2s linear infinite;
+		animation: spin 2s linear infinite;
+	}
+
+	@-webkit-keyframes spin {
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	}
+
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	.animate-bottom {
+		position: relative;
+		-webkit-animation-name: animatebottom;
+		-webkit-animation-duration: 1s;
+		animation-name: animatebottom;
+		animation-duration: 1s
+	}
+
+	@-webkit-keyframes animatebottom {
+		from {
+			bottom: -100px;
+			opacity: 0
+		}
+
+		to {
+			bottom: 0px;
+			opacity: 1
+		}
+	}
+
+	@keyframes animatebottom {
+		from {
+			bottom: -100px;
+			opacity: 0
+		}
+
+		to {
+			bottom: 0;
+			opacity: 1
+		}
+	}
+
+	#myDiv {
+		display: none;
+		text-align: center;
+	}
+
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+
+	.orange th {
+		color: #fff;
+	}
+	
+	
+
+	.btn_serach {
+		background-color: #008B8B;
+		border: 1px solid #008B8B;
+		color: white;
+	}
+	/* Container for add checklist tab */
+	.add-tab-container {
+	    border: 2px solid #e0e0e0;
+	    border-radius: 10px;
+	    padding: 20px;
+	    background: #f9f9f9;
+	    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+	    margin-bottom: 20px;
+	}
+
+	/* Label styling for consistency */
+	.add-tab-container .control-label,
+	.add-tab-container label {
+	    font-weight: 600;
+	    font-size: 14px;
+	    margin-bottom: 5px;
+	}
+
+	/* Input and select styling for uniform height and padding */
+	.add-tab-container .form-control {
+	    border-radius: 6px;
+	    border: 1px solid #bdbdbd;
+	    padding: 6px 10px;
+	    height: 36px;
+	}
+
+	/* Button styling */
+	.add-tab-container button {
+	    margin-top: 5px;
+	}
+
+	/* Checklist row grouping */
+	.checklist-row {
+	    padding: 10px;
+	    border: 1px solid #ddd;
+	    border-radius: 8px;
+	    margin-bottom: 10px;
+	    background: #fff;
+	    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+	}
+
+	
+</style>
+
+<script>setTimeout(function () {$("#loaderAi").hide();}, 5000);</script>
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+
+<script src="templates/views/js/jquery/jquery.table2excel.js"></script>
+
+<script src="https://cdn.jsdelivr.net/alasql/0.3/alasql.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.12/xlsx.core.min.js"></script>
+
+<script src="templates/checklist/angular-file-model.js"></script>
+
+
+<!-- <div id="loaderAi"></div>
+ -->
+<div class="container-fluid">
+	<div class="row page-title-div">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="row">
+				<h2 class="title" style="text-align:center;margin-top:6%;margin-bottom:3%;"> ADD MACHINE/AUXILIARY
+					CHECKLIST</h2>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-widget">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-2">
+				<div align="right" style="margin-top:5%;">
+					<button type="submit" class="btn_serach" id="success" ng-click="vm.addNew()">Add</button>
+				</div>
+			</div>
+
+			<div class="col-md-2">
+				<div align="right" style="margin-top:5%;">
+					<button type="submit" class="btn_serach btn-sm" id="success"
+						style="background: #008B8B; border: 1px solid #103e57;"
+						ng-click="vm.showUploadTab()">Upload</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="container">
+				<div class="row" ng-show="uploadTab">
+					<label for="name13">Upload Checklist: <span style="color:#c00;">*</span></label>
+					<div class="col-md-6">
+						<div class="input-group">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input custom-file-input-modal form-control"
+									id="inputExcelFile"
+									accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+									onchange="angular.element(this).scope().handleFileSelect(this.files)">
+								<label class="custom-file-label" for="inputExcelFile"
+									aria-describedby="inputGroupFileAddon02">Choose file</label>
+									
+
+							</div>
+							<button type="submit" class="btn btn-success" id="success" ng-click="vm.upload()">Import</button>
+
+							<button type="button" class="btn btn-danger" style="margin-left: 10px;" ng-click="uploadTab = false">Cancel</button>
+							
+							<button type="button" class="btn btn-info" style="margin-left: 10px;" ng-click="vm.downloadTemplate()">
+							              Download Template
+							          </button>
+
+						</div>
+						
+					</div>
+				
+					<div class="col-md-2">
+						<div align="right" style="margin-top:5%;">
+						<!--	<button type="submit" class="btn_serach" id="success" ng-click="vm.upload()">Import</button>-->
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 add-tab-container" style="margin-top:3%;" ng-show="addTab">
+				
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label class="control-label">Machine Name <span style="color:#c00;">*</span></label>
+							<select class="form-control" ng-model="machOwner.machineName"
+								ng-change="vm.getMachinesByName(machOwner.machineName);">
+								<option ng-show="showSelectMachineName" value="selectMachineNames"> Select Machine
+								</option>
+								<option ng-repeat="opts in vm.machineNames" value="{{opts}}"> {{opts}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label class="control-label">Machine ID <span style="color:#c00;">*</span></label>
+							<select class="form-control" ng-model="selectedMachine">
+								<!-- ng-change="showSelectMachine" -->
+								<option ng-show="showSelectMachine" value="selectMachine"> Select machine </option>
+
+								<option ng-repeat="opts in vm.machines" value="{{opts}}"> {{opts.eqid}} </option>
+							</select>
+						</div>
+					</div>
+
+					<!--<div class="col-sm-3">
+						<div class="form-group">
+							<label class="control-label">Type <span style="color:#c00;">*</span></label>
+							<select class="form-control" ng-model="selectedType" ng-change="showSelectMachine">
+								<option value="selectType"> Select Type </option>
+								<option value="predictive"> predictive </option>
+								<option value="preventive"> preventive </option>
+							</select>
+						</div>
+					</div>--> 
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label class="control-label">Frequency <span style="color:#c00;">*</span></label>
+							<select id="sel_freq" class="form-control" ng-model="selectedMode"
+								ng-change="vm.changeMode(selectedMode)">
+								<option value="selectFrequency" ng-show="showSelectFrequency"> Select frequency
+								</option>
+								<option value="W"> Weekly </option>
+								<option value="M"> Monthly </option>
+								<option value="Q"> Quarterly </option>
+								<option value="H/Y"> Half Yearly </option>
+								<option value="Y"> Yearly </option>
+							</select>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-sm-12" ng-show="addTab">
+					<div class="col-sm-6">
+						<div class="col-sm-3">
+							<label class="control-label">Checkpoint </label>
+						</div>
+						<div class="col-sm-9">
+							<button id="addButton" class="btn btn-success" ng-click="vm.increment();"><i
+									class="fa fa-plus"></i></button>
+							<button id="removeButton" class="btn btn-danger" ng-click="vm.decrement();"><i
+									class="fa fa-minus"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12" style="margin-top:3%;" ng-hide="addTab">
+					
+					<div class="col-sm-3">
+					      <div class="form-group">
+					          <label class="control-label">Lab <span style="color:#c00;">*</span></label>
+							  <select class="form-control"
+							          ng-model="vm.selectedLabId"
+							          ng-change="vm.getMachinesByLab(vm.selectedLabId)">
+							      <option value="">Select Lab</option>
+							      <option ng-repeat="lab in vm.labs" value="{{lab.lab_id}}">{{lab.labName}}</option>
+							  </select>
+
+
+					      </div>
+					  </div>
+					
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label class="control-label">Machine Name <span style="color:#c00;">*</span></label>
+							<select class="form-control"
+							        ng-model="vm.selmachineName"
+							        ng-disabled="!vm.selectedLabId"
+							        ng-change="vm.getEqidsByLabAndMachineName(); vm.getCheckListByMachineName(vm.selmachineName)">
+							    <option ng-show="showSelectMachineName" value="">Select Machine</option>
+							    <option ng-repeat="opts in vm.machineNames" value="{{opts}}">{{opts}}</option>
+							</select>
+
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label class="control-label">Machine ID <span style="color:#c00;">*</span></label>
+							<select class="form-control" ng-model="selectedMachineId"
+							ng-disabled="!vm.selmachineName"
+								ng-change="vm. getCheckListByEquipId(selectedMachineId);">
+								<!-- ng-change="showSelectMachine" -->
+								<option ng-show="showSelectMachine" value="selectMachine"> Select machine </option>
+
+								<option ng-repeat="opts in vm.machines" value="{{opts.eqid}}"> {{opts.eqid}} </option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label class="control-label">	Frequency<span style="color:#c00;">*</span></label>
+							<select id="sel_freq" class="form-control" ng-model="selectedFreaq"
+							ng-disabled="!selectedMachineId"
+								ng-change="vm.getCheckListByEquipIdAndFrequency(selectedMachineId,selectedFreaq)">
+								<option value="selectFrequency" ng-show="showSelectFrequency"> Select frequency
+								</option>
+								<option value="weekly"> Weekly </option>
+								<option value="monthly"> Monthly </option>
+								<option value="quarterly"> Quarterly </option>
+								<option value="halfyearly"> Half Yearly </option>
+								<option value="yearly"> Yearly </option>
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="col-sm-12 add-tab-container" id="TextBoxesGroup" ng-repeat="checkObj in vm.checklistArray">
+					<div class="col-sm-12  " id="TextBoxesGroup" ng-repeat="checkObj in vm.checklistArray" ng-show="addTab">
+					  <!--  <div class="col-sm-4"><label>Checkpoint</label></div>
+					    <div class="col-sm-4"><label>Operation Method</label></div>
+					    <div class="col-sm-4"><label>Acceptable Range</label></div>-->
+					    
+					</div>
+
+					<div class="col-sm-2">
+					    <label>Checkpoint</label>
+					    <input type="text" class="form-control" ng-model="checkObj.checkpoint">
+					</div>
+
+					<div class="col-sm-2">
+					    <label>Acceptable Range</label>
+					    <input type="text" class="form-control" ng-model="checkObj.acceptableRange">
+					</div>
+
+					<div class="col-sm-2">
+										    <label class="form-label fw-bold">Checkpoint Type</label>
+										    <select ng-model="checkObj.checkType"
+										            class="form-control form-control-sm"
+										            ng-options="type for type in vm.checkTypes"
+										            required>
+										        <option value="">Select Check Type --</option>
+										    </select>
+										</div>
+
+										<div class="col-sm-2">
+																	    <label class="form-label fw-bold">Checkpoint Unit</label>
+																	    <input type="text"
+																	           ng-model="checkObj.check_unit"
+																	           class="form-control form-control-sm"
+																	           ng-disabled="checkObj.checkType === 'ANY'"
+																	           title="{{ checkObj.checkType === 'ANY' ? 'Disabled for ANY type' : '' }}"
+																	           />
+																	</div>
+
+
+																	<div class="col-sm-2">
+																								       <label class="form-label fw-bold">MIN Range</label>
+																								       <input type="number"
+																								              ng-model="checkObj.lower_range"
+																								              class="form-control form-control-sm"
+																								              ng-disabled="checkObj.checkType === 'ANY'" />
+																								   </div>
+
+																								   <div class="col-sm-2">
+																								       <label class="form-label fw-bold">MAX Range</label>
+																								       <input type="number"
+																								              ng-model="checkObj.upper_range"
+																								              class="form-control form-control-sm"
+																								              ng-disabled="checkObj.checkType === 'ANY'" />
+																								   </div>
+
+
+				</div>
+				<div class="col-sm-8">
+				</div>
+				<div class="col-sm-2">
+					<div align="right" ng-show="addTab">
+						<button class="btn_serach" id="submitChecklistToClearId"
+   							 ng-click="vm.submitChecklist(); vm.refreshPage();">Submit</button>
+
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<div align="right" ng-show="addTab">
+						<button class="btn_serach" id="submitChecklistToClearId" ng-click="vm.cancel();">Cancel</button>
+					</div>
+				</div>
+				
+				
+				<div ng-show="vm.isEditing" class="panel panel-default p-3 mt-3 shadow-sm border rounded">
+				   
+				        <h5 class="m-0">Edit Checklist</h5>
+				    
+				    <div class="panel-body p-3">
+				        <form class="mb-0">
+				            <div class="row">
+				                <div class="col-md-6 mb-2">
+				                    <label class="form-label fw-bold">Task</label>
+				                    <input type="text" ng-model="vm.selectedChecklist.task" class="form-control form-control-sm" required />
+				                </div>
+
+				                <div class="col-md-6 mb-2">
+				                    <label class="form-label fw-bold">Acceptable Range</label>
+				                    <input type="text" ng-model="vm.selectedChecklist.acceptableRange"  ng-disabled="true" class="form-control form-control-sm" />
+				                </div>
+
+				                <div class="col-md-6 mb-2">
+				                    <label class="form-label fw-bold">Frequency</label>
+				                    <input type="text" ng-model="vm.selectedChecklist.frequency" class="form-control form-control-sm" required />
+				                </div>
+
+				           
+								
+								<div class="col-md-6 mb-2">
+								    <label class="form-label fw-bold">Checkpoint Unit</label>
+								    <input type="text"
+								           ng-model="vm.selectedChecklist.check_unit"
+								           class="form-control form-control-sm"
+								           ng-disabled="vm.selectedChecklist.checkType === 'ANY'"
+								           title="{{ vm.selectedChecklist.checkType === 'ANY' ? 'Disabled for ANY type' : '' }}"
+								           placeholder="Enter Checkpoint Unit" />
+								</div>
+
+				            
+							   
+								   <div class="col-md-6 mb-2">
+								       <label class="form-label fw-bold">MIN Range</label>
+								       <input type="number"
+								              ng-model="vm.selectedChecklist.lower_range"
+								              class="form-control form-control-sm"
+								              ng-disabled="vm.selectedChecklist.checkType === 'ANY'" />
+								   </div>
+
+								   <div class="col-md-6 mb-2">
+								       <label class="form-label fw-bold">MAX Range</label>
+								       <input type="number"
+								              ng-model="vm.selectedChecklist.upper_range"
+								              class="form-control form-control-sm"
+								              ng-disabled="vm.selectedChecklist.checkType === 'ANY'" />
+								   </div>
+
+						
+						<div class="col-md-6 mb-2">
+						    <label class="form-label fw-bold">Checkpoint Type</label>
+						    <select ng-model="vm.selectedChecklist.checkType"
+						            class="form-control form-control-sm"
+						            ng-options="type for type in vm.checkTypes"
+						            required>
+						        <option value="">-- Select Check Type --</option>
+						    </select>
+						</div>
+
+							   
+							   
+			  </div>
+							<br>
+
+				            <div class="d-flex justify-content-end gap-2 mt-3">
+								<button type="button" class="btn btn-success btn-sm px-4" ng-click="vm.updateChecklist()">Update</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm px-4" style="margin-left: 10px;" ng-click="vm.cancelEdit()">Cancel</button>
+
+				            </div>
+				        </form>
+				    </div>
+				</div>
+
+				
+				
+				<div ng-show="vm.isReordering" class="panel panel-default p-3 mt-3 shadow-sm border rounded">
+				    <h5 class="m-0">Reorder Checklist</h5>
+				    <div class="panel-body p-3">
+				        <form>
+				            <div class="row">
+				                <div class="col-md-6 mb-2">
+				                    <label class="form-label fw-bold">Check Point</label>
+				                    <input type="text" class="form-control form-control-sm"
+				                           ng-model="vm.reorderChecklist.task" disabled />
+				                </div>
+
+				                <div class="col-md-6 mb-2">
+				                    <label class="form-label fw-bold">New Serial Number</label>
+				                    <input type="number" class="form-control form-control-sm"
+				                           ng-model="vm.newSerialNumber" required />
+				                </div>
+				            </div>
+
+				            <div class="d-flex justify-content-end gap-2 mt-3">
+								<button type="button" class="btn btn-success btn-sm px-4" ng-click="vm.saveReorder()">Save</button>
+
+				                <button type="button" class="btn btn-outline-secondary btn-sm px-4" ng-click="vm.cancelReorder()">Cancel</button>
+				            </div>
+				        </form>
+				    </div>
+				</div>
+
+				
+
+				<div class="panel-body table-responsive">
+					<table datatable="ng" id="t_body1" class="table table-bordered">
+						<thead class="orange">
+							<tr>
+
+								<td>Sr No</td>
+								<td>Check Point</td>
+						<td>Frequency</td>
+								<td>Acceptable Range</td>
+
+
+								<td>Action</td>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr
+								ng-repeat="checklist in vm.checklists | filter : search | limitTo:totalDisplayed  | orderBy">
+
+								<td>{{$index+1}}</td>
+								<td>{{checklist.task}}</td>
+							<td>{{checklist.frequency}}</td>
+								<td>{{checklist.acceptableRange}}</td>
+
+
+
+								<th nowrap>
+
+									
+									<button type="button" class="btn btn-success" ng-click="vm.editChecklist(checklist)">
+									    <i class="fa fa-edit" aria-hidden="true"></i> EDIT
+									</button>
+
+									<button type="button" title="Delete" class="btn btn-danger"
+										ng-click="vm.delet(checklist)">
+										<i class="fa fa-trash" aria-hidden="true"></i> DELETE
+									</button>
+									<button type="button" class="btn btn-primary" ng-click="vm.openReorderForm(checklist)">
+									    <i class="fa fa-sort" aria-hidden="true"></i> REORDER
+									</button>
+
+								</th>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function () {
+		$('#export_to_excel').click(function () {
+			$("#t_body1").table2excel({
+				exclude: ".action",
+				name: "All Enterprises",
+				filename: "Cheklist",
+				fileext: ".xls",
+				exclude_img: true,
+				exclude_links: true,
+				exclude_inputs: true
+			});
+		});
+	});
+	$(document).ready(function () {
+		var counter = 1;
+		$("#addButton").click(function () {
+			var newTextBoxDiv = $(document.createElement('div'))
+				.attr("id", 'TextBoxDiv' + counter);
+			var newlabel = $(document.createElement('div')).attr("id", 'labelbox' + counter);
+			/* if(counter == 1){
+				newlabel.after().html('<div class="col-sm-6"><label>Checkpoint</label></div><div class="col-sm-6"><label>Operation Method</label></div>');
+				newlabel.appendTo("#TextBoxesGroup");
+			} */
+			newTextBoxDiv.after().html('<div class="col-sm-6"><input type="text" class="form-control" name="checkpoint' + counter +
+				'" id="checkpoint' + counter + '" value="" ></div><div class="col-sm-6"><input type="text" class="form-control" name="operation' + counter +
+				'" id="operation' + counter + '" value="" ></div>');
+			newTextBoxDiv.appendTo("#TextBoxesGroup");
+			counter++;
+
+			if (counter == 7) {
+				$("#TextBoxesGroup").css("height", "196px");
+				$("#TextBoxesGroup").css("overflow-y", "scroll");
+			}
+		});
+
+		$("#removeButton").click(function () {
+			if (counter == 1) {
+				alert("No more textbox to remove");
+
+				return false;
+			}
+			if (counter < 7) {
+				$("#TextBoxesGroup").css("height", "auto");
+				$("#TextBoxesGroup").css("overflow-y", "hidden");
+			}
+			counter = counter - 1;
+			$("#TextBoxDiv" + counter).remove();
+			$("#labelbox" + counter).remove();
+		});
+
+		$("#submitChecklistToClearId").click(function () {
+			counter = 1;
+		});
+
+	});
+</script>
+
+<script>
+	$(".custom-file-input-modal").on("change", function () {
+		var fileName = $(this).val().split("\\").pop();
+		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
+</script>

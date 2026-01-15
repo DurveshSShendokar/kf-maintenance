@@ -1,0 +1,488 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+.red-button {
+    background-color: lightpurple;
+    color: white;
+    border: none;
+}
+
+   .modal {
+    display: flex;
+    position: fixed;
+    top: 10%;
+    left: 0;
+     background-color: transparent;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: flex-start;
+     overflow: auto; 
+}
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+     width: 500px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; 
+}
+
+
+.modal-backdrop {
+    display: none !important; /* Hides the black background */
+}
+
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.modal-actions button {
+    margin: 5px;
+    padding: 12px 30px;
+    background-color: #008B8B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-actions button:hover {
+    background-color: #005f5f;
+}
+
+     
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+   
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">General Breakdown</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row top">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2"ng-show="!vm.isUploadImageVisible">
+<button type="submit" class="btn_serach btn-sm" id="success" 
+     
+        style="background: #008B8B; border: 1px solid #103e57; color:white;" 
+        ng-click="vm.addNew()">Add</button>
+                </div>
+				
+				
+            </div>
+            
+            
+<!-- Image Upload Tab -->
+<div class="row" ng-show="uploadImageTab">
+    <!-- Image Upload Form -->
+    <div class="col-md-4">
+        <h3>Upload Image</h3>
+        <form name="uploadImageForm" enctype="multipart/form-data" novalidate>
+           <div class="form-group">
+			    <label for="imageUpload">Choose Image <span style="color:#c00;">*</span>:</label>
+			    <input type="file" class="form-control" id="imageUpload" multiple 
+			           file-model="imageFile" accept="image/*" required />
+			</div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn_serach" ng-click="vm.submitImage($scope.selectedBreakdown)">Submit</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn_serach" ng-click="vm.cancelUpload()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Table for displaying spares -->
+    <div class="col-md-12" style="margin-top: 20px;">
+        <div class="panel-body table-responsive">
+            <table datatable="ng" id="example" class="table table-bordered table-striped" style="width: 100%;">
+                <thead class="orange">
+                    <tr>
+                        <th>SrNo</th>
+                        
+                         <th>image-Name</th>
+                      
+                        <th>Title </th>
+                        <th>Status</th>
+                       
+                         <th>Action</th>
+ 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="img in vm.images track by $index">
+                        <td>{{$index + 1}}</td>
+                      
+                        <td>{{img.imageName}}</td>
+                       
+                        <td>{{img.general_breakdown.title}}</td>
+                        <td>
+                            <span ng-switch="img.general_breakdown.status">
+                                <span ng-switch-when="1">Open</span>
+                                <span ng-switch-when="0">Closed</span>
+                            </span>
+                        </td>
+                       
+                        <td class="text-nowrap">
+                            
+                             <button type="button" class="btn btn-warning" title="Download" ng-click="vm.downloadImage(img.id)">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+		                        </button>
+		                        <button type="button" class="btn btn-danger" ng-click="vm.deleteImage(img.id)">
+								    <i class="fa fa-trash" aria-hidden="true"></i> 
+								</button>
+                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+            <div class="row form-border" ng-show="addNewTab">
+            			 <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword13">Select Location <span style="color:#c00;">*</span> :</label>
+                        <select ng-model="GeneralBreakdown.location.location_id"
+                                ng-options="location.location_id as location.locationName for location in vm.locations" class="form-control" required>
+                            <option value="">Select Location:</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword13">Select Lab <span style="color:#c00;">*</span> :</label>
+                        <select ng-model="GeneralBreakdown.lab.lab_id" ng-options="lab.lab_id as lab.labName for lab in vm.labs" class="form-control" required>
+                            <option value="">Select Lab:</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">description  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="GeneralBreakdown.description" placeholder="Enter Description " 	ng-required="true">
+							</div>
+						</div>
+            		
+        
+				
+            
+            
+          		
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">rootCause  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="GeneralBreakdown.rootCause" placeholder="Enter Root Cause " 	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">title  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="GeneralBreakdown.title" placeholder="Enter title " 	ng-required="true">
+							</div>
+						</div>
+					
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Trialsheet  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="GeneralBreakdown.trialsheet" placeholder="Enter Trial Shet " 	ng-required="true">
+							</div>
+						</div>
+						
+						
+            		<div class="col-md-6" ng-if="isEditing">
+							<div class="form-group">
+								<label for="name13">Breakdown Slip No.  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="GeneralBreakdown.breakdownNo" placeholder="Enter Description " 	ng-required="true" ng-disabled="true">
+							</div>
+						</div>
+						
+						
+						
+			  <div class="col-md-6" ng-if="isEditing">
+							
+					<div class="form-group">
+						<label for="name13">Select status<span style="color:#c00;">*</span>:</label>
+						<select class="form-control" ng-model="GeneralBreakdown.status" ng-required="true" >
+							<option value="1">Open</option>
+							<option value="0">Closed</option>
+							
+						</select>
+					</div>
+				</div>
+						
+						
+						
+					
+              
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.ok(GeneralBreakdown)">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container">
+  <div class="row top">
+    <div class="col-sm-12">
+
+      <!-- Breakdown Sheet Section -->
+      <div class="row form-border" ng-show="viewNewTab">
+
+        <!-- Export to PDF Button -->
+        <div class="row">
+          <button class="btn" style="background-color: #008B8B; color: white;" ng-click="exportToPDF()">
+            <i class="fa fa-file-pdf-o"></i> Export to PDF
+          </button>
+        </div>
+
+        <!-- Title -->
+        <div class="row form-border">
+          <div class="col-lg-12">
+            <h2 class="title text-center"> General Breakdown Sheet</h2>
+          </div>
+        </div>
+
+        <!-- Breakdown Sheet Details -->
+        <div class="row" style="margin-top: 3%; width: 100%;">
+          <div class="col-sm-12">
+
+            <!-- Left Column (7 fields) -->
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Lab:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="lab">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Location:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="location">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Breakdown Root Cause:</label>
+                <input type="text" class="form-control wrap-text" ng-disabled="true" ng-model="rootCause">
+              </div>
+
+			  <div class="form-group">
+			                <label class="control-label font-weight-bold">TrialSheet:</label>
+			                <input type="text" class="form-control wrap-text" ng-disabled="true" ng-model="trialsheet">
+			              </div>
+						  <!--
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Trial Date:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="trialDate">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Closed Date:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="ClosedDate">
+              </div>
+			  
+			  <div class="form-group">
+			               <label class="control-label font-weight-bold">Done By:</label>
+			               <textarea class="form-control wrap-text" ng-disabled="true" ng-model="DoneBy"></textarea>
+			             </div>
+-->
+            </div>
+
+            <!-- Right Column (7 fields) -->
+            <div class="col-sm-6">
+
+            
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Breakdown Description:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="description">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Solve By:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="solveBy">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Breakdown Open Time:</label>
+                <textarea class="form-control wrap-text" ng-disabled="true" ng-model="openDate"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Breakdown Closed Date:</label>
+                <textarea class="form-control wrap-text" ng-disabled="true" ng-model="closedDate"></textarea>
+              </div>
+
+             
+
+           
+
+              <!-- Cancel Button -->
+              <div class="row right create-break margin-tb">
+                <div class="col-sm-8">
+                  <button class="btn btn-primary" ng-click="vm.cancel()">Cancel</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- End Breakdown Sheet Section -->
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="container">
+    <div class="panel-body table-responsive">
+      
+        
+       
+        <table datatable="ng" id="example" class="table table-bordered">
+            <thead class="orange">
+                <tr>
+                    <th>Sr No</th>
+                    <th>BreakDown Slip No.</th>
+                    <th>Location</th>
+                    <th>Lab</th>
+                   
+                    <th>Status</th>
+                   
+                    <th>Root Cause</th>
+                    <th>Title</th>
+                 
+                    <th>Trial Sheet</th>
+                    <th>Description</th>
+                    <th>Open Date</th>
+                    <th>Open Time</th>
+                    <th>Closed Date</th>
+                    <th>Closed Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="break in vm.GeneralBreakdown | filter:{status: vm.selectedStatus}">
+                    <td>{{$index+1}}</td>
+                    <td>{{break.breakdownNo}}</td>
+                    <td>{{break.location.locationName}}</td>
+                    <td>{{break.lab.labName}}</td>
+                   
+                    <td>
+                        <span ng-switch="break.status">
+                            <span ng-switch-when="1">Open</span>
+                            <span ng-switch-when="0">Closed</span>
+                        </span>
+                    </td>
+                  
+                    <td>{{break.rootCause}}</td>
+                    <td>{{break.title}}</td>
+                 
+                    <td>{{break.trialsheet}}</td>
+                    <td>{{break.description}}</td>
+                    <td>{{break.openDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{break.openTime | date:'HH:mm:ss'}}</td>
+                    <td>
+                        <span ng-if="!break.closedDate">Still Open</span>
+                        <span ng-if="break.closedDate">{{break.closedDate | date:'dd-MM-yyyy'}}</span>
+                    </td>
+                    <td>
+                        <span ng-if="!break.closedTime">Still Open</span>
+                        <span ng-if="break.closedTime">{{break.closedTime | date:'HH:mm:ss'}}</span>
+                    </td>
+                    <td class="text-nowrap">
+						<button type="button" class="btn btn-info" title="Close"  
+						        ng-class="{'red-button': break.status === 0}" 
+						        ng-click="vm.closeBreakdown(break.genbreak_id)" 
+						        ng-disabled="break.status === 0">
+						    <i class="fa fa-times" aria-hidden="true"></i>
+						</button>
+
+                        <button type="button" class="btn btn-danger" title="Delete" ng-click="vm.delet(break)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-warning" title="Upload Image" ng-click="vm.uploadImage(break)">
+                            <i class="fa fa-upload" aria-hidden="true"></i>
+                        </button>
+					
+																<button type="button" class="btn btn-info" title="View"	ng-click="vm.add(break)">
+																		<i class="fa fa-eye" aria-hidden="true"></i>
+																</button>
+																								
+																																			
+												
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<!-- Confirmation Modal -->
+<div ng-show="vm.showModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-title">Confirmation</span>
+        <p>Are you sure you want to delete this spare?</p>
+        <div class="modal-actions">
+            <button class="btn_serach" ng-click="vm.confirmDelete()">Delete</button>
+            <button class="btn_serach" ng-click="vm.cancelDelete()">Cancel</button>
+        </div>
+    </div>
+</div>

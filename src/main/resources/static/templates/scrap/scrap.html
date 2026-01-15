@@ -1,0 +1,447 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Scrap Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="fonts/fa/css/font-awesome.min.css">
+  <linl rel="stylesheet" href="css/dataTable.css"> -->
+
+  <link href="css/style.css" rel="stylesheet">
+  <style type="text/css">
+  .btn-oranage,.btn-oranage:hover{background-color: #008B8B ;color:#fff;width:100%;}
+  .oranage{background-color:#008B8B}
+  .margin-bt{margin:1% 0;}
+  .header-name span{font-size:30px;}
+  #scraplist td,#scraplist th{text-align:center;}
+  .edit{color:#007fbb ;font-size:20px;}
+  .header-name {
+    text-align: center;
+    margin-top: 3%;
+}
+  </style>
+<!-- </head>
+<body> -->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 header-name">
+				<!-- <span>Scrap Home</span> -->
+			</div>
+			<div class="row">				
+				<div class="col-sm-6">
+				</div>
+				<div class="col-sm-6">
+					<div class="row margin-bt">
+						<div class="col-sm-12" style="text-align:right;float:right;">
+							<button class="btn btn-success" style="width:50%;" ng-click="vm.createNewEntry()">New Entry</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="container" ng-show="showNewEntry">
+					<div class="row entry">
+						<div class="col-sm-12 header-name">
+							
+							<span>{{ hidetext ? 'New Scrap Entry' : 'Update Scrap Entry'}}</span>
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-6"></div>
+							<div class="col-sm-6">
+								<div class="mb-3">
+								  <div class="col-sm-2 " style="float:left;padding: 1%;">
+									<span class="input-group-text oranage" id="basic-addon1" style="padding: 11%;margin-left: 46%;">Date</span>
+								  </div>
+								  <div class="col-sm-8">
+								  <input type="date" ng-model="scrap.scrapentery_date" class="form-control" aria-describedby="basic-addon1" disabled style="float:left;">
+								</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-3">
+									<label class="control-label">Ticket No <span style="color: red">*</span> :</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" ng-model="scrap.ticket_no" class="form-control" disabled>
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-3">
+										<label class="control-label">Department <span style="color: red">*</span> :</label>
+									</div>
+									<div class="col-sm-9">
+										<select class="form-control" ng-disabled="disableDept" id="dept" ng-model="selectDept">	 <!-- ng-change="showSelectMachine" -->
+											<option value="selectDept"> Select department </option>
+											<option ng-repeat="opts in vm.departmentList" value="{{opts}}"> {{opts.department_name}} </option>
+										</select>
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-3">
+										<label class="control-label">Scrap Type <span style="color: red">*</span> :</label>
+									</div>
+									<div class="col-sm-9">
+										<select class="form-control" id="type" ng-model="selectType">	 <!-- ng-change="showSelectMachine" -->
+											<option value="selectType"> Select Scrap Type </option>
+											<option ng-repeat="opts in vm.scrapTypeList" value="{{opts}}"> {{opts.item_name}} </option>
+										</select>
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-3">
+										<label class="control-label">Quantity <span style="color: red">*</span> :</label>
+									</div>
+									<div class="col-sm-9">
+<!-- 										<input type="number" id="qty"step=".01"  ng-model="scrap.quantity" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+ -->									<input type="number" id="qty"step=".01"  ng-model="scrap.quantity" class="form-control" >	
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-3">
+										<label class="control-label">UOM <span style="color: red">*</span> :</label>
+									</div>
+									<div class="col-sm-9">
+										<select class="form-control" id="uom" ng-model="selectUom">
+											<option value="selectUom">Select UOM</option>
+											<option value="KG">KG</option>
+											<option value="LITRE">LITRE</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-3">
+										<label class="control-label">Remark <span style="color: red">*</span> :</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" ng-model="scrap.remark" class="form-control">
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-sm-12" ng-show="showComment">
+							<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-3">
+										<label class="control-label">Comment <!-- <span style="color: red">*</span> --> :</label>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" id="comment" ng-model="scrap.comment" class="form-control">
+									</div>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+						<div class="row">				
+							<div class="col-sm-6">
+							</div>
+							<div class="col-sm-6">
+								<div class="row margin-bt">
+									<div class="col-sm-12" style="text-align:right;float:right;">
+										<button class="btn btn-oranage" ng-click="vm.createNewTicket(scrap);">{{showComment ? 'Update Ticket' : 'Submit Ticket'}}</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 header-name">
+				<h2>Department Scrap List</h2>
+			</div>
+			<div class="row" style="width: 100%;">
+				<div class="col-sm-6 col-xs-6">
+					<div class="row">
+						<div class="col-sm-3 col-xs-6">
+							<span class="f-r control-label"> Start Date:<span
+								style="color: red;">*</span>
+							</span>
+						</div>
+						<div class="col-sm-9 col-xs-6">
+							<input id="fromDate" class="form-control" ng-model="fromDate"
+								type="date" style="padding-left: 0%;"
+								ng-change="vm.getItemsList();">
+							<!-- ng-model="fromDate" -->
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-xs-6">
+					<div class="row">
+						<div class="col-sm-3 col-xs-6">
+							<span class="f-r control-label">End Date:<span
+								style="color: red;">*</span>
+							</span>
+						</div>
+						<div class="col-sm-9 col-xs-6">
+							<input id="toDate" ng-model="toDate" class="form-control"
+								type="date" style="padding-left: 0%;"
+								ng-change="vm.getItemsList();">
+							<!-- ng-model="toDate"  -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12" style="margin-top:4%;">
+				<table id="scraplist" datatable="ng" class="table table-bordered" style="width:100%">
+		        <thead>
+		            <tr class="oranage">
+		                <th>Sr No.</th>
+		                <th>Date</th>
+		                <th>Department</th>
+		                <th>Scrap Type</th>
+		                <th>Scrap Note No.</th>
+		                <th>Quantity</th>
+		                <th>UOM</th>
+						<th>Remark</th>
+						<th>Status</th>
+						<th>Edit</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="arr in vm.scrapList">
+		                <td>{{$index + 1}}</td>
+		                <td>{{arr.scrapentery_date | date:'dd-MM-yyyy'}}</td>
+		                <td>{{arr.scrapDepartment.department_name}}</td>
+		                <td>{{arr.scraplist.item_name}}</td>
+		                <td>{{arr.ticket_no}}</td>
+		                <td>{{arr.quantity}}</td>
+		                <td>{{arr.uom}}</td>
+						<td>{{arr.remark}}</td>
+						<td><span ng-if="arr.status=='approve'">Approved</span><span ng-if="arr.status=='reject'">Rejected</span><span ng-if="arr.status=='pending'">Pending</span><span ng-if="arr.status=='ticketapprove'">Ticket Approved</span></td>
+						<!-- <td>{{arr.status == 'approve' ? 'Approved' : 'Rejected'}}</td> -->
+						<td class="edit" ><span ng-if="arr.status=='pending'"class="fa fa-edit" style="cursor: pointer;" ng-click="vm.edit(arr);"></span></td>
+		            </tr>
+		         </tbody>
+		     </table>
+			</div>
+			<div class="col-sm-12">
+			
+			</div>
+		</div>
+	</div>
+<!-- <script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+</body>
+</html> -->
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>New Scrap Entry</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="fonts/fa/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/dataTable.css">
+
+  <link href="css/style.css" rel="stylesheet"> -->
+  <style type="text/css">
+  .btn-oranage{background-color: #008B8B ;color:#fff;}
+  .oranage{background-color:#008B8B}
+  .margin-bt{margin:1% 0;}
+  .header-name span{font-size:25px;}
+  #scraplist td,#scraplist th{text-align:center;}
+  .edit{color:#007fbb ;font-size:20px;}
+  .entry .row{margin-bottom:1%;}
+  .entry {width:70%;margin:0 auto;}
+  .entry .col-sm-3{text-align:right;}
+  </style>
+<!-- </head>
+<body> -->
+	<!-- <div class="container" ng-show="showNewEntry">
+		<div class="row entry">
+			<div class="col-sm-12 header-name">
+				
+				<span>{{ hidetext ? 'New Scrap Entry' : 'Update Scrap Entry'}}</span>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-6"></div>
+				<div class="col-sm-6">
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text oranage" id="basic-addon1">Date</span>
+					  </div>
+					  <input type="date" ng-model="scrap.scrapentery_date" class="form-control" disabled>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+						<label class="control-label">Ticket No <span style="color: red">*</span> :</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" ng-model="scrap.ticket_no" class="form-control" disabled>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="control-label">Department <span style="color: red">*</span> :</label>
+						</div>
+						<div class="col-sm-9">
+							<select class="form-control select_option" ng-disabled="disableDept" id="dept" ng-model="selectDept">	 ng-change="showSelectMachine"
+								<option value="selectDept"> Select department </option>
+								<option ng-repeat="opts in vm.departmentList" value="{{opts}}"> {{opts.department_name}} </option>
+							</select>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="control-label">Scrap Type <span style="color: red">*</span> :</label>
+						</div>
+						<div class="col-sm-9">
+							<select class="form-control select_option" id="type" ng-model="selectType">	 ng-change="showSelectMachine"
+								<option value="selectType"> Select Scrap Type </option>
+								<option ng-repeat="opts in vm.scrapTypeList" value="{{opts}}"> {{opts.item_name}} </option>
+							</select>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="control-label">Quantity <span style="color: red">*</span> :</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="number" id="qty" ng-model="scrap.quantity" class="form-control" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="control-label">UOM <span style="color: red">*</span> :</label>
+						</div>
+						<div class="col-sm-9">
+							<select class="form-control" id="uom" ng-model="selectUom">
+								<option value="selectUom">Select UOM</option>
+								<option value="KG">KG</option>
+								<option value="LITRE">LITRE</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="control-label">Remark <span style="color: red">*</span> :</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" ng-model="scrap.remark" class="form-control">
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12" ng-show="showComment">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="control-label">Comment <span style="color: red">*</span> :</label>
+						</div>
+						<div class="col-sm-9">
+							<input type="text" id="comment" ng-model="scrap.comment" class="form-control">
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+			<div class="row">				
+				<div class="col-sm-6">
+				</div>
+				<div class="col-sm-6">
+					<div class="row margin-bt">
+						<div class="col-sm-12" style="text-align:right;float:right;">
+							<button class="btn btn-oranage" ng-click="vm.createNewTicket(scrap);">{{showComment ? 'Update Ticket' : 'Create New Ticket'}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div> -->
+<!-- <script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+</body>
+</html> -->

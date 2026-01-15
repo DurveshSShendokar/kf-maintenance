@@ -1,0 +1,140 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Update Scrap Entry</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="fonts/fa/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/dataTable.css">
+
+  <link href="css/style.css" rel="stylesheet"> -->
+  <style type="text/css">
+  .btn-oranage, .btn-oranage:hover{background-color: #008B8B ;color:#fff;}
+  .oranage{background-color:#008B8B}
+  .margin-bt{margin:1% 0;}
+  .header-name span{font-size:25px;}
+  #scraplist td,#scraplist th{text-align:center;}
+  .edit{color:#007fbb ;font-size:20px;}
+  .entry .row{margin-bottom:1%;}
+  .entry {margin:0 auto;}
+  .entry .col-sm-3{text-align:right;}
+  .scrap{width:70%;margin:0 auto;margin-top:3%;}
+  .header-name{text-align: center;margin: 6% 0;}
+  </style>
+<!-- </head>
+<body> -->
+	<div class="container">
+		<div class="row entry">
+		<div class="scrap">
+			<div class="col-sm-12 header-name">
+				<img src="templates/scrap/img/edit.png">
+				<span>Department Approval</span>
+			</div>
+			<!-- <div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-6"></div>
+				<div class="col-sm-6">
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text oranage" id="basic-addon1">Date</span>
+					  </div>
+					  <input type="text" class="form-control">
+					</div>
+				</div>
+				</div>
+			</div> -->
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="control-label">Department <span style="color: red">*</span>  :</label>
+						</div>
+						<div class="col-sm-9">
+							<select class="form-control " id="dept" ng-model="selectDept" ng-change="vm.getTicketNumber();">	 <!-- ng-change="showSelectMachine" -->
+								<option value="selectDept"> Select department </option>
+								<option ng-repeat="opts in vm.departmentList" value="{{opts}}"> {{opts.department_name}} </option>
+							</select>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-3">
+							<label class="control-label">Scrap Note No. <span style="color: red">*</span>  :</label>
+						</div>
+						<div class="col-sm-9">
+							<select class="form-control " id="note" ng-model="selectNote">	 <!-- ng-change="showSelectMachine" -->
+								<option value="selectNote"> Select Note no. </option>
+								<option ng-repeat="opts in vm.scrapNoteList track by $index" value="{{opts}}"> {{opts}} </option>
+							</select>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+			<div class="row">				
+				<div class="col-sm-6">
+				</div>
+				<div class="col-sm-6">
+					<div class="row margin-bt">
+						<div style="text-align:right;">
+							<button class="btn_serach" style="width:40%;" ng-click="vm.searchSpecific();">Search</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+			</div>
+			<div class="col-sm-12">
+				<table id="assembly_list" datatable="ng" class="table table-bordered" style="width:100%">
+			        <thead>
+			            <tr class="oranage">
+			                <th>Sr No.</th>
+			                <th>Date</th>
+			                <th>Department</th>
+			                <th>Scrap Type</th>
+			                <th>Scrap Note No.</th>
+			                <th>Quantity</th>
+							<th>UOM</th>	
+							<th>Description</th>
+							<th>Status</th>
+							<th> Action  </th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr ng-repeat="arr in vm.scrapDisplay track by $index" ng-if="arr.status == 'pending'">
+			                <td>{{$index + 1}}</td>
+			                <td>{{arr.scrapentery_date | date:'dd-MM-yyyy'}}</td>
+			                <td>{{arr.scrapDepartment.department_name}}</td>
+			                <td>{{arr.scraplist.item_name}}</td>
+			                <td>{{arr.ticket_no}}</td>
+			                <td>{{arr.quantity}}</td>
+			                <td>{{arr.uom}}</td>
+							<td>{{arr.remark}}</td>
+							<td>{{arr.status}}</td>
+							<td nowrap>   
+								<button class="btn btn-success" ng-click="vm.changeDepartmentStatus(arr, 'approve');"> Approve </button>
+								<button class="btn btn-danger" ng-click="vm.changeDepartmentStatus(arr, 'reject');"> Reject </button>
+							</td>
+<!-- 			                <td>Description</td> -->
+<!-- 							<td><a href="#">Approved</a></td> -->
+			            </tr>
+			         </tbody>
+		     	</table>
+			</div>
+		</div>
+	</div>
+<!-- <script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+</body>
+</html> -->

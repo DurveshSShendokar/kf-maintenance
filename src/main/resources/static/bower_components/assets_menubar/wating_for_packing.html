@@ -1,0 +1,167 @@
+<div id="header"></div>
+   <link rel="stylesheet" href="css/styles.css">
+		<div class="container">
+			<div class="row top">
+				<div class="centre">
+					<div class="top_contain">
+					<div class="row">
+						<div class="col-lg-2 col-xs-3">
+							<img src="img/icon/wating.png" />
+						</div>
+						<div class="col-lg-6 col-xs-4">
+							<h3 class="txt_top"> Wating For Packing </h3>
+						</div>
+					</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-xs-3" >
+							<div class="f-r"> Material Nick Name :</div>
+						</div>
+						<div class="col-lg-6 col-xs-6" >
+							<div>  
+								<select class="form-control return_input">
+								  <option value="volvo"> </option>
+								  <option value="saab">Saab</option>
+								  <option value="mercedes">Mercedes</option>
+								  <option value="audi">Audi</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-10">
+						<div class="col-lg-3 col-xs-3" >
+							<div class="f-r"> Material Name :</div>
+						</div>
+						<div class="col-lg-6 col-xs-6" >
+							<div>  
+								<input type="text" class="form-control return_input">
+							</div>
+						</div>
+					</div>
+ 
+					<div class="row p-t-10">
+						<div class="col-lg-3 col-xs-3" >
+							 
+						</div>
+						<div class="col-lg-6 col-xs-6" >
+							<div>  
+								<button class="btn_main_serach"> Search </button>
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-10">
+						<div class="col-lg-12 col-xs-12" align="center">
+							<b> <h2> QR Code  </h2> </b>
+						</div>
+					</div>
+					<div class="row p-t-10">
+						<div class="col-lg-3 col-xs-3" >
+							 
+						</div>
+						<div class="col-lg-10 col-xs-10" >
+							<div class="row f-r">
+								<div class="col-lg-2 col-xs-2">  
+									Date:
+								</div>
+								<div class="col-lg-10 col-xs-10">  
+									<input type="date" class="form-control return_input">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-10">
+						<div class="col-lg-2 col-xs-2" >
+							Station No. 
+						</div>
+						<div class="col-lg-3 col-xs-3" >
+							<div>  
+								<input type="text" class="form-control return_input"> 
+							</div>
+						</div>
+						<div class="col-lg-2 col-xs-2" >
+							Shift: 
+						</div>
+						<div class="col-lg-3 col-xs-3" >
+							<div>  
+								<select class="form-control return_input">
+								  <option value="volvo"> </option>
+								  <option value="saab">Saab</option>
+								  <option value="mercedes">Mercedes</option>
+								  <option value="audi">Audi</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-20 p-b-20">
+						<div class="col-lg-10 col-xs-12">
+						  <div class="table-responsive btl_packing">          
+							  <table class="table">
+								<thead>
+								  <tr>
+									<th> # </th>
+									<th> Production Order </th>
+									<th> PR QR Code </th>
+									<th> Qty </th>
+									<th> Selection </th>
+									<th> Date </th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td>1</td>
+									<td> 18418181 </td>
+									<td> 5151 </td>
+									<td> 500 </td>
+									<td> 
+										<input type="checkbox" class="form-control c_check" checked> 
+									</td>
+									<td> 18/15/12 </td>
+								  </tr>
+								</tbody>
+							  </table>
+						  </div>							
+						</div>
+					</div>
+					<div class="row p-t-10 p-b-20">
+						<div class="col-lg-10 col-xs-10" >
+						  <div class="table-responsive btl_packing_qr">          
+							  <table class="table">
+								<thead>
+								  <tr>
+									<th> # </th>
+									<th> QR Code</th>
+									<th> Select All </th>
+									<th> Print </th>
+									<th> Reprint </th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td>1</td>
+									<td> 211 </td>
+									<td> 
+										<input type="checkbox" class="form-control c_check" checked> 
+									</td>
+									<td>
+										<button class="btn btn-success"> Print </button>
+									</td>
+									<td>
+										<button class="btn btn-primary"> Print </button>
+									</td>
+								  </tr>
+								</tbody>
+							  </table>
+						  </div>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<div id="footer"></div>
+<script src="js/jquery-1.10.2.js"></script>
+<script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+</script> 		 

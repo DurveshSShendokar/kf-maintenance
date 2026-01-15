@@ -1,0 +1,140 @@
+<div id="header"></div>
+   <link rel="stylesheet" href="css/styles.css">
+		<div class="container">
+			<div class="row top">
+				<div class="centre">
+					<div class="top_contain">
+						<div class="row">
+							<div class="col-lg-3 col-xs-3">
+								<img src="img/icon/assembly_list.png" />
+							</div>
+							<div class="col-lg-8 col-xs-8">
+								<h3 class="txt_top"> Generate Assembly QR Code </h3>
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-20 p-b-20">
+						<div class="col-lg-12 col-xs-12">
+						  <div class="table-responsive tbl_main_line">          
+							  <table class="table">
+								<thead>
+								  <tr>
+									<th> # </th>
+									<th> Item No </th>
+									<th> Item Name </th>
+									<th> Item QR Code </th>
+									<th> Picked Qty </th>
+									<th> Date </th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td> 1 </td>
+									<td> 01 </td>
+									<td> Mouse </td>
+									<td> 44 </td>
+									<td width="30px"> <input type="text" class="form-control"> </td>
+									<td> 15 </td>
+								  </tr>
+								</tbody>
+							  </table>
+						  </div>							
+						</div>
+					</div>
+					<div class="row p-t-20 p-b-20">
+						<div class="col-lg-12 col-xs-12">
+							<div class="col-lg-12 col-xs-12">
+								<div class="row form-group">
+									<label class="col-sm-3 col-form-label"> <div class="f-r"> PO No : </div> </label>
+									<div class="col-sm-3">
+									  <input type="text" class="form-control g_assambly">
+									</div>
+									<label class="col-sm-3 col-form-label"> <div class="f-r"> PO Desc : </div> </label>
+									<div class="col-sm-3">
+									  <input type="text" class="form-control g_assambly">
+									</div>
+								</div>
+								<div class="row form-group">
+									<label class="col-sm-3 col-form-label"> <div class="f-r"> Operation Name : </div> </label>
+									<div class="col-sm-3">
+									  <input type="text" class="form-control g_assambly">
+									</div>
+									<label class="col-sm-3 col-form-label"> <div class="f-r"> Date : </div> </label>
+									<div class="col-sm-3">
+									  <input type="date" class="form-control g_assambly">
+									</div>
+								</div>
+								<div class="row form-group">
+									<label class="col-sm-3 col-form-label"> <div class="f-r"> Assembly Station No: </div> </label>
+									<div class="col-sm-3">
+										<select class="form-control g_assambly">
+										  <option value="volvo"> </option>
+										  <option value="saab">Saab</option>
+										  <option value="mercedes">Mercedes</option>
+										  <option value="audi">Audi</option>
+										</select>
+									</div>
+									<label class="col-sm-3 col-form-label"> <div class="f-r"> Shift : </div> </label>
+									<div class="col-sm-3">
+										<select class="form-control g_assambly">
+										  <option value="volvo"> </option>
+										  <option value="saab">Saab</option>
+										  <option value="mercedes">Mercedes</option>
+										  <option value="audi">Audi</option>
+										</select>
+									</div>
+								</div>
+								<div class="row form-group">
+									<label class="col-sm-3 col-form-label"> <div class="f-r"> Assembly Name : </div> </label>
+									<div class="col-sm-3">
+									  <input type="text" class="form-control g_assambly">
+									</div>
+									<label class="col-sm-3 col-form-label"> <div class="f-r">   </div> </label>
+									<div class="col-sm-3">
+									  <button class="btn_qrcode"> generate Barcode </button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-20 p-b-20">
+						<div class="col-lg-12 col-xs-12">
+						<div class="col-lg-12 col-xs-12">
+						  <div class="table-responsive" >          
+						  <table class="table tbl_one_qr" >
+							<thead>
+							  <tr>
+								<th>  </th>
+								<th> Qty </th>
+								<th> Select All </th>
+								<th> Print </th>
+								<th> Reprint </th>
+							  </tr>
+							</thead>
+							<tbody>
+							  <tr>
+								<td> dsa </td>
+								<td> 1 </td>
+								<td> 
+									<input type="checkbox" class="c_check" checked />
+								</td>
+								<td> <button class="btn btn-success"> Print </button> </td>
+								<td> <button class="btn btn-primary"> Reprint </button> </td>
+							  </tr>
+							</tbody>
+						  </table>
+						  </div>							
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<div id="footer"></div>
+<script src="js/jquery-1.10.2.js"></script>
+<script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+</script> 		 

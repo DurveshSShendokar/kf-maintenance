@@ -1,0 +1,22 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">
+		View
+	</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<dl class="dl-horizontal">
+		<dt>Mobile Number</dt>
+		<dd>{{vm.items.mobile_no}}</dd>
+	</dl>
+	<dl class="dl-horizontal">
+		<dt>Email id</dt>
+		<dd>{{vm.items.email}}</dd>
+	</dl>
+	<dl class="dl-horizontal">
+		<dt>Password </dt>
+		<dd>{{vm.items.password}}</dd>
+	</dl>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-warning" type="button" ng-click="vm.cancel()">Close</button>
+</div>

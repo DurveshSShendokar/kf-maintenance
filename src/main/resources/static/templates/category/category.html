@@ -1,0 +1,77 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+</style>
+<div class="container-fluid" style="padding-top:50px;">
+	<div class="row page-title-div">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2 class="title" style="text-align:center;">Machine Category</h2>
+		</div>
+	</div>
+</div>
+<div class="container">
+			<div class="row top">
+				<div class="col-sm-12">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-2">
+							<label for="name13" style="text-align:center;">Category Name <span style="color:#c00;">*</span> :</label> 
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="categoryName" ng-model="category.cat_name" placeholder="Category Name"ng-required="true">
+						</div>
+						<div class="col-md-2">
+								<button type="submit" class="btn_serach" id="success"
+									ng-click="vm.ok(category)">Submit</button>
+						</div>
+						<div class="col-sm-2">
+							<button type="submit" class="btn_serach" id="cancel">Cancel</button>
+						</div>
+						</div>
+					</div>
+				</div>
+				</div>
+</div>
+						
+
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered">
+						<thead class="orange">
+							<tr>
+								<th>ID</th>
+							
+								<th>Category</th>
+								
+							
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="category in vm.categorys">
+								<td>{{$index+1}}</td>
+							
+								<td>{{category.cat_name}}</td>
+							
+								
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info" ng-disabled="category.cat_name == 'ALL MACHINE' || category.cat_name == 'ALL MOULD'"	ng-click="vm.add(category)">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-danger" ng-disabled="category.cat_name == 'ALL MACHINE' || category.cat_name == 'ALL MOULD'" ng-click="vm.delet(category)">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+					
+						
+		
+
+		
+		

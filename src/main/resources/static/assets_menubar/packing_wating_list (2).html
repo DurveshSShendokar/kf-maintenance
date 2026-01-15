@@ -1,0 +1,94 @@
+<div id="header"></div>
+   <link rel="stylesheet" href="css/styles.css">
+   <link rel="stylesheet" href="css/animate.css">
+		<div class="container">
+			<div class="row top">
+				<div class="centerwrap">
+					<div class="animated fadeInLeft">
+					<div class="top_contain"> 
+					<div class="row">
+						<div class="col-lg-2 col-xs-3">
+							<img src="img/icon/main_line.png" />
+						</div>
+						<div class="col-lg-6 col-xs-4">
+							<h3 class="txt_top"> Packing Wating List </h3>
+						</div>
+					</div>
+					</div>
+					<div style="width:70%;"> 
+						<div class="row">
+							<div class="col-lg-3 col-xs-3" >
+								<div class="f-r"> Date :</div>
+							</div>
+							<div class="col-lg-3 col-xs-3" >
+								<input type="text" class="wating_input">
+							</div>
+							<div class="col-lg-3 col-xs-3" >
+								<div class="f-r"> Time :</div>
+							</div>
+							<div class="col-lg-3 col-xs-3" >
+								<input type="text" class="wating_input">
+							</div>
+						</div>
+						<div class="row p-t-10">
+							<div class="col-lg-3 col-xs-3" >
+								 
+							</div>
+							<div class="col-lg-9 col-xs-3" >
+								<select class="wating_input">
+								  <option value="1"> q </option>
+								</select>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="row p-t-30 p-b-20">
+						<div class="col-lg-10 col-xs-12">
+							<h2> Current Shif Data </h2>
+						</div>
+					</div>
+					<div class="row p-t-10 p-b-20">
+						<div class="col-lg-10 col-xs-10">
+						  <div class="table-responsive btl_packing_w">          
+							  <table class="table">
+								<thead>
+								  <tr>
+									<th> # </th>
+									<th> Item No </th>
+									<th> QR Code </th>
+									<th> Actual Qty </th>
+									<th> Accept </th>
+									<th> Hold </th>
+									<th> Reject </th>
+									<th class="t_blue"> Action </th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td> 1 </td>
+									<td> 18418181 </td>
+									<td> 1651561 </td>
+									<td> 10 </td>
+									<td> 5 </td>
+									<td> 5 </td>
+									<td> 
+										15
+									</td>
+									<td> Select </td>
+								  </tr>
+								</tbody>
+							  </table>
+						  </div>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<div id="footer"></div>
+<script src="js/jquery-1.10.2.js"></script>
+<script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+</script> 		 

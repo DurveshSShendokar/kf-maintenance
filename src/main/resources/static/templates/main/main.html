@@ -1,0 +1,1082 @@
+<script src="templates/views/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="templates/views/js/main.js"></script>
+
+<link rel="stylesheet"
+	href="assets_menubar/fonts/fa/css/font-awesome.css">
+<link rel="stylesheet" href="assets_menubar/css/styles.css">
+<!-- <link rel="stylesheet" href="assets_menubar/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="assets_menubar/css/animate.css">
+<link rel="stylesheet"
+	href="assets_menubar/css/jquery.dataTables.min.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/> -->
+	 <!-- Boxiocns CDN Link -->
+	 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/boxicons/2.0.7/css/boxicons.min.css">
+
+	 <style>
+		.mydiv {
+			position: absolute;
+			top: 0;
+			overflow: hidden;
+			left: 0;
+			width: 100%;
+			height: 350%;
+			z-index: 1000;
+			background-color: grey;
+			opacity: .8;
+		}
+		
+		
+		.profile-details {
+		  display: flex;
+		  flex-direction: column;
+		  align-items: center;
+		}
+
+		.profile-icon i {
+		  font-size: 40px;
+		  color: #333;
+		  margin-bottom: 5px;
+		}
+
+		
+		.ajax-loader {
+			position: absolute;
+			left: 50%;
+			top: 25%;
+			margin-left: -32px;
+			/* -1 * image width / 2 */
+			margin-top: -22px;
+			/* -1 * image height / 2 */
+			display: block;
+		}
+
+		.nav>li>a {
+			padding: 8px 8px !important;
+			font-size: 14px !important;
+		}
+		
+		.navbar {
+			background-color: #008B8B;
+		}
+		
+		.navbar a, .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text
+			{
+			color: #fff !important;
+		}
+		
+		.navbar a:hover, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-text:hover
+			{
+			color: #000 ;
+		}
+		
+		.dropdown-menu>li.kopie>a {
+			
+		}
+		
+		.dropdown-submenu {
+			position: relative;
+		}
+		
+		.dropdown-submenu>.dropdown-menu.left-space-my {
+			left: -93.4%;
+		}
+		
+		.dropdown-submenu>.dropdown-menu.left-space {
+			left: 99%;
+		}
+		
+		.dropdown-menu.left-minus {
+			left: -149%;
+		}
+		
+		.dropdown-menu.left-minus1 {
+			left: -243%;
+		}
+		
+		.dropdown-submenu>.dropdown-menu {
+			top: 0;
+			left: -110%;
+			margin-top: -6px;
+			margin-left: -1px;
+			-webkit-border-radius: 0 6px 6px 6px;
+			-moz-border-radius: 0 6px 6px 6px;
+			border-radius: 0 6px 6px 6px;
+		}
+		
+		.dropdown-menu>li>a {
+			color: #fff !important;
+		}
+		
+		.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+			text-decoration: none;
+			color: #262626;
+			background-color: #000;
+			color: #fff !important;
+		}
+		
+		.dropdown-menu li {
+			position: relative;
+			background-color: #000;
+		}
+		
+		.dropdown-submenu>a:after {
+			border-color: transparent transparent transparent #f2f2f2;
+			border-style: solid;
+			border-width: 5px 0 5px 5px;
+			content: " ";
+			display: block;
+			float: right;
+			height: 0;
+			margin-right: -10px;
+			margin-top: 5px;
+			width: 0;
+		}
+		
+		.navbar {
+			min-height: 40px;
+		}
+		
+		.dropdown-submenu:hover>a:after {
+			border-left-color: #555;
+		}
+		
+		.dropdown-menu>li>a:hover, .dropdown-menu>.active>a:hover {
+			text-decoration: none;
+		}
+		
+		@media ( max-width : 767px) {
+			.navbar-nav {
+				display: inline;
+			}
+			.navbar-default .navbar-brand {
+				display: inline;
+			}
+			.navbar-default .navbar-toggle .icon-bar {
+				background-color: #fff;
+			}
+			.navbar-default .navbar-nav .dropdown-menu>li>a {
+				color: red;
+				background-color: #ccc;
+				border-radius: 4px;
+				margin-top: 2px;
+			}
+			.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+				color: #333;
+			}
+			.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,
+				.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus {
+				background-color: #ccc;
+			}
+			.navbar-nav .open .dropdown-menu {
+				border-bottom: 1px solid white;
+				border-radius: 0;
+			}
+			.dropdown-menu {
+				padding-left: 10px;
+			}
+			.dropdown-menu .dropdown-menu {
+				padding-left: 20px;
+			}
+			.dropdown-menu .dropdown-menu .dropdown-menu {
+				padding-left: 30px;
+			}
+			li.dropdown.open {
+				border: 0px solid red;
+			}
+		}
+		
+		@media ( min-width : 768px) {
+			ul.nav li:hover>ul.dropdown-menu {
+				display: block;
+			}
+			#navbar {
+				text-align: center;
+			}
+		}
+		
+		.notification-icon i {
+		  animation: shake 1s infinite;
+		}
+
+		/* Keyframes for shake */
+		@keyframes shake {
+		  0% { transform: rotate(0deg); }
+		  20% { transform: rotate(-10deg); }
+		  40% { transform: rotate(10deg); }
+		  60% { transform: rotate(-10deg); }
+		  80% { transform: rotate(10deg); }
+		  100% { transform: rotate(0deg); }
+		}
+
+		
+		</style>
+		<div class="main-wrapper" style="display: none ;">
+			
+			<div ui-view="sub"></div>
+		</div>	
+
+
+<style>
+	/* Google Fonts Import Link */
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+	  body{
+		/* background: #E4E9F7; */
+	  }
+.sidebars{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  /* background: #11101d !important; */
+ background: #008B8B;
+  z-index: 100;
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+.sidebars.close{
+  width: 78px;
+}
+.sidebars .logo-details{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.sidebars .logo-details i{
+  font-size: 30px;
+  color: #fff;
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+}
+.sidebars .logo-details .logo_name{
+  font-size: 22px;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s ease;
+  transition-delay: 0.1s;
+}
+.sidebars.close .logo-details .logo_name{
+  transition-delay: 0s;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebars .nav-links{
+  height: 100%;
+  padding: 30px 0 150px 0;
+  overflow: auto;
+}
+.sidebars.close .nav-links{
+  overflow: visible;
+}
+.sidebars .nav-links::-webkit-scrollbar{
+  display: none;
+}
+.sidebars .nav-links li{
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+.sidebars .nav-links li:hover{
+  background: #1d1b31;
+}
+.sidebars .nav-links li .iocn-link{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebars.close .nav-links li .iocn-link{
+  display: block
+}
+.sidebars .nav-links li i{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.sidebars .nav-links li.showMenu i.arrow{
+  transform: rotate(-180deg);
+}
+.sidebars.close .nav-links i.arrow{
+  display: none;
+}
+.sidebars .nav-links li a{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.sidebars .nav-links li a .link_name{
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  transition: all 0.4s ease;
+}
+.sidebars.close .nav-links li a .link_name{
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebars .nav-links li .sub-menu{
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: #1d1b31;
+  display: none;
+}
+.sidebars .nav-links li.showMenu .sub-menu{
+  display: block;
+}
+.sidebars .nav-links li .sub-menu a{
+  color: #fff;
+  font-size: 15px;
+  padding: 5px 0;
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+.sidebars .nav-links li .sub-menu a:hover{
+  opacity: 1;
+}
+.sidebars.close .nav-links li .sub-menu{
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebars.close .nav-links li:hover .sub-menu{
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+.sidebars .nav-links li .sub-menu .link_name{
+  display: none;
+}
+.sidebars.close .nav-links li .sub-menu .link_name{
+  font-size: 18px;
+  opacity: 1;
+  display: block;
+}
+.sidebars .nav-links li .sub-menu.blank{
+  opacity: 1;
+  pointer-events: auto;
+  padding: 3px 20px 6px 16px;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebars .nav-links li:hover .sub-menu.blank{
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sidebars .profile-details{
+  position: fixed;
+  bottom: 0;
+  width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #008B8B;
+  padding: 12px 0;
+  transition: all 0.5s ease;
+}
+.sidebars.close .profile-details{
+  background: none;
+}
+.sidebars.close .profile-details{
+  width: 78px;
+}
+.sidebars .profile-details .profile-content{
+  display: flex;
+  align-items: center;
+}
+.sidebars .profile-details img{
+  height: 52px;
+  width: 52px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 0 14px 0 12px;
+  background: #1d1b31;
+  transition: all 0.5s ease;
+}
+.sidebars.close .profile-details img{
+  padding: 10px;
+}
+.sidebars .profile-details .profile_name,
+.sidebars .profile-details .job{
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.sidebars.close .profile-details i,
+.sidebars.close .profile-details .profile_name,
+.sidebars.close .profile-details .job{
+  display: none;
+}
+.sidebars .profile-details .job{
+  font-size: 12px;
+}
+.home-section{
+  position: relative;
+  /* background: #E4E9F7; */
+  height: 100vh;
+  left: 260px;
+  width: calc(100% - 260px);
+  transition: all 0.5s ease;
+}
+.sidebars.close ~ .home-section{
+  left: 78px;
+  width: calc(100% - 78px);
+}
+.home-section .home-content{
+  height: 60px;
+  /* display: flex; */
+  align-items: center;
+}
+.home-section .home-content .bx-menu,
+.home-section .home-content .text{
+  color: #11101d;
+  font-size: 35px;
+}
+.home-section .home-content .bx-menu{
+  margin: 0 15px;
+  cursor: pointer;
+}
+.home-section .home-content .text{
+  font-size: 26px;
+  font-weight: 600;
+}
+@media (max-width: 400px) {
+  .sidebars.close .nav-links li .sub-menu{
+    display: none;
+  }
+  .sidebars{
+    width: 78px;
+  }
+  .sidebars.close{
+    width: 0;
+  }
+  .home-section{
+    left: 78px;
+    width: calc(100% - 78px);
+    z-index: 100;
+  }
+  .sidebars.close ~ .home-section{
+    width: 100%;
+    left: 0;
+  }
+  
+  .iocn-link a {
+  display: flex;
+  align-items: center; 
+}
+}
+</style>
+<!-- Add the following HTML code to your AngularJS template -->
+<div ng-if="loader" class="mydiv">
+	<img src="img/transparent-background-loading.gif" class="ajax-loader">
+</div>
+<!-- Side Menu -->
+<div class="sidebars close"><br>
+	<div class="logo-details">
+	  <!-- PNG icon instead of <i> -->
+	  <img  src="assets_menubar/img/easy-installation.png" 
+	       alt="Maintenance Icon" 
+	       style="width: 64px; height: 64px; margin-right: 8px;">
+
+	  <span class="logo_name">KF BioPlant Maintenance</span>
+	</div>
+
+    <ul class="nav-links">
+    
+    
+ <li>
+ <a ui-sref="main.home" ng-show="vm.user.department.departmentName=='Maintenance' ">
+        <i class='bx bx-grid-alt' ></i>
+        <span class="link_name"> Dashboard</span>
+    </a>
+	<a ui-sref="main.dashboard" ng-show="vm.user.department.departmentName=='IT' ">
+	       <i class='bx bx-grid-alt' ></i>
+	       <span class="link_name"> Dashboard</span>
+	   </a>
+       
+  </li>
+   
+	  
+	 
+      
+	   <li ng-show="vm.user.department.departmentName=='IT'  && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Engineer')">
+	       <div class="iocn-link">
+	         <a href="#">
+	           <i class='bx bx-book-alt' ></i>
+	           <span class="link_name">Transaction</span>
+	         </a>
+	         <i class='bx bxs-chevron-down arrow' ></i>
+	       </div>
+	       <ul class="sub-menu">
+	         <li><a class="link_name" href="#">Transaction</a></li>
+	         <li  ng-show="vm.user.role.roleName=='Admin'"><a ui-sref="main.AssetAllocation">Asset Allocation</a></li>
+			 <li  ng-show="vm.user.role.roleName=='Admin'"><a ui-sref="main.AssetReAllocation">Asset Re-Allocation</a></li>
+	         <li 			 ng-show="vm.user.role.roleName=='Admin'"><a ui-sref="main.SpareStocking">Spare Stocking</a></li>
+	         <li><a ui-sref="main.Complaint">Raise Ticket</a></li>
+	         <li 	 ng-show="vm.user.role.roleName=='Admin'"><a ui-sref="main.Allocation">Ticket Allocation </a></li>
+			 <li  ng-show="vm.user.role.roleName=='Admin'"><a ui-sref="main.ComplaintReAllocation">Ticket Re-Allocation</a></li>
+	          <li><a ui-sref="main.Ticket">Ticket Updation</a></li>
+	          
+	        
+	         
+	       </ul>
+	     </li>
+
+		 <li ng-show="vm.user.department.departmentName=='IT'  && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Engineer')">
+		       <div class="iocn-link">
+		         <a href="#">
+		           <i class='bx bx-book-alt' ></i>
+		           <span class="link_name">Asset Master</span>
+		         </a>
+		         <i class='bx bxs-chevron-down arrow' ></i>
+		       </div>
+		       <ul class="sub-menu">
+		         <li><a class="link_name" href="#">Asset Master 	</a></li>
+		          <li><a ui-sref="main.AssetInventory">Assets</a></li>
+		          <li><a ui-sref="main.category_mst">Category</a></li>
+		           <li><a ui-sref="main.department_mst">Department</a></li>
+		           <li><a ui-sref="main.Employee">Employee</a></li>
+		            <li><a ui-sref="main.lab_mst">Lab</a></li>
+		             <li><a ui-sref="main.location_mst">Location</a></li>   
+		              <li><a ui-sref="main.spare_mst">Spare</a></li>    
+		 		   <li><a ui-sref='main.user'>User</a></li>
+		       </ul>
+		     </li>
+			 
+			 <li ng-show="vm.user.department.departmentName=='IT'  && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Engineer')">
+			      <div class="iocn-link">
+			        <a href="#">
+			          <i class='bx bx-plug' ></i>
+			          <span class="link_name">IT Reports</span>
+			        </a>
+			        <i class='bx bxs-chevron-down arrow' ></i>
+			      </div>
+			      <ul class="sub-menu">
+			        <li ><a class="link_name" href="#">IT Reports</a></li>
+			        <li><a ui-sref="main.Complaint_Summary_Report">Complaint Report</a></li>
+					<li><a ui-sref="main.Engineer_Complaint_Status"> Complaint Status</a></li>
+			        <li><a ui-sref="main.AssetAllocationReport"> Asset Allocation Report</a></li>
+			         <li><a ui-sref="main.TicketReport"> Ticket Report</a></li>
+			          <li><a ui-sref="main.SpareReport"> Spare Report</a></li>
+			           <li><a ui-sref="main.SpareUtilReport">Utilization Report</a></li>
+			            
+			        
+			        
+			      </ul>
+			    </li>
+		 
+	      
+		 <li ng-show="vm.user.department.departmentName == 'Maintenance' && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Executive')">
+		   <div class="iocn-link">
+		     <a href="#">
+		       <i class='bx bx-book-alt'></i>
+		       <span class="link_name">Breakdown</span>
+		     </a>
+		     <i class='bx bxs-chevron-down arrow'></i>
+		   </div>
+		   <ul class="sub-menu">
+		    <li><a ui-sref="main.generalBreakdown">General Breakdown</a></li>
+		     <li><a ui-sref="main.breakdown">Create Breakdown</a></li>
+		     <li><a ui-sref="main.breakdownupdate">Update Breakdown</a></li>
+		     <li><a ui-sref="main.trial">Trial Breakdown</a></li>
+		     <li><a ui-sref="main.Break_dashboard">Analysis Dashboard</a></li>
+		   
+		     <li><a ui-sref="main.LabDash">Break Dashboard</a></li>
+			 <li><a ui-sref="main.machine_history">Machine History</a></li>
+		   </ul>
+		 </li>
+
+		 
+			 
+		 <li ng-show="vm.user.department.departmentName == 'Maintenance' && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Executive')">
+	      <div class="iocn-link">
+	        <a href="#">
+	          <i class='bx bx-book-alt' ></i>
+	          <span class="link_name">EMS Master</span>
+	        </a>
+	        <i class='bx bxs-chevron-down arrow' ></i>
+	      </div>
+	      <ul class="sub-menu">
+	        <li><a ui-sref="main.ControlPanelLocation">Control Panel Location</a></li>
+	        <li><a ui-sref="main.EnergyMeterModule">Energy Meter Module</a></li>
+	        <li><a ui-sref="main.EnergyMeterRegister">Energy Meter Register</a></li>
+			<li><a ui-sref="main.EnergyMeterMaster">Energy Meter Master</a></li>
+			<!--<li><a ui-sref="main.EnergyMeterPriceSlab">Price Slab</a></li>-->
+			<li><a ui-sref="main.EnergyMeterRegisterGroup">Group</a></li>
+	      
+	      </ul>
+	    </li>
+		<br>
+		
+		<li ng-show="vm.user.department.departmentName == 'Maintenance' && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Executive')">
+					    <div class="iocn-link">
+					      <a href="#">
+					        <i class='bx bx-book-alt' ></i>
+					        <span class="link_name">EMS Report</span>
+					      </a>
+					      <i class='bx bxs-chevron-down arrow' ></i>
+					    </div>
+					    <ul class="sub-menu">
+					      <li><a ui-sref="main.reportConsumption">Report Consumption</a></li>
+					  
+					    </ul>
+					  </li><br>
+		  
+	<li ng-show="vm.user.department.departmentName == 'Maintenance' && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Executive')">
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">Machine Master</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div><br>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Machine Master 	</a></li>
+          <li><a ui-sref="main.machine_mst">Machine Master</a></li>
+           <li 		><a ui-sref="main.maintspare_mst">Maintenance Spares</a></li>
+		   <li><a ui-sref="main.MaintSpareStocking">Spare Stocking</a></li>
+          <li 		><a ui-sref="main.checklist">Machine Checklist</a></li>
+		<!--  <li 		  ><a ui-sref='main.PPMLabWise'>PPM Dashboard</a></li>-->
+          <li 		  ><a ui-sref='main.machineOwner'>Machine Owner</a></li>
+		  <li 		 ><a ui-sref='main.Upload_PPMExcel'>Upload PPM</a></li>
+       <!--     <li ><a ui-sref='main.machineOwner'>Machine Owner</a></li>-->
+		 <li  ><a ui-sref='main.machineOperation'>Machine Operation</a></li>
+		 <li><a ui-sref='main.user'>User</a></li>
+       <li><a ui-sref='main.shift'>Target</a></li>
+        
+        </ul>
+      </li>
+      
+      
+      
+	
+      
+      
+      
+	
+      
+      
+	   <li ng-show="vm.user.department.departmentName == 'Maintenance' && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Executive')">
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">Maintenance Of Machine</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div><br>
+        <ul class="sub-menu">
+          <li 			ng-show="vm.user.department?.departmentName=='Maintenance' && (vm.user.role?.roleName.trim().toLowerCase()=='admin' || vm.user.role?.roleName.trim().toLowerCase()=='executive')"><a class="link_name" href="#">Maintenance Of Machine 	</a></li>
+          <li><a ui-sref="main.machine">Scheduling</a></li>
+			<li><a ui-sref="main.maintlist">Plan Maintenance</a></li>
+			<li><a ui-sref="main.PPMoverdue">Overdue Maintenance</a></li>
+			<li><a ui-sref="main.ApprovedPPM">Pending Maintenance</a></li>
+			<li><a ui-sref='main.PPMLabWise'>PPM Dashboard</a></li>
+		 
+			
+			
+		  </ul>
+       
+      </li>
+	  
+	  
+	  <li ng-show="vm.user.department.departmentName == 'Maintenance' && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'Executive')">
+	        <div class="iocn-link">
+	          <a href="#">
+	            <i class='bx bx-book-alt' ></i>
+	            <span class="link_name">  Reports  </span>
+	          </a>
+	          <i class='bx bxs-chevron-down arrow' ></i>
+	        </div>
+	        <ul class="sub-menu">
+	          <li><a class="link_name" href="#"> Report  </a></li>
+	        
+	          <li><a ui-sref="main.DateWise_Breakdown_Report">Date Wise Report </a></li>
+<!--	           <li><a ui-sref="main.StatusWise_breakdown_Report">Status Wise Report</a></li>
+-->	  	   <li><a ui-sref="main.UserWise_PPM_Report">UserWise PPM Report</a></li>
+	  	   <li><a ui-sref="main.UserWise_Breakdown_Report">UserWise Break Report</a></li>
+	           <li><a ui-sref="main.BreakdownReport">Breakdown Report</a></li>
+	          <!--    <li><a ui-sref="main.Breakdown_Report_2">Time Analysis Report</a></li>-->
+	            <li><a ui-sref="main.Analysis_Report"> Analysis Time Report</a></li>
+	             
+	           <!--    <li><a ui-sref="main.SpareConsumptionReport"> Spare Report </a></li>-->
+	                <li><a ui-sref="main.mttr"> MTTR Report </a></li>
+	                 <li><a ui-sref="main.mtbf"> MTBF Report </a></li>
+	                  <li><a ui-sref="main.ftr"> FTR Report </a></li>
+	               
+	          
+	        </ul>
+	      </li>
+	      
+	  
+	<!--  <li 	  ng-show="vm.user.role.roleName=='User'">
+	    <div class="iocn-link">
+	      <a href="#">
+	        <i class='bx bx-book-alt' ></i>
+	        <span class="link_name">Maintenance Of Machine</span>
+	      </a>
+	      <i class='bx bxs-chevron-down arrow' ></i>
+	    </div><br>
+	    <ul class="sub-menu">
+	      <li 			ng-show="vm.user.department.departmentName=='Maintenance' && vm.user.role.roleName=='Admin'"><a class="link_name" href="#">Maintenance Of Machine 	</a></li>
+	      <li><a ui-sref="main.machine">Scheduling</a></li>
+	  	<li><a ui-sref="main.maintlist">Plan Maintenance</a></li>
+	   
+	  	
+	  	
+	    </ul>
+	   
+	  </li>-->
+  <!--    
+	  <li ng-show="vm.user.department.departmentName=='IT'  && (vm.user.role.roleName == 'Admin' || vm.user.role.roleName == 'User')">
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">Transaction</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Transaction</a></li>
+          <li><a ui-sref="main.AssetAllocation">Asset Allocation</a></li>
+          <li><a ui-sref="main.SpareStocking">Spare Stocking</a></li>
+          <li><a ui-sref="main.Complaint">Complaint</a></li>
+          <li><a ui-sref="main.Allocation">Allocation </a></li>
+           <li><a ui-sref="main.Ticket">Ticket </a></li>
+           
+         
+          
+        </ul>
+      </li>
+    -->
+
+
+
+
+<!--  
+    
+      <li 	  ng-show="vm.user.department.departmentName=='Maintenance' && vm.user.role.roleName=='Admin' && 	  currentDashboard=='PPM'">
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-plug' ></i>
+            <span class="link_name">Reports</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li ><a class="link_name" href="#">Reports</a></li>
+          <li ng-if="currentDashboard=='BreakDown'"><a ui-sref="main.mttr">MTTR</a></li>
+          <li ng-if="currentDashboard=='BreakDown'"><a ui-sref="main.mtbf">MTBF</a></li>
+          <li ng-if="currentDashboard=='BreakDown'"><a ui-sref="main.ftr">FTR</a></li>
+          <li ng-if="currentDashboard=='BreakDown'"><a ui-sref="main.maintreport">Maintenance Report</a></li>
+          <li ng-if="currentDashboard=='BreakDown'"><a ui-sref='main.breakdownhistory'>BD History </a></li>
+          <li ng-if="currentDashboard=='EMS'"><a ui-sref="main.consumptionReport">Consumption Report</a></li>
+          
+        </ul>
+      </li>
+       -->
+      
+      
+      
+    
+    
+	   <li>
+	     <div class="profile-details" style="text-align: center;">
+	       <!-- Profile Avatar -->
+	       <div class="profile-content">
+	         <img ng-click="vm.goToUserForm()"  src="assets_menubar\img\gear.png" alt="Profile Image" 
+	              style="width: 85px; height: 85px; border-radius: 50%; margin-bottom: 10px;">
+	       </div>
+
+	       <!-- User Name and Role -->
+	       <div class="name-job">
+	         <div class="profile_name">{{vm.user.firstName}} {{vm.user.lastName}}</div>
+	         <div class="job">{{vm.user.department.departmentName}} - {{vm.user.role.roleName}}</div>
+	       </div>
+
+	       <!-- Logout Icon -->
+		   <img ng-click="vm.logout()" 
+		           src="assets_menubar/img/logout.png" 
+		           alt="Logout" 
+		           title="Logout" 
+		           style="width: 44px; height: 44px; cursor: pointer; margin-top: 10px;">
+	     </div>
+	   </li>
+
+</ul>
+  </div>
+  <section class="home-section">
+	
+  
+    <div class="home-content">
+     
+	  <div class="main-wrapper" >
+		
+		<div class="row" style= " background: #008B8B;">
+			
+			<div class="col-sm-12 top_nav">
+				
+				<div class="row" style= " background: #008B8B;">
+					
+					<div class="col-sm-4">
+						<i class='bx bx-menu' style="position: sticky;" ></i>
+				
+					</div>
+					<div class="col-sm-6">
+						<div class="top_text">
+					
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="top_text">
+							
+							<a ui-sref="main.Notification">
+							  <span style="position: relative; display: inline-block;">
+							    <img   src="assets_menubar/img/notification.png"  alt="Notification" style="width: 40px; height: 40px;" />
+							    <span style="
+							      position: absolute;
+							      top: -5px;
+							      right: -3px;
+							      background-color: red;
+							      color: white;
+							      font-size: 12px;
+							      border-radius: 50%;
+							      padding: 2px 5px;
+							    ">
+							      {{vm.notificationCount}}
+							    </span>
+							  </span>
+							</a>
+
+<!--							<h3>	<i class="fa fa-user " aria-hidden="true" style="color:#fcfcfc"></i>  &nbsp &nbsp <span style="color:#fcfcfc">{{vm.user.firstName}} {{vm.user.lastName}}</span></h3>
+--> 						</div>
+					</div>
+				</div>
+			</div>
+			<div class="main-wrapper" style="width: 100%; clear: both;">
+				<div id="navbar" style="display: none;">
+					<nav class="navbar navbar-default navbar-static-top"
+						role="navigation">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse"
+								data-target="#navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span> <span
+									class="icon-bar"></span> <span class="icon-bar"></span> <span
+									class="icon-bar"></span>
+							</button>
+	
+						</div>
+	
+						<div class="collapse navbar-collapse" id="navbar-collapse-1">
+							<ul class="nav navbar-nav" id="nav" style="margin-left: 1%;">
+								<!--  <li><a href="javascript:void(0);">Home</a></li> -->
+								<!-- <li class="dropdown" ng-show="showIncomingMaterial"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">GRN</a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.grn'>Qr Code
+												Generation</a></li>
+										<li><a ui-sref='main.materialIssue'>Material Issue</a></li>
+										<li><a ui-sref='main.unusedRequests'>Unused Runner</a></li>
+									</ul></li>
+								<li class="dropdown" ng-show="showStoreOperator"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Store Operator</a>
+									<ul class="dropdown-menu">
+										<li><a ui-sref='main.materialIssue' >Material Issue</a></li>
+										<li><a ui-sref='main.unusedRequests'>Unused Runner
+												Entry</a></li>
+									</ul></li>
+								<li class="dropdown" ng-show="showQuarantine"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Quarantine store </a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.quarantineStore'>Quarantine
+												Store</a></li>
+									</ul></li>
+								<li class="dropdown" ng-show="showProduction"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Production </a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.productionQr'>QR
+												code generation</a></li>
+										<li><a ui-sref='main.materialReturn'>Material Return
+												Slip</a></li>
+									</ul></li>
+								<li class="dropdown" ng-show="showFinalInspection"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Final inspection </a>
+									<ul class="dropdown-menu">
+										<li><a ui-sref='main.finalInspectionQc'>Main Line
+												Final Inspection List</a></li>
+									</ul></li>
+								<li class="dropdown" ng-show="showAssembly"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Assembly Operator</a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.assembly'>Assembly
+												Qr Code Generation</a></li>
+									</ul></li>
+	
+								<li class="dropdown" ng-show="showPackaging"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Packaging </a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.packaging'>Stage I
+												Packaging</a></li>
+										<li><a ui-sref='main.packaging2'>Stage II Packaging</a></li>
+									</ul></li>
+	
+								<li class="dropdown" ng-show="showFinishGoods"><a href="#"
+									class="dropdown-toggle" data-toggle="dropdown">FG Store
+										Operator </a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.finishGoods'>Finish
+												Goods Receipt</a></li>
+									</ul></li>
+	
+								<li class="dropdown" ng-show="showFinalDispatch"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Dispatch Operator </a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.dispatch'>Dispatch
+												list</a></li>
+									</ul></li>
+	
+								<li class="dropdown" ng-show="showScrapEntry"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Scrap Entry</a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.scrap'>Scrap Entry
+												And Edit</a></li>
+									</ul></li>
+	
+								<li class="dropdown" ng-show="showScrapApproval"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Scrap Approval</a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.scrapdepartment'>Dept
+												Head</a></li>
+									</ul></li> -->
+	
+								<!-- <li class="dropdown" ng-show="showScrapApproval"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Scrap Approval</a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.scrapdepartment'>Dept
+												Head</a></li>
+									</ul></li> -->
+	
+							<!-- 	<li class="dropdown" ng-show="showScrapYard"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Scrap Yard Head</a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref='main.scrapyard'>Yard
+												Approval</a></li>
+									</ul></li>
+	
+								<li class="dropdown" ng-show="showScrapReports"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Scrap Reports</a>
+									<ul class="dropdown-menu">
+										<li class="kopie"><a ui-sref="main.scraptypereport">Scrap
+												type wise </a></li>
+										<li class="kopie"><a ui-sref="main.scrapdeptreport">Department
+												wise </a></li>
+									</ul></li> -->
+	
+							
+									
+								<li class="dropdown" ><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown"> Master</a>
+									<ul class="dropdown-menu">
+	<!-- 									<li  class="kopie"><a ui-sref="main.category">Machine Category</a></li>
+	 -->									<li><a ui-sref="main.machine_mst">Machine Master</a></li>
+										<li><a ui-sref="main.checklist">Machine/Auxiliary Checklist</a></li>
+									<!-- 	<li><a ui-sref="main.mould">Mould Master</a></li>
+										<li><a ui-sref="main.mouldchecklist">Mould Checklist</a></li> -->
+	<!-- 									<li><a ui-sref="main.shift">Target Master</a></li>
+									 <li  class="kopie"><a ui-sref="main.cunsumption_device">Consumption Device Matser</a></li>
+										<li  class="kopie"><a ui-sref="main.maintDepertment">Department</a></li>-->	
+										<li><a ui-sref='main.machineOwner'>Machine Owner</a></li>
+										<li><a ui-sref='main.user'>User</a></li>
+									</ul>
+								</li>
+	
+								<li class="dropdown" ><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Maintenance Of Machine</a>
+									<ul class="dropdown-menu left-space">
+										<li class="dropdown dropdown-submenu"><a href="#"
+											class="dropdown-toggle" data-toggle="dropdown">Planned
+												Maintenance</a>
+											<ul class="dropdown-menu left-space-my">
+												<li class="kopie"><a ui-sref="main.machine">Scheduling</a></li>
+												<li><a ui-sref="main.maintlist">Plan Maintenance</a></li>
+											</ul></li>
+											
+										
+									
+								<li class="dropdown" ng-show="showAccessManagement"><a
+									href="javascript:void(0);" class="dropdown-toggle"
+									data-toggle="dropdown">Admin </a>
+									<ul class="dropdown-menu left-minus">
+										<li><a ui-sref='main.maintDepertment'>Department</a></li>
+										<li><a ui-sref='main.roleManagement'>Role Management</a></li>
+										<li><a ui-sref='main.user'>User Management</a></li>
+										<li><a ui-sref='main.roleToUser'>Role to User</a></li>
+										<li><a ui-sref='main.userToRole'>User to Role</a></li>
+										
+									</ul></li>
+								
+								<li ng-click="vm.logout();" class="dropdown"><a
+									class="dropdown-toggle" data-toggle="dropdown">Logout </a></li>
+	
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+	
+		</div>
+		<div ui-view="sub"></div>
+	</div>
+	
+    </div>
+  </section>
+  <script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebars = document.querySelector(".sidebars");
+  let sidebarsBtn = document.querySelector(".bx-menu");
+  console.log(sidebarsBtn);
+  sidebarsBtn.addEventListener("click", ()=>{
+    sidebars.classList.toggle("close");
+  });
+  </script>
+  

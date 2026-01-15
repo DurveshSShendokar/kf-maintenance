@@ -1,0 +1,89 @@
+<div id="header"></div>
+   <link rel="stylesheet" href="css/styles.css">
+		<div class="container">
+			<div class="row top">
+				<div class="centre">
+					<div class="top_contain">
+						<div class="row">
+							<div class="col-lg-3 col-xs-3">
+								<img src="img/icon/quarantine.png" />
+							</div>
+							<div class="col-lg-8 col-xs-8">
+								<h3 class="txt_top"> Final Dispatch QR Code List </h3>
+							</div>
+						</div>
+					</div>
+					<div class="dispatch_r">
+						<div class="row">
+							<div class="col-lg-3 col-xs-3">
+								<div class="txt"> Item No: </div>
+							</div>
+							<div class="col-lg-3 col-xs-8">
+								<input type="text" class="dispatch_input" />
+							</div>
+							<div class="col-lg-3 col-xs-3">
+								<div class="txt"> Date: </div>
+							</div>
+							<div class="col-lg-3 col-xs-8">
+								<input type="date" class="dispatch_input" />
+							</div>
+						</div>
+						<div class="row p-t-10">
+							<div class="col-lg-3 col-xs-3">
+								<div class="txt"> Item Name : </div>
+							</div>
+							<div class="col-lg-6 col-xs-8">
+								<input type="text" class="dispatch_input" />
+							</div>
+						</div>
+					
+					<div class="row m-t-10 p-b-20">
+						<div class="col-lg-12 col-xs-12">
+							<div class="dis_right">
+							<button class="p_first"> <i class="fa fa-step-backward" aria-hidden="true"></i> </button>
+							
+							<button class="prev"> <i class="fa fa-caret-left" aria-hidden="true"></i> </button>
+							<button class="next"> <i class="fa fa-caret-right" aria-hidden="true"></i> </button>
+							
+							<button class="p_last"> <i class="fa fa-step-forward" aria-hidden="true"></i> </button>
+							
+							</div>
+						</div>
+						<div class="col-lg-12 col-xs-12 p-t-10">
+							<div class="table-responsive tbl_quarantine">          
+							  <table class="table">
+								<thead>
+								  <tr>
+									<th>#</th>
+									<th> Stage </th>
+									<th> QR Code </th>
+									<th> Qty </th>
+									<th> UOM </th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td> 01 </td>
+									<td> Production </td>
+									<td> 1581541 </td>
+									<td> 5 </td>
+									<td class="bg_red"> kg </td>
+								  </tr>
+								</tbody>
+							  </table>
+							</div>
+						</div>
+					</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+<div id="footer"></div>
+<script src="js/jquery-1.10.2.js"></script>
+<script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+</script> 		 

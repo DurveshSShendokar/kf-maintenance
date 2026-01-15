@@ -1,0 +1,238 @@
+<style>
+	.container-fluid {
+		background-color: #e9ecef;
+	}
+
+	.page-title-div {
+		background-color: #e9ecef;
+	}
+
+
+	.dash-card {
+		position: relative;
+		background-color: #ffffff;
+		border-radius: 16px;
+		box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+		margin-bottom: 20px;
+		padding: 20px;
+
+		width: 300px;
+		transition: box-shadow 0.3s ease;
+		height: 140px;
+		flex: 0 0 calc(25% - 20px);
+
+
+	}
+
+	.dash-card:hover {
+		box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
+
+		background-color: #008B8B;
+		color: #ffffff !important;
+		transform: scale(1.1);
+		transition: all 0.5s ease;
+	}
+
+	.dash-card .card-header {
+		border-radius: 16px;
+		font-size: 18px;
+		font-weight: 600;
+
+		padding: 0px 13px;
+
+	}
+
+	.dash-card .card-body {
+		padding: 0px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+
+	.dash-card .card-title {
+		color: #212529;
+		font-size: 20px;
+		font-weight: 600;
+		margin-bottom: 10px;
+	}
+
+	.dash-card:hover .card-title {
+		color: white;
+	}
+
+	.dash-card .card-text {
+
+		font-size: 1.6rem;
+		line-height: 1.6;
+
+	}
+
+
+	.h4 {
+		margin: 10% auto;
+	}
+
+
+	.card-bodyy {
+		padding: 20px;
+
+		border-radius: 0 0 16px 16px;
+		box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+	}
+
+	.card-headerr {
+		font-size: 24px;
+
+		padding: 20px;
+		background-color: #f8f9fa;
+		color: black;
+		border-radius: 16px 16px 0 0;
+
+		box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.card-headerr:hover {
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+		background-color: #008B8B;
+		color: #ffffff !important;
+		transition: all 0.5s ease;
+	}
+
+	.total-users-card {
+		margin-right: 10px;
+
+	}
+
+	.total-machines-card {
+
+		margin-left: 10px;
+	}
+
+
+	.total-card {
+		margin-right: 10px;
+
+	}
+
+	.open-card {
+
+		margin-left: 10px;
+	}
+
+	.trial-card {
+		margin-right: 10px;
+
+	}
+
+	.closed-card {
+
+		margin-left: 10px;
+	}
+
+	.today-fetch-card {
+		margin-right: 10px;
+
+	}
+
+	.backgroudimg {
+		background-image: url(templates/home/maintenance.jpg);
+
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.backgroudbreak {
+		background-image: url(templates/home/breakdown.jpg);
+
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.backgroudenergy {
+		background-image: url(templates/home/energy.jpg);
+
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+</style>
+
+
+<div class="container-fluid" ng-show="vm.user.department?.departmentName=='Maintenance' && (vm.user.role?.roleName.trim().toLowerCase()=='admin' || vm.user.role?.roleName.trim().toLowerCase()=='executive')">
+	<div class="row page-title-div">
+
+
+		<div class="container backgroudimg" style="background-color: rgb(255, 128, 0)" ng-click="	goToPPMDashboard()">
+			<!-- <img src="image-url.jpg" alt="Image" class="card-image">-->
+
+			<div class="card" style=" background-color:   			  #f7f7f7a6;">
+				<div class="card-header">
+					<h2 style="					font-size: 55.459837px;">PPM</h2>
+				</div>
+				<div class="card-content">
+					<p>Planned Preventative Maintenance</p>
+				</div>
+				<!-- <div class="card-footer">
+		               <button>Action</button>
+		           </div>-->
+			</div>
+		</div>
+
+	</div>
+
+		<div class="row page-title-div">
+
+			<div class="container 		backgroudbreak" style="background-color: rgb(255, 255, 0);		margin-top: 24px"
+				ng-click="goToBreakDownDashboard()">
+				<!-- <img src="image-url.jpg" alt="Image" class="card-image">-->
+
+				<div class="card" style=" background-color:   			  #f7f7f7a6;">
+					<div class="card-header">
+						<h2 style="					font-size: 55.459837px;">Breakdown</h2>
+					</div>
+					<div class="card-content">
+						<p> Breakdown Management</p>
+					</div>
+					<!--<div class="card-footer">
+		               <button>	</button>
+		           </div>-->
+				</div>
+			</div>
+
+		</div>
+		<div class="container-fluid">
+			<div class="row page-title-div">
+
+				<div class="container 		backgroudenergy" style="background-color: #008000;		margin-top: 24px"
+					ng-click="goToConsumptionDashboard()">
+					<!-- <img src="image-url.jpg" alt="Image" class="card-image">-->
+
+					<div class="card" style=" background-color:   			  #f7f7f7a6;">
+						<div class="card-header">
+							<h2 style="					font-size: 55.459837px;">EMS</h2>
+						</div>
+						<div class="card-content">
+							<p>Engergy Management System</p>
+						</div>
+						<!-- <div class="card-footer">
+		               <button>Action</button>
+		           </div>-->
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		</div>
+
+
+
+		
+		<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

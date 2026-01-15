@@ -1,0 +1,239 @@
+<script type="text/javascript" src="templates/ftr/kendo/highcharts.js"></script>
+<script type="text/javascript" src="js/jquery.table2excel.js"></script>
+
+
+<style>
+.white {
+	background-color: #fff;
+}
+
+.act-add {
+	color: rgb(111, 170, 188);
+	text-align: center;
+	font-size: 15px;
+}
+
+.act-edit {
+	color: rgb(152, 108, 153);
+	text-align: center;
+	font-size: 15px;
+}
+
+.act-add .fa, .act-edit .fa {
+	font-size: 20px;
+}
+
+.width-80 .row .control-label {
+	text-align: right;
+	font-weight: 600;
+}
+
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr {
+	border: 1px solid #ccc !important;
+}
+
+.orange {
+	background-color: #008B8B;
+}
+
+.orange th {
+	color: #fff;
+}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 header-name">
+			<img src="img/breakdown.png"><span>Breakdown History</span>
+		</div>
+	</div>
+	<div class="col-sm-1"></div>
+	<div class="width-80 col-sm-10">
+		<div class="row">
+			<!-- <div class="col-sm-3">
+				<label class="control-label">Equipment Type <span
+					style="color: red;">*</span> :
+				</label>
+			</div>
+			<div class="col-sm-6">
+				<select ng-model="type" class="form-control" required>
+					<option value="">Select Type</option>
+					<option value="1">Machine</option>
+					<option value="2">Auxiliary</option>
+				</select>
+			</div> -->
+		</div>
+		<div class="row">
+			<!--<div class="col-sm-3">
+				<label class="control-label">Equipment Group <span
+					style="color: red;">*</span> :
+				</label>
+			</div>
+			 <div class="col-sm-6">
+				<select class="form-control" ng-model="selectMachine">
+					ng-change="vm.changeMachine(selectedMachine);"
+					<option value="selectMachine">Select machine</option>
+					<option ng-show="type == opts.type" ng-repeat="opts in vm.machines"
+						value="{{opts}}">{{opts}}</option>
+				</select>
+			</div> -->
+		</div>
+		<!-- <div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Equipment Category Group  :</label>
+			</div>
+			<div class="col-sm-6">
+				<select class="form-control" ng-model="category">
+					<option value="category"> Select category </option>
+					<option ng-repeat="opts in vm.categories" value="{{opts}}"> {{opts.cat_name}} </option>
+				</select>
+			</div>
+		</div> -->
+		<!-- <div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Report Type  :</label>
+			</div>
+			<div class="col-sm-6">
+				<select class="form-control" ng-model="reportType">
+					<option value="monthly">Monthly</option>
+					<option value="quarterly">Quarterly</option>
+				</select>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">From Date <span
+					style="color: red;">*</span> :
+				</label>
+			</div>
+				<div class="col-sm-3">
+					<input type="date" ng-model="startDate">
+				</div>
+				<div class="col-sm-3">
+				<label class="control-label">To Date <span
+					style="color: red;">*</span> :
+				</label>
+			</div>
+				<div class="col-sm-3">
+					<input type="date" ng-model="endDate">
+				</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-3">
+				<button class="btn btn-success" ng-click="vm.loadHistory();">Submit
+				</button>
+			</div>
+			<div class="col-md-3">
+				<button type="submit" class="btn_serach" id="success" style="width: 25%;															font-size: 22px;"
+					ng-click="export()"> <i class="fa fa-file-excel-o" aria-hidden="true"> Export</i></button>
+			-
+				<button id="btnExport" ng-json-export-excel data="vm.breakdownHistoryData" report-fields="vm.labels"
+					style="display:none" filename="'Beakdown Hiostory'"></button>
+			
+			</div>
+			<div class="col-sm-3" >
+			<!--<button class="btn btn-info" ng-show="vm.breakdownHistory.length > 0"  				ng-click="export()"
+				 name="machinebreakdownhistory">Export</button>-->
+		</div>
+		
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="panel-body table-responsive">
+			<table datatable="ng" id="myTable" class="table ">
+				<thead class="orange">
+					<tr>
+						<td>Sr No</td>
+
+						
+						<!-- <th>Time</th>-->
+					<td>BD No</td> 
+					<td>Machine Name</td>
+						<td>					Obervation</td>
+						<td>					Root Clause</td>
+						<td>Preventive Action Plan</td>
+						<td>Status</td>
+						<td>Action Taken</td>
+						<!-- <th>Engg Findings</th> -->
+						<td>Done by</td>
+						<td>Ticket Create Time</td>
+						<td>Ticket Closed Time</td>
+						<td>TTR (Hrs)</td>
+						<td>TBF(days)</td>
+						<td>Total Breakdowns(Hrs)</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="arr in vm.breakdownHistoryData">
+						<td>{{$index+1}}</td>
+						
+						<!-- <td>{{arr.time}}</td> -->
+						<td>{{arr.bd_slip}}</td> 
+						<td>{{arr.machine.machine_name}}({{arr.machine.eqid}})</td>
+						<td>{{arr.observation}}</td>
+						<td>{{arr.root_cause}}</td>
+						<td>{{arr.prev_action_plan}}</td>
+						<td><span ng-if="arr.status==1">Open</span><span ng-if="arr.status==2">Waiting for Trial</span> <span ng-if="arr.status==3">Closed</span><span ng-if="arr.status==4">Closed with Deviation</span></td>
+						<td>{{arr.addedBy.firstName}} {{arr.addedBy.lastName}}</td>
+						<!-- 					<td>{{arr.enggfindings}}</td> -->
+						<td>{{arr.done_by}}</td>
+						 <td>{{arr.ticket_raised_time|date:'MM/dd/yyyy h:mm a'}}</td> 
+						  <td>{{arr.ticket_closed_time|date:'MM/dd/yyyy h:mm a'}}</td> 
+						<td><span ng-if="arr.tc_tr_hr !=0">{{arr.tc_tr_hr-arr.total_trial_hr |number : 4}}</span><span ng-if="arr.tc_tr_hr ==0"></span></td>
+						<td>{{arr.diff_days}}</td>
+						<td>{{arr.total_trial_hr|number : 2}}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		
+		
+
+		<!-- 	<button type="button" ng-if="vm.breakdownHistory.length > 0" export-to-csv div-Id = "breakdownhistory" name="machinebreakdownhistory">Export</button> -->
+	</div>
+</div>
+
+  <script>
+    function exportToExcel() {
+      // Get the HTML table element
+      var table = document.getElementById('myTable');
+
+      // Create a new Blob object with the table's HTML content
+      var blob = new Blob([table.outerHTML], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8' });
+
+      // Create a link element to trigger the download
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Breakdown_History.xls';
+
+      // Append the link to the document and trigger the click event
+      document.body.appendChild(a);
+      a.click();
+
+      // Remove the link from the document
+      document.body.removeChild(a);
+    }
+  </script>
+<script>
+	$('#export_to_excel').click(function() {
+		$("#breakdownhistory").table2excel({
+			exclude : ".action",
+			name : "All Enterprises",
+			filename : "Breakdown History",
+			fileext : ".xls",
+			exclude_img : true,
+			exclude_links : true,
+			exclude_inputs : true
+		});
+
+	});
+</script>
+
+
+
+

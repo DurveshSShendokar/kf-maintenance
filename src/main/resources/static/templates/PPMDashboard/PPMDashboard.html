@@ -1,0 +1,483 @@
+<style>
+	.tab-active{
+	background-color: 			#017cc0
+	}
+	.tab-inactive{
+		background-color: #f1f5f8	
+	}
+.container-fluid {
+     background-color: #e9ecef; 
+}
+
+.page-title-div{
+    background-color: #e9ecef;
+}
+
+
+.dash-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 16px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+    height: 140px;
+    flex: 0 0 calc(25% - 20px);
+   
+
+}
+.dash-card:hover {
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transform: scale(1.1);
+	transition: all 0.5s ease;
+ }
+ 
+#weekDropdown {
+    width: auto; /* Ensures it doesn't stretch unnecessarily */
+    margin-left: auto;
+    margin-right: 0;
+    display: inline-block; /* Keeps it compact */
+    padding: 0.375rem 0.75rem; /* Controls the dropdown padding for a more compact look */
+}
+ 
+
+.dash-card .card-header {
+	border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+	
+    padding: 0px 13px;
+
+}
+
+.dash-card .card-body {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dash-card .card-title {
+    color: #212529;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.dash-card:hover .card-title {
+  color: white;
+}
+
+.dash-card .card-text {
+    
+    font-size: 1.6rem;
+    line-height: 1.6;
+    
+}
+
+
+.h4
+ {
+ margin: 10% auto;
+ }
+
+
+.card-bodyy {
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 0 0 16px 16px; 
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.card-headerr {
+    font-size: 24px;
+   
+    padding: 20px; 
+    background-color: #f8f9fa;
+    color: black; 
+    border-radius: 16px 16px 0 0; 
+    
+       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.custom-dropdown {
+    width: 200px; /* Adjust the width as per your requirement */
+    max-width: 100%; /* Ensures it doesn't overflow */
+    display: inline-block; /* Prevents it from taking up full width */
+}
+
+
+.card-headerr:hover
+{
+ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transition: all 0.5s ease;
+}
+
+.total-users-card{
+    margin-right: 10px; 
+    
+}
+
+.total-machines-card {
+   
+    margin-left: 10px; 
+}
+
+
+.total-card{
+    margin-right: 10px; 
+    
+}
+
+.open-card {
+   
+    margin-left: 10px;
+}
+
+.trial-card{
+    margin-right: 10px; 
+    
+}
+
+.closed-card {
+   
+    margin-left: 10px; 
+}
+
+.today-fetch-card{
+    margin-right: 10px; 
+    
+}
+.green-circle {
+         width: 20px;
+         height: 20px;
+         background-color: green;
+         border-radius: 50%;
+         display: inline-block;
+     }	
+	 .red-circle {
+	          width: 20px;
+	          height: 20px;
+	          background-color: red;
+	          border-radius: 50%;
+	          display: inline-block;
+	      }	
+    .circle {
+        width: 40px; 
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #000; /* Text color for contrast */
+        margin: auto;
+        font-size: 14px;
+        cursor: pointer; /* Indicates clickable */
+        transition: transform 0.2s;
+    }
+    .circle:hover {
+        transform: scale(1.1); /* Slight zoom effect on hover */
+    }
+    .open-data {
+        background-color: #FFB6C1; /* Light Red for Open Data */
+    }
+    .closed-data {
+        background-color: #90EE90; /* Light Green for Closed Data */
+    }
+
+</style>
+<!--
+	<div class="container-fluid">
+    <div class="row page-title-div">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <h2 class="title">Maintenace</h2>
+        </div>
+
+        <div class="col-md-3"  ng-click="handleUsersCardClick('totalUsers')" >
+            <div class="card mb-sm-1 dash-card total-users-card">
+                <div class="card-header">Total Users</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{vm.TotalCount.totalUsers}}</h5>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3" 	ng-click="handleMachinesCardClick('totalMachines')" >
+            <div class="card mb-sm-1 dash-card total-machines-card">
+                <div class="card-header">Total No of Machines</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.TotalCount.totalMachines }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<div class="panel panel-success  mt-5" style="border-color: #ffffff">
+	<div class="row page-title-div" style="	text-align:center">
+				<div class="col-md-4" ng-click="goToPPMDashboard()" ng-class="ppmActive ? 'tab-active' : 'tab-inactive'">
+					<h2 class="title">PPM</h2>
+				</div>
+				<div class="col-md-4" ng-click="goToBreakDownDashboard()" ng-class="brekdownActive ? 'tab-active' : 'tab-inactive'">
+					<h2 class="title">BreakDown</h2>
+				</div>
+				<div class="col-md-4" ng-click="goToConsumptionDashboard()"
+					ng-class="consumptionActive ? 'tab-active' : 'tab-inactive'">
+					<h2 class="title">Consumption</h2>
+				</div>
+	</div>
+
+</div>-->
+	
+
+	<div class="container-fluid" 	>
+	
+	  		<div class="row">
+		        <div class="col-md-12" 		style="text-align: center;">
+		            <h2>Planned Preventative Maintenance</h2>
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+					        <div class="col-md-12" 	>
+					            <h2>Overall PPM</h2>
+					        </div>
+			</div>
+		    
+		     <div class="row">
+		        
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card open-card" ng-click="totalopenMaintainceCardClick('totalopenMaintaince')">
+		                <div class="card-header">Open PPM</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MaintainceCount.totalOpenMaintenance }}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        		 
+		        		 
+		         <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card closed-card" ng-click="totalclosedMaintainceCardClick('totalclosedMaintaince')">
+		                <div class="card-header">Closed PPM</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MaintainceCount.totalClosedMaintenance }}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        		        
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card today-fetch-card" ng-click="TodayMaintainceCardClick('TodayMaintaince')">
+		                <div class="card-header">Overdue PPM</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MaintainceCount.overduesMaintenace }}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        
+		     
+		     
+				<div class="col-md-3">
+						            <div class="card mb-sm-1 dash-card total-card" ng-click="handleMaintainceCardClick('totalMaintaince')">
+						                <div class="card-header">Total PPM</div>
+						                <div class="card-body">
+						                   <h5 class="card-text card-title">{{ vm.MaintainceCount.totalMaintence }}</h5>
+						                 <!--     <h5 class="card-text card-title">{{ vm.totalMaintaince.totalCount }}</h5>-->
+						                </div>
+						            </div>
+				 </div>
+		    </div><br>
+		    
+			
+			
+			
+			<div class="row">
+				        
+				
+				        
+				        <div class="col-md-3">
+				            <div class="card mb-sm-1 dash-card open-card" ng-click="handleApprovedCardClick('totalApproved')" >
+				                <div class="card-header">ClosedApproved PPM</div>
+				                <div class="card-body">
+				                    <h5 class="card-text card-title">{{ vm.ApprovedCount.count || 0 }}</h5>
+				                    
+				                </div>
+				            </div>
+				        </div>
+						
+						<div class="col-md-3">
+									            <div class="card mb-sm-1 dash-card open-card" ng-click="handleUnApprovedCardClick('totalUnApproved')" >
+									                <div class="card-header">ClosedUnApproved PPM</div>
+									                <div class="card-body">
+									                    <h5 class="card-text card-title">{{ vm.UnApprovedCount.count || 0 }}</h5>
+									                    
+									                </div>
+									            </div>
+									        </div>
+											
+											
+											
+											
+						
+				    </div>
+					
+					
+		    
+			<div class="row">
+					        <div class="col-md-12" 	>
+					            <h2>WEEK No :: {{showTypeData}}  -->  {{startDate}}  ( TO )    {{endDate}}</h2>
+					        </div>
+			</div>
+			
+			
+	
+				
+		    <div class="row">
+		        
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card open-card" ng-click="openMaintainceCardClick('openMaintaince')">
+		                <div class="card-header">Open 	Schedule</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MaintainceCount.openMaintence }}</h5>
+		                    
+		                </div>
+		            </div>
+		        </div>
+		        		        
+		        
+		        
+		        
+		        
+		         <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card closed-card" ng-click="closedMaintainceCardClick('closedMaintaince')">
+		                <div class="card-header">Closed Sheduale</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MaintainceCount.closed }}</h5>
+		                </div>
+		            </div>
+		        </div>
+				
+		    </div>
+		</div>
+		
+<div class="container">
+    <div class="panel-body table-responsive" style="margin-left: -396px; margin-right: -396px;">
+    
+        <!-- Week dropdown -->
+     <div class="row">
+            <div class="col-md-12 text-right">
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="weekDropdown">Select Week:</label>
+                        <select 
+                            class="form-control" 
+                            id="weekDropdown" 
+                            ng-model="vm.selectedWeek" 
+                            ng-options="week for week in vm.availableWeeks"
+                            ng-change="vm.onWeekChange()">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Data Table -->
+        <table datatable="ng" id="example" class="table table-bordered" style="background-color:#008B8B;">
+            <thead class="orange">
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Machine Name</th>
+                    <th>open Data</th>
+                     <th>closed Data</th> 
+                </tr>
+            </thead>
+            <tbody>
+                 <tr ng-repeat="arr in vm.dataWeekMachine">
+            <td>{{$index + 1}}</td>
+            <td>{{arr.machineName}}</td>
+          
+            
+            <td ng-repeat="data in arr.weekDatas">	<div class="circle open-data" title="Open"> {{data.open}} </div> 
+								
+								<br/>	<i class="fa fa-eye" aria-hidden="true" ng-click="gotoDetials(data,arr.machineName,'Open')"></i>
+								
+								
+								</td>
+             <td ng-repeat="data in arr.weekDatas">	 <div class="circle closed-data"> {{data.closed}}</div>
+								
+								<br/>	<i class="fa fa-eye" aria-hidden="true" ng-click="gotoDetials(data,arr.machineName,'Closed')"></i>
+								
+								
+								</td>
+        </tr>
+        
+            </tbody>
+        </table>
+    </div>
+</div>
+
+						
+<!--				
+<div class="row">
+    <div class="col-md-6">
+        <label>Select Week:</label>
+        <select ng-model="vm.selectedWeek" ng-change="vm.updateGraphData('week')">
+            <option value="">None</option>
+            <option ng-repeat="week in vm.weeks" value="{{week}}">Week {{week}}</option>
+        </select>
+    </div>
+
+    <div class="col-md-6">
+        <label>Select Month:</label>
+        <select ng-model="vm.selectedMonth" ng-change="vm.updateGraphData('month')">
+            <option value="">None</option>
+            <option ng-repeat="(index, month) in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']" value="{{index + 1}}">
+                {{month}}
+            </option>
+        </select>
+    </div>
+
+    <div class="col-md-12">
+        <h4 class="card-headerr">Maintenance Overview</h4>
+        <div class="card-bodyy">
+            <canvas class="chart chart-bar"
+                chart-data="vm.chartDataOverall"
+                chart-labels="vm.chartLabelsOverall"
+                chart-series="['Open', 'Closed', 'Overdue']"
+                chart-options="vm.chartOptions"
+                chart-colors="vm.chartColorsOverall"
+                style="display: block; width: 100%; height: 600px;">
+            </canvas>
+        </div>
+    </div>
+</div>
+
+	-->			 
+
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+	 
+	 
+	
+	
+	

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/angular-chart.js@1.1.1/dist/angular-chart.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/angular-chart.js@1.1.1/dist/angular-chart.css">
+
+
+
+	<style>
+		.card-header {
+			background-color: #007a8a;
+			color: white;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.circular-progress-bar {
+			width: 100px;
+			height: 100px;
+			margin: auto;
+			/* display: none; */
+		}
+
+		.dashboard-card {
+			margin-bottom: 20px;
+			padding: 20px;
+			border-radius: 5px;
+
+			background-color: #f8f9fa;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+			text-align: center;
+			margin: 10px;
+		}
+
+		.dashboard-card h5 {
+			font-size: 1.25rem;
+			margin-bottom: 10px;
+			color: #007a8a;
+		}
+
+		.dashboard-card h2 {
+			font-size: 1.2rem;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+
+		.chart-container {
+			height: 200px;
+			position: relative;
+		}
+
+		.row-border {
+			border-top: 4px solid #007b8b;
+			padding-top: 10px;
+			margin: 0 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container-fluid" style="padding-top: 20px">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="text-center"> <i class="fa fa-desktop" aria-hidden="true"></i>
+					{{vm.meterDetails.panel.panelName}} {{vm.meterDetails.panel.locationName}} ::
+					{{vm.meterDetails.energyMeterNo}}</h2>
+			</div>
+		</div>
+
+		<div class="row row-border">
+			<!--       R - Phase Card 
+        <div class="col-lg-3 col-md-4">
+          <div class=" ">
+            <div class="card-header">R - Phase</div>
+            <div class="card-body">
+              <div class="circular-progress-bar">
+                 Replace with your circular progress bar 
+              </div>
+              <div class="d-flex">
+                <div class="dashboard-card">
+                  <h5>Voltage</h5>
+                  <div class="circular-progress-bar">
+                    <canvas id="voltageProgressBar" class="circular-progress-bar"></canvas>
+                  </div>
+                </div>
+                <div class="dashboard-card">
+                  <h5>Current</h5>
+                  <div class="circular-progress-bar">
+                    <canvas id="currentProgressBar" class="circular-progress-bar"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>-->
+			<div class="col-lg-3 col-md-4">
+				<div class=" ">
+					<div class="card-header">Current</div>
+					<div class="card-body">
+
+						<div class="d-flex">
+							<div class="dashboard-card">
+								<h5>Current A</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.currentAProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.currentAProgress}} A</text>
+								</svg>
+							</div>
+							<div class="dashboard-card">
+								<h5>Current B</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.currentBProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.currentBProgress}} A</text>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<div class=" ">
+					<div class="card-header">Current</div>
+					<div class="card-body">
+
+						<div class="d-flex">
+							<div class="dashboard-card">
+								<h5>Current C</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.currentCProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.currentCProgress}} A</text>
+								</svg>
+							</div>
+							<div class="dashboard-card">
+								<h5>							
+								Real Energy </h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.currentGProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.currentGProgress}} A</text>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<div class=" ">
+					<div class="card-header">Current</div>
+					<div class="card-body">
+
+						<div class="d-flex">
+							<div class="dashboard-card">
+								<h5>Current N</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.currentNProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.currentNProgress}} A</text>
+								</svg>
+							</div>
+							<div class="dashboard-card">
+								<h5>Current Avg</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.currentAvgProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.currentAvgProgress}} A</text>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<div class=" ">
+					<div class="card-header"> 					Power Factor & Apparent</div>
+					<div class="card-body">
+
+						<div class="d-flex">
+							<div class="dashboard-card">
+								<h5>Power Factor </h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.currentPFProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.currentPFProgress}} </text>
+								</svg>
+							</div>
+							<div class="dashboard-card">
+								<h5>								Apparent </h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.apparentProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.apparentProgress}} 	kVAH</text>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Repeat similar cards for Y - Phase, B - Phase, and Power (Sum) -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<div class="col-lg-3 col-md-4">
+				<div class=" ">
+					<div class="card-header">Voltage</div>
+					<div class="card-body">
+
+						<div class="d-flex">
+							<div class="dashboard-card">
+								<h5>Voltage A-B</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.voltageABProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.voltageABProgress}} V</text>
+								</svg>
+							</div>
+							<div class="dashboard-card">
+								<h5>Voltage B-C</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.voltageBCProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.voltageBCProgress}} V</text>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<div class=" ">
+					<div class="card-header">Voltage</div>
+					<div class="card-body">
+
+						<div class="d-flex">
+							<div class="dashboard-card">
+								<h5>Voltage C-A</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.voltageCAProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.voltageCAProgress}} V</text>
+								</svg>
+							</div>
+							<div class="dashboard-card">
+								<h5>Voltage L-L Avg</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.voltageLLProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.voltageLLProgress}} V</text>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<div class=" ">
+					<div class="card-header">Voltage</div>
+					<div class="card-body">
+
+						<div class="d-flex">
+							<div class="dashboard-card">
+								<h5>Voltage A-N</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.voltageANProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.voltageANProgress}} V</text>
+								</svg>
+							</div>
+							<div class="dashboard-card">
+								<h5>Voltage B-N</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.voltageBNProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.voltageBNProgress}} V</text>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4">
+				<div class=" ">
+					<div class="card-header">Voltage</div>
+					<div class="card-body">
+
+						<div class="d-flex">
+							<div class="dashboard-card">
+								<h5>Voltage C-N</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.voltageCNProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.voltageCNProgress}} V</text>
+								</svg>
+							</div>
+							<div class="dashboard-card">
+								<h5>Voltage L-N Avg</h5>
+								<svg width="70%" height="70%" viewBox="0 0 100 100">
+									<circle cx="50" cy="50" r="45" stroke-width="10" stroke="#eee" fill="none"></circle>
+									<circle class="circle" cx="50" cy="50" r="45" stroke-width="10" stroke="#76c7c0"
+										fill="none" stroke-dasharray="{{vm.circumference}}"
+										stroke-dashoffset="{{vm.circumference - vm.voltageLNProgress / 100 * vm.circumference}}">
+									</circle>
+									<text x="40%" y="50%" class="progress-text">{{vm.voltageLNProgress}} V</text>
+								</svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Add other cards here -->
+		</div>
+
+		<!-- Summary Cards -->
+	<!--	<div class="row row-border">
+			<div class="col-lg-3 col-md-6">
+				<div class="dashboard-card text-center">
+					<h5>Avg Voltage</h5>
+					<h2>{{vm.cardData.voltageAvg}} V</h2>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="dashboard-card text-center">
+					<h5>Avg Current</h5>
+					<h2>{{vm.cardData.currentAvg}} Amp</h2>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="dashboard-card text-center">
+					<h5>Energy Consumption/M</h5>
+					<h2>{{vm.cardData.energyConsumption}} kWh</h2>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="dashboard-card text-center">
+					<h5>Energy Apparent/M</h5>
+					<h2>{{vm.cardData.apparant}} kVAh</h2>
+				</div>
+			</div>
+		</div>-->
+
+		<div class="row row-border">
+			<!-- Left Side: 4 Cards in 2 Rows -->
+			<div class="col-lg-6">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card dashboard-card">
+							<h5>Daily Energy Consumption</h5>
+							<h2>{{vm.dashboardData.dailyEnergyConsumption|number:2}} kWh</h2>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card dashboard-card">
+							<h5>Daily Energy Apparent</h5>
+							<h2>							{{vm.dashboardData.dailyEnergyConsumption							|number:2}} kVAH</h2>
+						</div>
+					</div>
+				</div>
+				<!--<div class="row">
+					<div class="col-md-6">
+						<div class="card dashboard-card">
+							<h5>Daily Energy Consumption</h5>
+							<h2>0 kWh</h2>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card dashboard-card">
+							<h5>Daily Energy Apparent</h5>
+							<h2>0 kVAH</h2>
+						</div>
+					</div>
+				</div>-->
+			</div> 
+			<!--<div class="col-lg-6">
+		        <div class="card dashboard-card" 			style="	height: 			540px;">
+		  		<h5>Weekly Energy Consumption</h5>
+		          <div class="chart-container">
+		  			<canvas class="chart chart-line"
+		  			         chart-data="vm.chartDataCon"
+		  			         chart-labels="vm.chartLabelsCon"
+		  			         chart-series="vm.chartSeriesCon"
+		  			         chart-options="vm.chartOptions2"
+		  			         chart-colors="vm.chartColors2"
+		  			         style="display: block; width: 100%; height: 530px;">
+		  			 </canvas>           </div>
+		        </div>
+		      </div>-->
+			<!-- Right Side: Chart -->
+			<div class="col-lg-6">
+					        <div class="card dashboard-card" 			style="	height: 			540px;">
+					  		<h5>Weekly Energy Consumption</h5>
+					          <div class="chart-container">
+					  			<canvas class="chart chart-line"
+					  			         chart-data="vm.chartDataCon"
+					  			         chart-labels="vm.chartLabelsCon"
+					  			         chart-series="vm.chartSeriesCon"
+					  			         chart-options="vm.chartOptions2"
+					  			         chart-colors="vm.chartColors2"
+					  			         style="display: block; width: 100%; height: 530px;">
+					  			 </canvas>           </div>
+					        </div>
+					      </div>
+		
+		</div>
+		
+		<div class="row row-border">
+			<!-- Left Side: 4 Cards in 2 Rows -->
+			<div class="col-lg-6">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card dashboard-card">
+							<h5>Avg Voltage</h5>
+							<h2>{{vm.dashboardData.avarageVoltage							|number:2}} V</h2>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card dashboard-card">
+							<h5>Avg Current</h5>
+							<h2>{{vm.dashboardData.avarageCurrent							|number:2}} A</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card dashboard-card">
+							<h5>Energy Consumption/M</h5>
+							<h2>{{vm.dashboardData.monthlyEnergyConsumption							|number:2}} kWh</h2>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<!--<div class="card dashboard-card">
+							<h5> Energy Apparent/M</h5>
+							<h2>{{vm.dashboardData.monthlyEnergyApparent							|number:2}} kVAH</h2>
+						</div>-->
+					</div>
+				</div>
+			</div> 
+			<!-- Right Side: Chart -->
+			<div class="col-lg-6">
+						<div class="card dashboard-card" style="	height: 			540px;">
+							<h5>Monthly Energy Consumption</h5>
+							<div class="chart-container">
+								<canvas class="chart chart-line" chart-data="vm.chartDataConM" chart-labels="vm.chartLabelsConM"
+									chart-series="vm.chartSeriesConM" chart-options="vm.chartOptions2"
+									chart-colors="vm.chartColors2" style="display: block; width: 100%; height: 530px;">
+								</canvas>
+							</div>
+						</div>
+					</div>
+		</div>
+		<div class="row row-border">
+			<!-- Right Side: Chart -->
+			<div class="col-lg-6">
+
+				<div class="card dashboard-card" style="	height: 			540px;">
+					<h5>Voltage Trend</h5>
+					<div class="chart-container">
+						<canvas class="chart chart-line" chart-data="vm.chartDataV" chart-labels="vm.chartLabelsV"
+							chart-series="vm.chartSeriesV" chart-options="vm.chartOptions2"
+							chart-colors="vm.chartColors2" style="display: block; width: 100%; height: 530px;">
+						</canvas>
+					</div>
+				</div>
+			</div>
+			<!-- Right Side: Chart -->
+			<div class="col-lg-6">
+
+				<div class="card dashboard-card" style="	height: 			540px;">
+					<h5>Current Trend</h5>
+					<div class="chart-container">
+						<canvas class="chart chart-line" chart-data="vm.chartDataI" chart-labels="vm.chartLabelsI"
+							chart-series="vm.chartSeriesI" chart-options="vm.chartOptions2"
+							chart-colors="vm.chartColors2" style="display: block; width: 100%; height: 530px;">
+						</canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row page-title-div" ng-repeat="	registerGroup in vm.registerGroups">
+
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<h2 class="title">{{registerGroup.groupName}} <i class="fa fa-chevron-down" aria-hidden="true"
+						ng-click="show($index)" ng-show="!registerGroup.showView"></i> <i class="fa fa-chevron-up"
+						aria-hidden="true" ng-click="hide($index)" ng-show="registerGroup.showView"></i></h2>
+			</div>
+			<div class="col-md-6" ng-show="registerGroup.showView" ng-repeat="register in 	registerGroup.list"
+				ng-style="register.registerName=='Voltage L-N Avg'||register.registerName=='Frequency'|| register.registerName=='Current B' ? {'background-color': '		#017cc0'} : {'background-color': '		#eee'}">
+				<div class="form-group">
+					<label for="name13">{{register.registerName}} :</label>
+					<input type="text" class="form-control" ng-model="register.registerValue+' '+register.unit"
+						placeholder="Enter Cause" disabled>
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+	<canvas id="customChart" class="chart chart-bar" style="display: block; width: 100%; height: 600px;"></canvas>
+
+
+</body>
+
+</html>

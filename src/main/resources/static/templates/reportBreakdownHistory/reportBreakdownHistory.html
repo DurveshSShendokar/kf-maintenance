@@ -1,0 +1,156 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Scrap Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="fonts/fa/css/font-awesome.min.css">
+  <linl rel="stylesheet" href="css/dataTable.css"> -->
+
+<link href="css/style.css" rel="stylesheet">
+<style type="text/css">
+	.btn-oranage {
+		background-color: #008B8B;
+		color: #fff;
+	}
+
+	.oranage {
+		background-color: #008B8B
+	}
+
+	.margin-bt {
+		margin: 1% 0;
+	}
+
+	.header-name span {
+		font-size: 30px;
+	}
+
+	#scraplist td,
+	#scraplist th {
+		text-align: center;
+	}
+
+	.edit {
+		color: #007fbb;
+		font-size: 20px;
+	}
+
+	.header-name {
+		text-align: center;
+		margin-top: 3%;
+		margin-bottom: -1%;
+	}
+
+	.header-name {
+		text-align: center;
+		margin: 6% 0;
+	}
+</style>
+<!-- </head>
+<body> -->
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 header-name">
+			<h1>
+				<span>Breakdown History Report </span>
+			</h1>
+		</div>
+	</div>
+	
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="col-sm-3">
+				<label class="control-label">Start Date <span style="color: red">*</span> :
+				</label>
+			</div>
+			<div class="col-sm-9">
+				<input type="date" style="width: 100%;" ng-model="startDate" ng-click="vm.loadHistory()">
+				
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="col-sm-3">
+				<label class="control-label">End Date <span style="color: red">*</span> :
+				</label>
+			</div>
+			<div class="col-sm-9">
+				<input type="date" style="width: 100%;" ng-model="endDate" 				ng-click="vm.loadHistory()">
+				<span style="color: red;" ng-show="endDateErr"> End Date Is Mandetory</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 29px;margin-bottom: 30px;">
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
+        <button type="submit" class="btn_serach btn-sm" id="success"
+                style="background: #008B8B; border: 1px solid #103e57;" ng-click="vm.loadHistory()">Get Report</button>
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn_serach btn-sm" id="success"
+                style="background: #008B8B; border: 1px solid #103e57;" ng-click="vm.exportToExcel()">Export</button>
+    </div>
+</div>
+
+	<!-- 	</div> -->
+</div>
+
+<div class="container">
+
+
+</div>
+<div class="container">
+	<table id="scrap_department_report" datatable="ng" class="table table-bordered" style="width: 100%;	margin-left: -183px;">
+		<thead>
+			<tr class="oranage">
+				<td>Sr No </td> 
+				<td>BD No</td> 
+									<td>Machine Name</td>
+										<td>					Obervation</td>
+										<td>					Root Clause</td>
+										<td>Preventive Action Plan</td>
+										<td>Status</td>
+									
+										<td>Done by</td>
+										<td>Spares</td>
+										<td>Ticket Create Time</td>
+										<td>Ticket Closed Time</td>
+										<td>TTR (Hrs)</td>
+										<td>TBF(days)</td>
+										<td>Total Breakdowns(Hrs)</td>
+										
+													</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="arr in vm.histories">
+				<td>{{arr.srNo}}</td> 
+				<td>{{arr.bd_slip}}</td> 
+									<td>{{arr.machine.machine_name}}({{arr.machine.eqid}})</td>
+									<td>{{arr.observation}}</td>
+									<td>{{arr.root_cause}}</td>
+									<td>{{arr.action_taken}}</td>
+									<td><span ng-if="arr.status==1">Open</span><span ng-if="arr.status==2">Waiting for Trial</span> <span ng-if="arr.status==3">Closed</span><span ng-if="arr.status==4">Closed with Deviation</span></td>
+								
+									<!-- 					<td>{{arr.enggfindings}}</td> -->
+									<td>{{arr.done_by}}</td>
+									<td>{{arr.spareData}}</td>
+									 <td>{{arr.createDate}} 		{{arr.createTime}}  </td> 
+									  <td> {{arr.closedDate}} 		{{arr.closedTime}}</td> 
+									<td>   									  {{arr.ttr}}                       </td>
+									<td>{{arr.diff_days}}</td>
+									<td>{{arr.total_trial_hr}}</td>
+									
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- <div class="col-sm-12" style="margin-bottom: 2%;">
+	<button class="btn btn-info" ng-show="vm.report.length > 0"
+		style="width: 20%; float: right;" export-to-csv
+		div-id="scrap_department_report" name="scrap_department_report">
+		Export</button>
+</div> -->

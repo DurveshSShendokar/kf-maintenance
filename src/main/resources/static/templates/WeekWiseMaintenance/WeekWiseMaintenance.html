@@ -1,0 +1,146 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+</style>
+<div class="container-fluid" style="padding-top:50px;">
+	<div class="row page-title-div">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2 class="title" style="text-align:center;">PPM Details For  {{machineName}}    on    WEEK No  {{weekNo}}  </h2>
+		</div>
+	</div>
+</div>
+
+</div>
+<div class="row">
+
+	<div class="col-md-3">
+	</div>
+<!--	<div class="col-md-3">
+		<div class="form-group">
+			<label for="exampleInputPassword13">Machine <span style="color:#c00;">*</span> :</label>
+			<select ng-model="report.machienName" ng-change="filterData(report.machienName)"
+				ng-options="machienName as machienName for machienName in vm.machienNames" class="form-control"
+				required>
+				<option value="">Select Machine :</option>
+			</select>
+
+		</div>
+	</div>-->
+	
+	<div class="col-md-3">
+		<button type="submit" class="btn_serach" id="success" style="width: 25%;															font-size: 22px;"
+			ng-click="export()"> <i class="fa fa-file-excel-o" aria-hidden="true"> Export</i></button>
+
+		<button id="btnExport" ng-json-export-excel data="vm.maintenace" report-fields="vm.labels"
+			style="display:none" filename="'PPM Detials'"></button>
+
+	</div>
+</div>
+
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered ">
+						<thead class="orange">
+							<tr>
+								<th>Sr.No</th>
+												<th>Machine Name</th>
+												<th>Machine ID</th>
+												<th>Location</th>
+								
+												<th>Frequency</th>
+												
+												<th>Week No</th>
+												<th>Raised By</th>
+												<th>Done By</th>
+												<th>Overall Status</th>
+												<th>Schedule Date</th>
+												<th>Closed Date</th>
+							
+							
+							
+							
+										</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="maint in vm.maintenace" 	ng-style="{'background-color': status=='Open' ? 'rgb(255 111 111 / 69%)' : 'rgb(0 128 0 / 69%)'}">
+								<td>{{$index+1}}</td>
+								
+													<td>{{maint.machine.machine_name}} </td>
+													<td>{{maint.machine.eqid}}</td>
+													<td>{{maint.machine.location}}</td>
+													<td>{{maint.frequency}}</td>
+													
+													<td>{{maint.week}}</td>
+													<td>{{maint.raisedBy.firstName}} {{maint.raisedBy.lastName}}</td>
+													<td>{{maint.doneName}}</td>
+													<td>{{maint.overall_status}}</td>
+													<td>{{maint.schedule_date | date:'dd-MM-yyyy'}}</td>
+													<td>{{maint.closedDate | date:'dd-MM-yyyy'}}</td>
+								
+								
+
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+ <script>
+        function uploadFile() {
+            var fileInput = document.getElementById('uploadMedia');
+            var file = fileInput.files[0];
+
+            if (file) {
+                // You can perform additional checks or validations here
+
+                // Create FormData object and append the file
+                var formData = new FormData();
+                formData.append('excelFile', file);
+
+                // Send a POST request to your server using fetch or XMLHttpRequest
+                fetch('/your-upload-endpoint', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('File uploaded successfully:', data);
+                    // Handle the response from the server
+                })
+                .catch(error => {
+                    console.error('Error uploading file:', error);
+                    // Handle the error
+                });
+            } else {
+                console.log('No file selected');
+            }
+        }
+    </script>			
+						
+		
+
+						<script>
+							$(".custom-file-input-modal").on("change", function () {
+								var fileName = $(this).val().split("\\").pop();
+								$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+							});
+						</script>
+		

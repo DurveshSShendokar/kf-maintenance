@@ -1,0 +1,413 @@
+<style>
+
+.container-fluid {
+     background-color: #e9ecef; 
+}
+
+.page-title-div{
+    background-color: #e9ecef;
+}
+
+
+.dash-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 16px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+    height: 140px;
+    flex: 0 0 calc(25% - 20px);
+   
+
+}
+.dash-card:hover {
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transform: scale(1.1);
+	transition: all 0.5s ease;
+ }
+
+.dash-card .card-header {
+	border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+	
+    padding: 0px 13px;
+
+}
+
+.dash-card .card-body {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dash-card .card-title {
+    color: #212529;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.dash-card:hover .card-title {
+  color: white;
+}
+
+.dash-card .card-text {
+    
+    font-size: 1.6rem;
+    line-height: 1.6;
+    
+}
+
+
+.h4
+ {
+ margin: 10% auto;
+ }
+
+
+.card-bodyy {
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 0 0 16px 16px; 
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.card-headerr {
+    font-size: 24px;
+   
+    padding: 20px; 
+    background-color: #f8f9fa;
+    color: black; 
+    border-radius: 16px 16px 0 0; 
+    
+       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.card-headerr:hover
+{
+ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transition: all 0.5s ease;
+}
+
+.total-users-card{
+    margin-right: 10px; 
+    
+}
+
+.total-machines-card {
+   
+    margin-left: 10px; 
+}
+
+
+.total-card{
+    margin-right: 10px; 
+    
+}
+
+.open-card {
+   
+    margin-left: 10px;
+}
+
+.trial-card{
+    margin-right: 10px; 
+    
+}
+
+.closed-card {
+   
+    margin-left: 10px; 
+}
+
+.today-fetch-card{
+    margin-right: 10px; 
+    
+}
+
+
+
+
+.table-container {
+    width: 70%; /* Adjust the width as needed */
+    margin: 10;
+  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 16px;
+    background-color: #fff;
+}
+.table_header {
+    width: 100%;
+    font-size: 24px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: black;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Ensure no margins around the header */
+}
+
+.table_header:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background-color: #008B8B;
+    color: #ffffff !important;
+    transition: all 0.5s ease;
+}
+
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange { background-color: #008B8B; }
+.orange th { color: #fff; }
+.navbar {
+    background-color: #008B8B;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.btn_search {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.form-control {
+    width: 100%;
+}
+.table-bordered {
+    width: 70%;
+    margin: 0 auto; 
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.table {
+    width: 100%;
+    margin-bottom: 1	rem;
+    background-color: #fff;
+    border-collapse: collapse;
+     font-size: 1.2rem; 
+      border-radius: 16px; /* Add rounded corners */
+    overflow: hidden; /* Ensure the rounded corners are visible */
+}
+
+.table th, .table td {
+    padding: 0.5rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.move-right {
+    margin-left: 50%; 
+    text-align: left; 
+}
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-left: 3px solid #6c757d;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -8px;
+    width: 16px;
+    height: 16px;
+    background-color: #6c757d;
+    border-radius: 50%;
+}
+
+
+</style>
+
+
+	<div class="container-fluid">
+   	 <div class="row page-title-div">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+           <h2 class="title move-right"> Machine YY Analysis</h2>
+
+            
+      <div class="row">
+    <div class="col-md-4">
+        <label for="machineSelect">Select Machines <span style="color:#c00;">*</span>:</label>
+        <select 
+            ng-model="vm.selectedmachine" 
+            ng-options="machine.machine_id as (machine.machine_name + ' - ' + machine.eqid) for machine in vm.machines"
+            ng-change="vm.onMachineSelect(vm.selectedmachine)"                        
+            class="form-control" required>
+            <option value="">Select Machines:</option>
+        </select>
+    </div>
+</div>
+
+        </div>
+        
+          <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card"  ng-click="vm.showBreakdownDetails('total')" >
+                <div class="card-header">Total Breakdown</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.total_breaks.totalBreakdownCount : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="vm.showBreakdownDetails('repetitive')">
+                <div class="card-header">Repetitive Breakdown</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.selectedmachine ? vm.ATRepo.count : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+        
+        
+         <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="vm.showBreakdownDetails('open')" >
+                <div class="card-header">Open Breakdown </div>
+                <div class="card-body">
+  				<h5 class="card-text card-title">{{vm.selectedmachine ? vm.open_breaks.openCount : 0}}</h5>
+                </div>
+            </div>
+        </div>
+        
+        
+         <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="vm.showBreakdownDetails('closed')" >
+                <div class="card-header">Closed Breakdown </div>
+                <div class="card-body">
+  				<h5 class="card-text card-title">{{vm.selectedmachine ? vm.closed_breaks.closedCount : 0 }}</h5>
+                </div>
+            </div>
+        </div>
+        
+        
+         <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card" ng-click="vm.showBreakdownDetails('trial')" >
+                <div class="card-header">Trial Breakdown </div>
+                <div class="card-body">
+  				<h5 class="card-text card-title">{{vm.selectedmachine ? vm.trial_breaks.trialCount : 0}}</h5>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+          
+        
+    </div>
+</div>
+
+					
+
+
+    <div class="row">
+<div class="container">
+    <div class="panel-body table-responsive">
+       <table datatable="ng" id="example" class="table table-bordered" style="width: 100%; height: auto;">
+           <thead class="orange">
+                 <tr>
+                        <th>Sr No</th>
+                        <th>Machine Name</th>
+                        <th>Equipment ID</th>
+                    
+                        <th>Breakdown Slip Number</th>
+                        <th>Breakdown description</th>
+                        <th>Corrective Action </th>
+                        <th>Root Cause</th>
+                      
+                        <th>Raised Time</th>
+                        <th>Trial Time</th>
+                        <th>Closed Time</th>
+                        
+                    </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="spare in vm.breakdownDetails track by $index">
+                    <td>{{$index + 1}}</td>
+                    <td>{{spare.machine.machine_name}}</td>
+                    <td>{{spare.machine.eqid}}</td>
+                   
+                    <td>{{spare.bd_slip}}</td>
+                    <td>{{spare.observation}}</td>
+                    <td>{{spare.action_taken}}</td>
+                    <td>{{spare.root_cause}}</td>
+                 
+                    
+                     <td>{{spare.ticket_raised_time}}</td>
+                     
+                     <td>
+                        <span ng-if="!spare.ticket_trial_time">Still Open</span>
+                        <span ng-if="spare.ticket_trial_time">{{spare.ticket_trial_time }}</span>
+                    </td>
+                    
+                     <td>
+                        <span ng-if="!spare.ticket_closed_time">Still Open</span>
+                        <span ng-if="spare.ticket_closed_time">{{spare.ticket_closed_time }}</span>
+                    </td>
+	                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+	</div>
+
+	
+	
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+	 
+	 
+	
+	
+	
+	

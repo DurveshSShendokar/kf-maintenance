@@ -1,0 +1,94 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Scrap Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="fonts/fa/css/font-awesome.min.css">
+  <linl rel="stylesheet" href="css/dataTable.css"> -->
+
+  <link href="css/style.css" rel="stylesheet">
+  <style type="text/css">
+  .btn-oranage{background-color: #f3732c ;color:#fff;}
+  .oranage{background-color:#f3732c}
+  .margin-bt{margin:1% 0;}
+  .header-name span{font-size:30px;}
+  #scraplist td,#scraplist th{text-align:center;}
+  .edit{color:#007fbb ;font-size:20px;}
+  .header-name {
+    text-align: center;
+    margin-top: 3%;
+
+}
+  </style>
+<!-- </head>
+<body> -->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 header-name">
+				<span>Scrap Type Wise</span>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="col-sm-3">
+						<label class="control-label">REPORT TYPE <span style="color: red">*</span> :</label>
+					</div>
+					<div class="col-sm-9">
+						<select class="form-control" id="type" ng-model="selectType">
+							<option value="selectType"> Select type </option>
+							<option value="department"> Department </option>
+							<option value="scrap"> Scrap </option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="col-sm-3">
+						<label class="control-label">UOM <span style="color: red">*</span> :</label>
+					</div>
+					<div class="col-sm-9">
+						<select class="form-control" id="UOM" ng-model="selectUom">
+							<option value="selectUom"> Select UOM </option>
+							<option value="LITRE"> Litre </option>
+							<option value="KG"> KG </option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="col-sm-3">
+						<label class="control-label">START DATE<span style="color: red">*</span> :</label>
+					</div>
+					<div class="col-sm-9">
+						<input type="date" ng-model="startDate" class="form-control"  ng-change="vm.getReport();">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="col-sm-3">
+						<label class="control-label">END DATE <span style="color: red">*</span> :</label>
+					</div>
+					<div class="col-sm-9">
+						<input type="date" ng-model="endDate" class="form-control"  ng-change="vm.getReport();">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+			<div class="row">				
+				<div class="col-sm-6">
+				</div>
+				<div class="col-sm-6">
+					<div class="row margin-bt">
+						<div class="col-sm-8 offset-sm-4" style="text-align:right;">
+							<button class="btn btn-success" style="width:70%;" ng-click="vm.genearteReport()">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div id="container" ng-if="showGraph" report-Chart type="column" title-text="" sub-Title-Text="" categories="categories" y-Axis-Text="Total Quantity" series="series" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</div>

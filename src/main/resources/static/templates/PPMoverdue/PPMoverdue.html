@@ -1,0 +1,397 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+   .form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+   
+        
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal-content {
+    background: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.custom-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.custom-modal-header h4 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.custom-modal-header button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.custom-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.image-item {
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image-item p {
+    margin: 0;
+    word-break: break-all;
+    flex: 1;
+}
+
+.image-item button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.image-item button:hover {
+    background: #2980b9;
+}
+
+.custom-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.custom-modal-footer button {
+    background: #7f8c8d;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.custom-modal-footer button:hover {
+    background: #636e72;
+}
+
+
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.custom-modal-header, .custom-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-modal-header h4 {
+    margin: 0;
+}
+
+.custom-modal-body {
+    margin: 15px 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+   
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">OverDue PPM</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row top">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                   
+                </div>
+            </div>
+			
+			
+			
+
+			<!--upload modal-->
+			<!-- Upload Modal (Pure AngularJS, no Bootstrap) -->
+			<div class="custom-modal-overlay" ng-show="vm.showUploadModal">
+			    <div class="custom-modal-content">
+			        <div class="custom-modal-header">
+			            <h4>Upload Images for Maint ID: {{ vm.selectedMaintId }}</h4>
+			            <button type="button" ng-click="vm.closeUploadModal()">X</button>
+			        </div>
+			        <div class="custom-modal-body">
+						<input type="file" file-model="vm.selectedFiles" multiple class="form-control" />
+
+			        </div>
+			        <div class="custom-modal-footer">
+			            <button class="btn btn-success" ng-click="vm.uploadMaintImages()">Upload</button>
+			            <button class="btn btn-secondary" ng-click="vm.closeUploadModal()">Cancel</button>
+			        </div>
+			    </div>
+			</div>
+
+
+			<!--view images modal-->
+
+			<div class="custom-modal-overlay" ng-show="vm.showImagesModal">
+			    <div class="custom-modal-content">
+			        <div class="custom-modal-header">
+			            <h4>Images for Maint ID: {{ vm.selectedMaintIdForImages }}</h4>
+			            <button type="button" ng-click="vm.showImagesModal = false">&times;</button>
+			        </div>
+			        <div class="custom-modal-body">
+			            <div ng-if="vm.selectedMaintImages.length > 0">
+			                <div ng-repeat="img in vm.selectedMaintImages" class="image-item">
+			                    <p>{{ img.fileName }}</p>
+								<button ng-click="vm.downloadMaintImage(img.maint.maint_id, img.id)">
+								    Download
+								</button>
+
+			                </div>
+			            </div>
+			            <div ng-if="vm.selectedMaintImages.length === 0">
+			                <p>No images found for this maintenance.</p>
+			            </div>
+			        </div>
+			        <div class="custom-modal-footer">
+			            <button ng-click="vm.showImagesModal = false">Close</button>
+			        </div>
+			    </div>
+			</div>
+
+			
+			
+            <div class="row form-border" ng-show="addNewTab">
+            
+				<div class="row">
+							
+							<div class="col-sm-12 header-name">
+								<span style="text-transform: uppercase;">Maintain Work Date</span>
+							</div>
+							
+						<div style="margin-top: 3%;width: 100%">
+								
+							<div class="col-sm-12">
+									
+								<div class="row">
+									
+									<div class="col-sm-2">
+									</div>
+									
+									<div class="col-sm-2" style="margin-left:-3%">
+										<p class="control-label" style="text-align:center;font-weight:600;text-transform: uppercase;">Equipment :</p>
+									</div>
+									
+									<div class="col-sm-6">
+										<input type="text" class="form-control" ng-disabled="true" ng-model="equipment" name="equipment" id="equipment">
+
+									</div>
+									
+									<div class="col-sm-2">
+									</div>
+									
+								</div>
+								
+							</div>
+								
+					   </div>
+					</div>
+            
+					<div class="col-sm-12">
+						<table id="assembly_list_QR" datatable="ng" class="table table-bordered margin-tb" style="width:100%">
+						    <thead>
+						        <tr class="orange">
+						            <th class="dark-cyan-bg">#</th>
+						            <th class="dark-cyan-bg">Checklist</th>
+						            <th class="dark-cyan-bg">Acceptable Range</th> 
+						            <th class="dark-cyan-bg">Value</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						        <tr ng-repeat="arr in vm.checklist">
+						            <td>{{$index + 1}}</td>
+						            <td>{{arr.task}}</td>                         
+						            <td>{{arr.acceptableRange}}</td>                         
+						            <td><input type="text" class="form-control" ng-model="arr.status"></td>
+						        </tr>
+						    </tbody>
+						</table>
+						
+						<div class="row margin-tb">
+								 	     	<div class="col-sm-12">
+								 	     		<h5>Spare Used ( Optional )</h5>
+								 	     		<textarea class="form-control" ng-model="vm.spare_used" rows="4" id="used"></textarea>
+								 	     	</div>
+								 	     </div>
+
+							     <div class="row margin-tb">
+							     	<div class="col-sm-12">
+							     		<h5>Overall Observation</h5>
+							     		<textarea class="form-control" ng-model="vm.observation" rows="4" id="overall"></textarea>
+							     	</div>
+							     </div>
+								 
+								 <div class="row margin-tb">
+								 		<div class="col-sm-12">
+								 		   		<h5>Technician Mark ( Otional )</h5>
+							   		          <textarea class="form-control" ng-model="vm.TechMark" rows="4" id="overall"></textarea>
+						           	</div>
+					        </div>
+								 
+								 
+							     <div class="row margin-tb">
+							     	<div class="col-sm-4"><p class="control-label" style="font-weight:600;text-align:right;text-transform: uppercase;">Action Done By :-</p></div>
+							     	<div class="col-sm-5"><input type="text" class="form-control" ng-disabled="true" ng-model="raisedBy" name="equipment" id="equipment"></div>
+							     	<div class="col-sm-3"><button class="btn btn-success" style="width: 100%;font-size:18px;font-weight: 500;"  ng-click="vm.saveOverduePPM()">Save</button></div>
+							     </div>
+								 
+							     <div class="row right create-break margin-tb">
+							     	<div class="col-sm-12">
+							     		<button class="btn btn-primary" ui-sref="main.breakdown({machine : machineDetails.machine})">Create Breakdown</button>
+							     	</div>
+									
+							     </div>
+								 
+								 <div class="row right create-break margin-tb">
+								 						     	<div class="col-sm-8">
+								 						     		<button class="btn btn-primary" ng-click="vm.cancel()">cancel</button>
+								 						     	</div>
+								 								
+								 						     </div>
+								 
+				</div>
+						
+					
+              
+                
+                
+				
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+							<tr>
+								<th>Sr No</th>
+								<th>Machine Name</th>
+								<th>Schedule date</th>
+								<th>Frequency</th>
+								
+							   
+								<th>Action</th>
+							</tr>
+						</thead>
+            <tbody>
+							<tr ng-repeat="allocation in vm.complaints">
+								<td>{{$index+1}}</td>
+								<td>{{allocation.machine.machine_name}} {{allocation.machine.eqid}}</td>
+								<td>{{allocation.schedule_date | date:'dd-MM-yyyy'}}</td>
+								<td>{{allocation.frequency}}</td>
+							
+								
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info" title="Update" 
+										ng-click="vm.add(allocation)">										
+										Update
+									</button>
+									
+									<button class="btn btn-primary btn-sm" ng-click="vm.openUploadModal(allocation.maint_id)">
+														                   Upload Images
+														               </button>
+																	   
+																	   <button class="btn btn-warning btn-sm" 
+																	           ng-click="vm.getMaintImages(allocation.maint_id)">
+																	       View Images
+																	   </button>
+								</td>
+							</tr>
+						</tbody>
+        </table>
+    </div>
+</div>

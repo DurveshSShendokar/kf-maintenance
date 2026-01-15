@@ -1,0 +1,425 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+.dark-cyan-background {
+    background-color: #008B8B;
+    color: #fff; /* Optionally change text color */
+    padding: 5px 10px; /* Adjust padding as needed */
+    display: inline-block; /* Ensures the div fits content width */
+}
+
+.bg_orange {
+    background-color: #008B8B; /* Dark cyan color */
+    color: #fff; /* Text color for contrast */
+    padding: 8px; /* Adjust padding as needed */
+}
+
+
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+</style>
+<div class="container form-border">
+<div class="col-sm-12 header-name">
+			 <span>Maintenance Schedule</span>
+		</div>
+			<div class="row top">
+			
+				<div class="col-sm-12">
+				
+					<div class="all_center">
+					
+						<div class="row">
+						    <!-- Select Lab -->
+						    <div class="col-sm-6">
+						        <div class="form-group row">
+						            <label class="col-sm-4 col-form-label text-right">
+						                Select Lab <span style="color:#c00;">*</span> :
+						            </label>
+						            <div class="col-sm-8">
+						                <select class="form-control" ng-model="selectedLab">
+						                    <option value="selectLab">Select Lab</option>
+						                    <option ng-repeat="opts in vm.labs" value="{{opts}}">
+						                        {{opts.labName}}
+						                    </option>
+						                </select>
+						            </div>
+						        </div>
+						    </div>
+
+						    <!-- Select Machine -->
+						    <div class="col-sm-6">
+						        <div class="form-group row">
+						            <label class="col-sm-4 col-form-label text-right">
+						                Select Machine <span style="color:#c00;">*</span> :
+						            </label>
+						            <div class="col-sm-8">
+						                <select class="form-control" ng-model="selectedMachineNames" ng-change="vm.changeMachineNames(selectedMachineNames);">
+						                    <option ng-show="showSelectMachineName" value="selectMachineNames">
+						                        Select Machine
+						                    </option>
+						                    <option ng-repeat="opts in vm.machineNames" value="{{opts}}">
+						                        {{opts}}
+						                    </option>
+						                </select>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+
+						<div class="row">
+						    <!-- Select Equipment ID -->
+						    <div class="col-sm-8">
+						        <div class="form-group row">
+						            <label class="col-sm-4 col-form-label text-right">
+						                Select Equipment ID <span style="color:#c00;">*</span> :
+						            </label>
+						            <div class="col-sm-8">
+						                <select class="form-control" ng-model="selectedMachine">
+						                    <option ng-show="showSelectMachine" value="selectMachine">
+						                        Select Machine Eqid
+						                    </option>
+						                    <option ng-repeat="opts in vm.machines" value="{{opts}}">
+						                        {{opts.eqid}}
+						                    </option>
+						                </select>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+						
+					<div class="all _center p-t-10">
+					<div class="row p-t-10">
+							<div class="col-sm-3">
+								<span class="txt f-r"> Select Frequency <span style="color:#c00;">*</span> : </span>
+							</div>
+							<div class="col-sm-7">
+								<select id="sel_freq" class="form-control" ng-model="selectedMode" ng-change="vm.changeMode(selectedMode)">
+									<option value="selectFrequency" ng-show="showSelectFrequency"> Select frequency </option>
+									<option value="weekly"> Weekly </option>
+									<option value="monthly"> Monthly </option>
+									<option value="quarterly"> Quarterly </option>
+									<option value="halfyearly"> Half Yearly </option>
+									<option value="yearly"> Yearly </option>
+								</select>
+							</div>
+					
+						</div>
+						
+						
+						
+						
+						
+						<div class="row p-t-10">
+							<div class="col-sm-12 p-t-10" id="weekly" ng-if="selectedMode == 'weekly'">
+								<div class="table-responsive">          
+								  <table class="table table-bordered">
+									<thead class="orange">
+									  <tr>
+										<!-- <th> All </th> -->
+										<th> Months </th>
+										<th> WK1 </th>
+										<th> WK2 </th>
+										<th> WK3 </th>
+										<th> WK4 </th>
+										<th> WK5 </th>
+										<th> WK6 </th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Jan </td>
+										<td ng-repeat="arr in weeklyArray[0].weeks" > <input id="jan{{$index}}" type="date" class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="jan2" type="date" class="form-control" > </td>
+										<td> <input id="jan3" type="date" class="form-control" > </td>
+										<td> <input id="jan4" type="date" class="form-control" > </td>
+										<td> <input id="jan5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Feb </td>
+										<td ng-repeat="arr in weeklyArray[1].weeks" > <input id="feb{{$index}}" type="date" class="form-control"  class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="feb2" type="date" class="form-control" > </td>
+										<td> <input id="feb3" type="date" class="form-control" > </td>
+										<td> <input id="feb4" type="date" class="form-control" > </td>
+										<td> <input id="feb5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Mar </td>
+										<td ng-repeat="arr in weeklyArray[2].weeks" > <input id="mar{{$index}}" type="date" class="form-control" class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="mar2" type="date" class="form-control" > </td>
+										<td> <input id="mar3" type="date" class="form-control" > </td>
+										<td> <input id="mar4" type="date" class="form-control" > </td>
+										<td> <input id="mar5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Apr </td>
+										<td ng-repeat="arr in weeklyArray[3].weeks" > <input id="apr{{$index}}" type="date" class="form-control" class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="apr2" type="date" class="form-control" > </td>
+										<td> <input id="apr3" type="date" class="form-control" > </td>
+										<td> <input id="apr4" type="date" class="form-control" > </td>
+										<td> <input id="apr5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> May </td>
+										<td ng-repeat="arr in weeklyArray[4].weeks"> <input id="may{{$index}}" type="date" class="form-control"  class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Jun </td>
+										<td ng-repeat="arr in weeklyArray[5].weeks"> <input id="jun{{$index}}" type="date" class="form-control"  class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+											
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Jul </td>
+										<td ng-repeat="arr in weeklyArray[6].weeks" > <input id="jul{{$index}}" type="date" class="form-control" class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="jul2" type="date" class="form-control" > </td>
+										<td> <input id="jul3" type="date" class="form-control" > </td>
+										<td> <input id="jul4" type="date" class="form-control" > </td>
+										<td> <input id="jul5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Aug </td>
+										<td ng-repeat="arr in weeklyArray[7].weeks" > <input id="aug{{$index}}" type="date" class="form-control" class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="aug2" type="date" class="form-control" > </td>
+										<td> <input id="aug3" type="date" class="form-control" > </td>
+										<td> <input id="aug4" type="date" class="form-control" > </td>
+										<td> <input id="aug5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Sep </td>
+										<td ng-repeat="arr in weeklyArray[8].weeks"> <input id="sep{{$index}}" type="date" class="form-control"  class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="sep2" type="date" class="form-control" > </td>
+										<td> <input id="sep3" type="date" class="form-control" > </td>
+										<td> <input id="sep4" type="date" class="form-control" > </td>
+										<td> <input id="sep5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Oct </td>
+										<td ng-repeat="arr in weeklyArray[9].weeks" > <input id="oct{{$index}}" type="date" class="form-control" class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="oct2" type="date" class="form-control" > </td>
+										<td> <input id="oct3" type="date" class="form-control" > </td>
+										<td> <input id="oct4" type="date" class="form-control" > </td>
+										<td> <input id="oct5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Nov </td>
+										<td ng-repeat="arr in weeklyArray[10].weeks" > <input id="nov{{$index}}" type="date" class="form-control" class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="nov2" type="date" class="form-control" > </td>
+										<td> <input id="nov3" type="date" class="form-control" > </td>
+										<td> <input id="nov4" type="date" class="form-control" > </td>
+										<td> <input id="nov5" type="date" class="form-control" > </td> -->
+									  </tr>
+									  <tr>
+										<!-- <td> <input type="checkbox" class="c_check" checked> </td> -->
+										<td class="bg_orange"> Dec </td>
+										<td ng-repeat="arr in weeklyArray[11].weeks"> <input id="dec{{$index}}" type="date" class="form-control"  class="form-control" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="dec2" type="date" class="form-control" > </td>
+										<td> <input id="dec3" type="date" class="form-control" > </td>
+										<td> <input id="dec4" type="date" class="form-control" > </td>
+										<td> <input id="dec5" type="date" class="form-control" > </td> -->
+									  </tr>
+									</tbody>
+								  </table>
+								</div>
+							</div>
+						 
+							<div class="col-sm-12 p-t-10 " id="monthly" ng-if="selectedMode == 'monthly'">
+								<div class="table-responsive">          
+								  <table class="table table-bordered">
+									<thead class="orange">
+									  <tr>
+										<th> Jan </th>
+										<th> Feb </th>
+										<th> Mar </th>
+										<th> Apr </th>
+										<th> May </th>
+										<th> Jun </th>
+										<th> July </th>
+										<th> Aug </th>
+										<th> Sept </th>
+										<th> Oct </th>
+										<th> Nov </th>
+										<th> Dec </th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+									  	<td ng-repeat="arr in monthlyArray"><input id="arr.month" type="date" ng-model="arr.selectedDate" max="{{arr.max}}" min="{{arr.min}}"> </td>
+										<!-- <td> <input id="jan" min="janMin" max="janMax" type="date"  > </td>
+										<td><input id="feb" type="date" > </td>
+										<td> <input id="mar" type="date" > </td>
+										<td> <input id="apr" type="date" > </td>
+										<td> <input id="may" type="date"> </td>
+										<td> <input id="jun" type="date" > </td>
+										<td> <input id="jul" type="date"  > </td>
+										<td> <input id="aug" type="date" > </td>
+										<td> <input id="sep" type="date"  > </td>
+										<td> <input id="oct" type="date"  > </td>
+										<td> <input id="nov" type="date" > </td>
+										<td> <input id="dec" type="date"  > </td> -->
+									  </tr>
+									</tbody>
+								  </table>
+								</div>
+							</div>
+							<div class="col-sm-12 p-t-10" id="quarterly" ng-if="selectedMode == 'quarterly'">
+								<div class="table-responsive">          
+								  <table class="table table-bordered">
+									<thead class="orange">
+									  <tr>
+										<th> All </th>
+										<th> Quarters </th>
+										<th> 1st Month </th>
+										<th> 2nd Month </th>
+										<th> 3rd Month </th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+										<td> JAN - MAR </td>
+										<td> Quarterly 1 </td>
+										<td>  <input id="jan" type="date" ng-model="quarterlyArray[0].selectedDate" max="{{quarterlyArray[0].max}}" min="{{quarterlyArray[0].min}}"> </td>
+										<td>  <input id="feb" type="date"  ng-model="quarterlyArray[1].selectedDate" max="{{quarterlyArray[1].max}}" min="{{quarterlyArray[1].min}}"> </td>
+										<td>  <input id="mar" type="date" ng-model="quarterlyArray[2].selectedDate" max="{{quarterlyArray[2].max}}" min="{{quarterlyArray[2].min}}" > </td>
+									  </tr>
+									  <tr>
+										<td> APR - JUN </td>
+										<td> Quarterly 2 </td>
+										<td> <input id="apr" type="date" ng-model="quarterlyArray[3].selectedDate" max="{{quarterlyArray[3].max}}" min="{{quarterlyArray[3].min}}"> </td>
+										<td> <input id="may" type="date" ng-model="quarterlyArray[4].selectedDate" max="{{quarterlyArray[4].max}}" min="{{quarterlyArray[4].min}}"> </td>
+										<td> <input id="jun" type="date" ng-model="quarterlyArray[5].selectedDate" max="{{quarterlyArray[5].max}}" min="{{quarterlyArray[5].min}}"> </td>
+									  </tr>
+									  <tr>
+										<td> JUL - SEP </td>
+										<td> Quarterly 3 </td>
+										<td> <input id="jul" type="date" ng-model="quarterlyArray[6].selectedDate" max="{{quarterlyArray[6].max}}" min="{{quarterlyArray[6].min}}" > </td>
+										<td> <input id="aug" type="date" ng-model="quarterlyArray[7].selectedDate" max="{{quarterlyArray[7].max}}" min="{{quarterlyArray[7].min}}"> </td>
+										<td> <input id="sep" type="date" ng-model="quarterlyArray[8].selectedDate" max="{{quarterlyArray[8].max}}" min="{{quarterlyArray[8].min}}" > </td>
+									  </tr>
+									  <tr>
+										<td> OCT - DEC </td>
+										<td> Quarterly 4 </td>
+										<td> <input id="oct" type="date" ng-model="quarterlyArray[9].selectedDate" max="{{quarterlyArray[9].max}}" min="{{quarterlyArray[9].min}}" > </td>
+										<td> <input id="nov" type="date" ng-model="quarterlyArray[10].selectedDate" max="{{quarterlyArray[10].max}}" min="{{quarterlyArray[10].min}}"> </td>
+										<td> <input id="dec" type="date" ng-model="quarterlyArray[11].selectedDate" max="{{quarterlyArray[11].max}}" min="{{quarterlyArray[11].min}}" > </td>
+									  </tr>
+									</tbody>
+								  </table>
+								</div>
+							</div>
+							<div class="col-sm-12 p-t-10" id="halfyearly" ng-if="selectedMode == 'halfyearly'">
+								<div class="table-responsive">          
+								  <table class="table table-bordered">
+									<thead class="orange">
+									  <tr>
+										<th> All </th>
+										<th> Half Year </th>
+										<th> 1st Month </th>
+										<th> 2nd Month </th>
+										<th> 3rd Month </th>
+										<th> 4th Month </th>
+										<th> 5th Month </th>
+										<th> 6th Month </th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+										<td> JAN - JUN </td>
+										<td> First HALF </td>
+										<td>  <input id="jan" type="date" ng-model="quarterlyArray[0].selectedDate" max="{{quarterlyArray[0].max}}" min="{{quarterlyArray[0].min}}"> </td>
+										<td>  <input id="feb" type="date" ng-model="quarterlyArray[1].selectedDate" max="{{quarterlyArray[1].max}}" min="{{quarterlyArray[1].min}}"> </td>
+										<td>  <input id="mar" type="date" ng-model="quarterlyArray[2].selectedDate" max="{{quarterlyArray[2].max}}" min="{{quarterlyArray[2].min}}"> </td>
+										<td>  <input id="apr" type="date" ng-model="quarterlyArray[3].selectedDate" max="{{quarterlyArray[3].max}}" min="{{quarterlyArray[3].min}}"> </td>
+										<td>  <input id="may" type="date" ng-model="quarterlyArray[4].selectedDate" max="{{quarterlyArray[4].max}}" min="{{quarterlyArray[4].min}}"> </td>
+										<td>  <input id="jun" type="date" ng-model="quarterlyArray[5].selectedDate" max="{{quarterlyArray[5].max}}" min="{{quarterlyArray[5].min}}"> </td>
+									  </tr>
+									  <tr>
+										<td> JUL - DEC </td>
+										<td> Second HALF </td>
+										<td> <input id="jul" type="date" ng-model="quarterlyArray[6].selectedDate" max="{{quarterlyArray[6].max}}" min="{{quarterlyArray[6].min}}" > </td>
+										<td> <input id="aug" type="date" ng-model="quarterlyArray[7].selectedDate" max="{{quarterlyArray[7].max}}" min="{{quarterlyArray[7].min}}"> </td>
+										<td> <input id="sep" type="date" ng-model="quarterlyArray[8].selectedDate" max="{{quarterlyArray[8].max}}" min="{{quarterlyArray[8].min}}" > </td>
+										<td> <input id="oct" type="date" ng-model="quarterlyArray[9].selectedDate" max="{{quarterlyArray[9].max}}" min="{{quarterlyArray[9].min}}"> </td>
+										<td> <input id="nov" type="date" ng-model="quarterlyArray[10].selectedDate" max="{{quarterlyArray[10].max}}" min="{{quarterlyArray[10].min}}" > </td>
+										<td> <input id="dec" type="date" ng-model="quarterlyArray[11].selectedDate" max="{{quarterlyArray[11].max}}" min="{{quarterlyArray[11].min}}"> </td>
+									  </tr>
+									</tbody>
+								  </table>
+								</div>
+							</div>
+							<div class="col-sm-12 p-t-10" id="yearly" ng-if="selectedMode == 'yearly'">
+								<div class="table-responsive">          
+								  <table class="table table-bordered">
+									<thead class="orange">
+									  <tr>
+										<th> All </th>
+										<th> Year </th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+										<td> JAN - DEC </td>
+										<td>  <input id="jan" type="date" ng-model="yearDate" > </td>
+									  </tr>
+									</tbody>
+								  </table>
+								</div>
+							</div>
+						</div>
+						<div class="row m-b-20" ng-if="selectedMode == 'weekly' || selectedMode == 'monthly' || selectedMode == 'quarterly' || selectedMode == 'halfyearly' || selectedMode == 'yearly'">
+							<div class="col-sm-10"> 
+							</div>
+							<div class="col-sm-2"> 
+								<button class="col-sm-2 btn_green f-r" ng-click="vm.saveMachinesData()"> Save </button>
+							</div>						
+						</div> 
+					</div>
+					
+
+				</div>
+			</div>
+		</div>
+		</div>
+<script>
+$("#sel_freq").on("change", function (event) {
+	var type=$("#sel_freq").val();
+	
+	/* if(type== 'weekly'){
+		$("#weekly").show();
+		$("#monthly").hide();
+		$("#quarterly").hide();
+	}
+	
+	if(type== 'quarterly'){
+		$("#quarterly").show();
+		$("#monthly").hide();
+		$("#weekly").hide();
+	}
+	
+	if(type== 'monthly'){
+		$("#monthly").show();
+		$("#quarterly").hide();
+		$("#weekly").hide();
+	} */
+	
+});	
+
+</script>		
+		
+		
+		

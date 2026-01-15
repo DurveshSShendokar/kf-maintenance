@@ -1,0 +1,256 @@
+
+
+<style>
+	
+	.form-border {
+		    border: 2px solid #ccc;
+		    padding: 20px;
+		    border-radius: 10px;
+		   
+	</style>
+
+
+<div class="container-fluid" style="padding-top:5px;">
+    		
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Overall Closed Breakdown</h2>
+    </div>
+    <div class="row">
+     <div class="col-md-4"></div> 
+    <div class="col-md-2">
+        <label for="fromDate">From Date</label>
+        <input type="date" id="fromDate" ng-model="vm.fromDate" class="form-control" >
+    </div>
+    <div class="col-md-2">
+        <label for="toDate">To Date</label>
+        <input type="date" id="toDate" ng-model="vm.toDate" class="form-control" ng-change="vm.filterComplaints()">
+    </div>
+</div>
+	
+</div>
+		
+<div class="row">
+
+	
+	<div class="col-md-8">
+		</div>
+	 <div class="col-md-1" >
+                    <button type="button" class="btn_serach" id="success"
+                        style="background: #008B8B; border: 1px solid #103e57; color:white;"
+                        ng-click="vm.exportToExcel(vm.fromDate, vm.toDate)">Export</button>
+                        
+                </div>
+</div>
+
+
+
+<div class="container">
+  <div class="row top">
+    <div class="col-sm-12">
+
+      <!-- Breakdown Sheet Section -->
+      <div class="row form-border" ng-show="addNewTab">
+
+        <!-- Export to PDF Button -->
+        <div class="row">
+          <button class="btn" style="background-color: #008B8B; color: white;" ng-click="exportToPDF()">
+            <i class="fa fa-file-pdf-o"></i> Export to PDF
+          </button>
+        </div>
+
+        <!-- Title -->
+        <div class="row form-border">
+          <div class="col-lg-12">
+            <h2 class="title text-center">Breakdown Sheet</h2>
+          </div>
+        </div>
+
+        <!-- Breakdown Sheet Details -->
+        <div class="row" style="margin-top: 3%; width: 100%;">
+          <div class="col-sm-12">
+
+            <!-- Left Column (7 fields) -->
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Lab:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="lab">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Location:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="location">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Machine Name:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="MachineName">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Equipment ID:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="equipment">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Raise Time:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="ScheduleDate">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Start Time:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="RepairedDate">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">End Time:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="ClosedDate">
+              </div>
+			  
+			<!--  <div class="form-group">
+			               <label class="control-label font-weight-bold">Done By:</label>
+			               <textarea class="form-control wrap-text" ng-disabled="true" ng-model="DoneBy"></textarea>
+			             </div>-->
+
+            </div>
+
+            <!-- Right Column (7 fields) -->
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Breakdown Description:</label>
+                <textarea class="form-control wrap-text" ng-disabled="true" ng-model="rootCause"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Repairing Details:</label>
+				<textarea class="form-control wrap-text" ng-disabled="true" ng-model="repairDetails"></textarea>
+              
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Spares Used:</label>
+                <input type="text" class="form-control" ng-disabled="true" ng-model="sparesUsed">
+              </div>
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Total Breakdown Time:</label>
+                <textarea class="form-control wrap-text" ng-disabled="true" ng-model="totalBreakdownTime"></textarea>
+              </div>
+			  <!--
+				
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Attended Users:</label>
+                <textarea class="form-control wrap-text" ng-disabled="true" ng-model="attendUsers"></textarea>
+              </div>
+			  
+			  -->
+
+              <div class="form-group">
+                <label class="control-label font-weight-bold">Repairing Time:</label>
+                <textarea class="form-control wrap-text" ng-disabled="true" ng-model="repairingTime"></textarea>
+              </div>
+
+			  <div class="form-group">
+			  		               <label class="control-label font-weight-bold">Done By:</label>
+			  		               <textarea class="form-control wrap-text" ng-disabled="true" ng-model="DoneBy"></textarea>
+			  		             </div>
+
+           
+
+              <!-- Cancel Button -->
+              <div class="row right create-break margin-tb">
+                <div class="col-sm-8">
+                  <button class="btn btn-primary" ng-click="vm.cancel()">Cancel</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- End Breakdown Sheet Section -->
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container mt-3">
+    <div class="panel-body table-responsive">
+		<table class="table table-bordered" style="background-color:#008B8B;  color:white;">
+						<thead class="orange">
+							<tr>
+								<th>Sr.No</th>
+						    	<th>Slip Number</th>
+						
+								
+								
+								<th>Machine</th>
+								<th>Breakdown Description </th>
+								<th>Root Cause</th>
+								<th>Corrective Action </th>
+								<th>Raised Date</th>
+								<th>Closed Date</th>
+								<th>Raised By</th>
+								<th>Closed By</th>
+								
+							
+								
+			
+								<th>Status</th>
+								
+								
+								
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="department in vm.filteredComplaints">
+							
+								<td>{{$index+1}}</td>
+								<td>{{department.breakdown.bd_slip}}</td>		
+							
+							
+
+					
+					<td>{{department.breakdown.machine.machine_name}} - {{department.breakdown.machine.eqid}} </td>
+					<td>{{department.breakdown.observation}}</td>
+					<td>{{department.breakdown.root_cause}}</td>
+					<td>{{department.breakdown.action_taken}}</td>
+					<td>{{department.breakdown.ticket_raised_time | date:'dd-MM-yyyy'}}</td>
+					<td>{{department.breakdown.ticket_closed_time | date:'dd-MM-yyyy'}}</td>
+				
+					<td>{{department.breakdown.addedBy.firstName}} {{department.breakdown.addedBy.lastName}}</td>
+					<td>{{department.breakdown.trialBy.firstName}} {{department.breakdown.trialBy.lastName}}</td>
+					
+					 <td>
+			                        <span ng-switch="department.breakdown.status">
+			                            <span ng-switch-when="1">Open</span>
+			                            <span ng-switch-when="2">Trial</span>
+			                            <span ng-switch-when="3">Closed</span>
+			                          
+			                        </span>
+			                    </td>
+												
+								
+								
+							
+								
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+ 	
+ 
+
+ 
+ 
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

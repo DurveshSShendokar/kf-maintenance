@@ -1,0 +1,114 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+</style>
+<div class="container-fluid" style="padding-top:50px;">
+	<div class="row page-title-div">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2 class="title" style="text-align:center;">Breakdown Details For  {{machineName}}    on    WEEK No  {{weekNo}}  </h2>
+		</div>
+	</div>
+</div>
+
+</div>
+			
+
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered ">
+						<thead class="orange">
+							<tr>
+											<th>Sr.No</th>
+											<th>Machine Name</th>
+											<th>Machine ID</th>
+											<th>Location</th>
+							
+											<th>Frequency</th>
+											<th>Week No</th>
+											<th>Date</th>
+							
+							
+							
+							
+										</tr>
+						</thead>
+						<tbody>
+<tr ng-repeat="breaksown in vm.breaksowns" 	
+ng-style="{'background-color':breaksown.status==1 ? 'rgb(255 111 111 / 69%)' : breaksown.status==2 ? 'rgb(204 153 255 / 69%)
+' : 'rgb(144 238 144 / 69%)'}">
+								<td>{{$index+1}}</td>
+													<td>{{breaksown.machine.machine_name}} </td>
+													<td>{{breaksown.machine.eqid}}</td>
+													<td>{{breaksown.machine.location}}</td>
+													<td>{{breaksown.bd_slip}}</td>
+													<td>{{breaksown.week}}</td>
+													<td>{{breaksown.ticket_raised_time | date:'dd-MM-yyyy'}}</td>
+								
+								
+								
+
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+ <script>
+        function uploadFile() {
+            var fileInput = document.getElementById('uploadMedia');
+            var file = fileInput.files[0];
+
+            if (file) {
+                // You can perform additional checks or validations here
+
+                // Create FormData object and append the file
+                var formData = new FormData();
+                formData.append('excelFile', file);
+
+                // Send a POST request to your server using fetch or XMLHttpRequest
+                fetch('/your-upload-endpoint', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('File uploaded successfully:', data);
+                    // Handle the response from the server
+                })
+                .catch(error => {
+                    console.error('Error uploading file:', error);
+                    // Handle the error
+                });
+            } else {
+                console.log('No file selected');
+            }
+        }
+    </script>			
+						
+		
+
+						<script>
+							$(".custom-file-input-modal").on("change", function () {
+								var fileName = $(this).val().split("\\").pop();
+								$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+							});
+						</script>
+		

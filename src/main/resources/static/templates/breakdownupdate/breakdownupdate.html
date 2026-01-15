@@ -1,0 +1,499 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+     text-align: center;
+}
+.dark-cyan {
+    background-color: #008B8B;
+    color: #fff;
+}
+
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal-content {
+    background: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.custom-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.custom-modal-header h4 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.custom-modal-header button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.custom-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.image-item {
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image-item p {
+    margin: 0;
+    word-break: break-all;
+    flex: 1;
+}
+
+.image-item button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.image-item button:hover {
+    background: #2980b9;
+}
+
+.custom-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.custom-modal-footer button {
+    background: #7f8c8d;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.custom-modal-footer button:hover {
+    background: #636e72;
+}
+
+
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.custom-modal-header, .custom-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-modal-header h4 {
+    margin: 0;
+}
+
+.custom-modal-body {
+    margin: 15px 0;
+}
+
+
+</style>
+
+<div class="container">
+<div class="row">
+		<div class="col-sm-12 header-name">
+			 <span>Update Breakdown</span>
+		</div>
+	</div>
+	
+
+
+	<!--upload modal-->
+	<!-- Upload Modal (Pure AngularJS, no Bootstrap) -->
+	<div class="custom-modal-overlay" ng-show="vm.showUploadModal">
+	    <div class="custom-modal-content">
+	        <div class="custom-modal-header">
+	            <h4>Upload Images for Breakdown ID: {{ vm.selectedMaintId }}</h4>
+	            <button type="button" ng-click="vm.closeUploadModal()">X</button>
+	        </div>
+	        <div class="custom-modal-body">
+				<input type="file" file-model="vm.selectedFiles" multiple class="form-control" />
+
+	        </div>
+	        <div class="custom-modal-footer">
+	            <button class="btn btn-success" ng-click="vm.uploadMaintImages()">Upload</button>
+	            <button class="btn btn-secondary" ng-click="vm.closeUploadModal()">Cancel</button>
+	        </div>
+	    </div>
+	</div>
+
+
+	<!--view images modal-->
+
+	<div class="custom-modal-overlay" ng-show="vm.showImagesModal">
+	    <div class="custom-modal-content">
+	        <div class="custom-modal-header">
+	            <h4>Images for Maint ID: {{ vm.selectedMaintIdForImages }}</h4>
+	            <button type="button" ng-click="vm.showImagesModal = false">&times;</button>
+	        </div>
+	        <div class="custom-modal-body">
+	            <div ng-if="vm.selectedMaintImages.length > 0">
+	                <div ng-repeat="img in vm.selectedMaintImages" class="image-item">
+	                    <p>{{ img.fileName }}</p>
+						<button ng-click="vm.downloadMaintImage(img.id)">
+						    Download
+						</button>
+
+	                </div>
+	            </div>
+	            <div ng-if="vm.selectedMaintImages.length === 0">
+	                <p>No images found for this maintenance.</p>
+	            </div>
+	        </div>
+	        <div class="custom-modal-footer">
+	            <button ng-click="vm.showImagesModal = false">Close</button>
+	        </div>
+	    </div>
+	</div>
+	<!--/////-->
+	
+	<div class="panel-body table-responsive" style="margin-top:1%;">
+		<table datatable="ng" id="example" class="table table-bordered">
+			<thead class="orange">
+				<tr>
+					<th>ID</th>
+					<th>Breakdown Slip</th>
+				
+					<th>Machine Name</th>
+					<th>Breakdown Description</th>
+					<th>Detected By</th>
+					
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="breakdown in vm.breakdowns">
+					<td>{{$index+1}}</td>
+					<td>{{breakdown.bd_slip}}</td>
+					
+					
+					<td nowrap ng-if="breakdown.machine.type==1">Machine</td>
+								<td nowrap ng-if="breakdown.machine.type==2">Auxiliary</td>
+					<td>{{breakdown.machine.machine_name}}- {{breakdown.machine.eqid}}</td>
+					<td>{{breakdown.observation}}</td>
+					<td>{{breakdown.addedBy.firstName}} {{breakdown.addedBy.lastName}}</td>
+				
+					
+					<td> {{breakdown.status==1 ? 'Waiting for Maintenance' : breakdown.status==2 ? 'Waiting for Trial' : breakdown.status==4 ? 'Approved with deviation' : 'Approved'}} </td>
+					<td class="col-md-4">
+					    <div style="display: flex; gap: 5px;">
+					        <button type="button" class="btn btn-success btn-sm"
+					            ng-click="vm.add(breakdown)"
+					            ng-disabled="breakdown.status == 3 || breakdown.status==4 || breakdown.status==2">
+					            Update Breakdown
+					        </button>
+
+					        <button class="btn btn-primary btn-sm"
+					            ng-click="vm.openUploadModal(breakdown.breakdown_id)">
+					            Upload Images
+					        </button>
+
+					        <button class="btn btn-warning btn-sm"
+					            ng-click="vm.getMaintImages(breakdown.breakdown_id)">
+					            View Images
+					        </button>
+					    </div>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="container form-border" ng-show="showEdit">
+	<div class="row ">
+		<div class="col-sm-4">
+					<button class="btn btn-danger" ng-click="vm.cancel()">Cancel</button>
+					</div>
+		<div class="col-sm-12 header-name">
+			<img src="img/breakdown.png"><span>Breakdown Update Memo</span>
+		</div>
+	</div>
+	<div class="width-80">
+		<div class="row">
+			<div class="col-sm-4">
+				<label class="control-label">BD Slip No. :</label>
+			</div>
+			<div class="col-sm-4">
+				<input type="text" name="BDslipno" ng-model="breakdownupdate.bd_slip" ng-disabled="true" class="form-control">
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+		<div class="row">
+			<!--<div class="col-sm-4">
+				<label class="control-label">Shift :</label>
+			</div>
+			<div class="col-sm-4">
+				<select class="form-control" ng-model="selectedShift">
+					<option value="select shift">select shift</option>
+					<option ng-repeat="opts in vm.shifts" value="{{opts}}"> {{opts.shift_name}} </option>
+				</select>
+			</div>-->
+			<div class="col-sm-4">
+							<label class="control-label">Date :</label>
+						</div>
+			<div class="col-sm-4" style="padding: 0; margin-left: -1%;">
+				<div class="input-group mb-3">
+				<div class = "input-group">
+			         <span class = "input-group-addon oranage">Date</span>
+			         <input ttype="date" ng-model="date" class="form-control" style="padding: 7px;">
+			      </div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				</div>
+			<div class="col-sm-6">
+				
+			</div>
+			<div class="col-sm-4">
+				<label class="control-label">Select Equipment :</label>
+			</div>
+			<div class="col-sm-8">
+				<select class="form-control" ng-model="selectedEquipment">
+					<option value="selectEquipment"> Select Equipment </option>
+					<option  ng-repeat="opts in vm.machines" value="{{opts}}"> {{opts.machine_name}} - {{opts.eqid}} </option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<label class="control-label">Breakdown 	Description :</label>
+			</div>
+			<div class="col-sm-8">
+				<textarea class="form-control" ng-model="breakdownupdate.observation" rows="3"></textarea>
+			</div>
+		</div>
+		
+		<!--<div class="row" if="breakdownupdate.extingRootC!=''">
+			<div class="col-sm-4">
+				<label class="control-label">Existing Root Cause<span style ="color:red" 
+>*</span>:</label>
+			</div>
+			<div class="col-sm-8">
+				<input type="text" name="existing-rootcause"  ng-disabled="true"  ng-model="breakdownupdate.extingRootC" class="form-control">
+			</div>
+		</div>
+		-->
+		
+		<div class="row">
+				<div class="col-sm-4">
+					<label class="control-label">Corrective Action<span style ="color:red">*</span>:</label>
+				</div>
+				<div class="col-sm-8">
+					<input type="text" name="action-taken" ng-model="breakdownupdate.action_taken" class="form-control">
+				</div>
+			</div>
+			
+		
+		
+		<div class="row">
+			<div class="col-sm-4">
+				<label class="control-label">Root Cause <span style ="color:red">*</span>:</label>
+			</div>
+			<div class="col-sm-8">
+			<input type="text" class="form-control" ng-model="breakdownupdate.root_cause">
+				
+			</div>
+		</div>
+		
+		
+		
+		
+		<!--<div class="row" if="breakdownupdate.ext_action_taken!=''">
+			<div class="col-sm-4">
+				<label class="control-label">Before Action Taken <span style ="color:red" 
+>*</span>:</label>
+			</div>
+			<div class="col-sm-8">
+				<input type="text" name="action-taken"  ng-disabled="true"  ng-model="breakdownupdate.ext_action_taken" class="form-control">
+			</div>
+		</div>-->
+	
+		
+		<div class="row">
+					<div class="col-sm-4">
+						<label class="control-label">Spare Used (Optional) <span style ="color:red">*</span>:</label>
+					</div>
+					<div class="col-sm-8">
+						<input type="text" name="action-taken" ng-model="breakdownupdate.spare_used" class="form-control">
+					</div>
+				</div>
+	
+		
+		<!--<div class="col-md-6">
+					    <div class="form-group">
+					        <label for="name13">Select Spare<span style="color:#c00;">*</span>:</label>
+					        <select class="form-control" 
+					                ng-model="selSpares" 
+					              
+					                  ng-change="vm.updateSpareUseds(selSpares)" 
+					                ng-options="spare as spare.spare_name for spare in vm.AllSpares" 
+					               
+					                style="width: 200%; max-width: 300px; height: 70px;">
+					        </select>
+					    </div>
+					</div>
+		
+		
+		
+		<div class="row">
+    <div class="col-sm-4">
+        <label class="control-label">Spare Used :</label>
+    </div>
+    <div class="col-sm-6">
+        <table class="table table-responsive table-bordered" id="spaceuse">
+            <thead class="dark-cyan" style="width:255px;">
+                <tr>
+                    <th>Name</th>
+                    <th>Available Quantity</th>
+                    <th>QTY</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody style="width:255px;">
+                <tr ng-repeat="spare in vm.spares">
+                    <td>
+                        <input type="text" class="form-control" ng-model="spare.spare_name" placeholder="Spare Name">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" ng-model="spare.avialableQuantity" placeholder="Available Quantity">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" ng-model="spare.quantity" style="width:63px" placeholder="QTY">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" ng-click="vm.removeSpare($index)">
+                            -
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+       
+    </div>
+</div>
+
+		
+-->	
+		 
+	
+		 
+		
+	<div class="row">
+			<div class="col-sm-4">
+				<label class="control-label">Breakdown Raised By :</label>
+			</div>
+			<div class="col-sm-4">
+			
+				<input type="text" name="" class="form-control" ng-model="detecteBy" ng-disabled="true">
+			</div>
+			<div class="col-sm-4">
+				<button class="btn_serach" ng-click="vm.ok(breakdownupdate)" style="width:100%;">Send For Trial</button>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<br>
+
+
+
+<script type="text/javascript">
+
+ 
+     
+ 
+
+</script>

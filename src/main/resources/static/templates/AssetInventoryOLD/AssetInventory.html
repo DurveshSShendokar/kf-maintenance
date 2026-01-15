@@ -1,0 +1,254 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #e67817;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #007bff;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+
+       
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <h2 class="navbar navbar-brand" href="#">KF Bioplant</h2>
+        </div>
+    </nav>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Asset Inventory</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row top">
+        <div class="col-sm-12">
+            <div class="row">				
+                <div class="col-md-10">
+                
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn_serach btn-sm" id="success" style="background: #017cc0; border: 1px solid #103e57; color:white;" ng-click="vm.addNew()">Add</button>
+                </div>
+                  <div class="col-md-2">
+								<button type="submit" class="btn_serach btn-sm" id="success" style="background: #017cc0; border: 1px solid #103e57; color:white;"
+									ng-click="vm.upload()">Upload</button>
+						</div>	    
+						
+						 <div class="col-md-2">
+                        <button type="button" class="btn_serach btn-sm" id="success" style="background: #017cc0; border: 1px solid #103e57; color:white;" ng-click="vm.export()">Export</button>
+                    </div>
+            </div>
+            
+            <div class="row" ng-show="uploadTab">
+            <br>
+						<div class="col-md-6">
+
+							<div class="input-group">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input custom-file-input-modal form-control" id="inputExcelFile"
+										accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().handleFileSelect(this.files)" >
+									<label class="custom-file-label" for="inputExcelFile"
+										aria-describedby="inputGroupFileAddon02">Choose file</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-6"></div>
+						<div class="col-md-6">
+							<div align="right" style="margin-top:5%;">
+								<button type="submit" class="btn_serach" id="success"
+									ng-click="vm.uploadNew()">Upload</button>
+							</div>
+						</div>
+						</div>
+            
+        
+				            
+            
+            <div class="row" ng-show="addNewTab">
+            <br>
+                <div class="col-md-6" style="width: 51%">
+                    <div class="form-group">
+                        <label for="name13">Asset Name <span style="color:#c00;">*</span>:</label>
+                        <input type="text" class="form-control" ng-model="AssetInventory.machine" placeholder="Asset Name" ng-required="true">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword13">Select Category <span style="color:#c00;">*</span> :</label>
+                        <select ng-model="AssetInventory.category.cat_id"
+                                ng-options="category.cat_id as category.cat_name for category in vm.categories"
+                                class="form-control" required>
+                            <option value="">Select Category :</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword13">Select Location <span style="color:#c00;">*</span> :</label>
+                        <select ng-model="AssetInventory.location.location_id"
+                                ng-options="location.location_id as location.locationName for location in vm.locations" class="form-control" required>
+                            <option value="">Select Location:</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword13">Select Lab <span style="color:#c00;">*</span> :</label>
+                        <select ng-model="AssetInventory.lab.lab_id" ng-options="lab.lab_id as lab.labName for lab in vm.labs" class="form-control" required>
+                            <option value="">Select Lab:</option>
+                        </select>
+                    </div>
+                </div>
+                
+                
+                <div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Equipment Id  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.equipmentId" placeholder="Equipment Id"	ng-required="true">
+							</div>
+						</div>
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Model <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.model" placeholder="Model"	ng-required="true">
+							</div>
+						</div>
+						
+							<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Company Name <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.comapnyName" placeholder="Company Name"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Login Name <span style="color:#c00;">*</span> :</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.loginName" placeholder="Login Name"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Operating System  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.opSystem" placeholder="Operating System"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Ram Capacity	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.ramCapacity" placeholder="Ram Capacity"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Hard Disk Capacity	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.hardDiskCap" placeholder="hard Disk Capacity"	ng-required="true">
+							</div>
+						</div>
+						
+						
+
+              
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.ok(AssetInventory)">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+			<div class="row" ng-show="viewQrTab">
+						
+						<!-- <div class="col-md-2">
+						</div>
+						
+						<div class="col-md-6">
+						
+							 <qr text="qrcodeData" id="anycanvas" correction-level="'L'" size="200" image="true" ></qr>
+							 <h4>{{qrcodeData}}</h4>
+						</div> -->
+						<div class="col-md-6">
+								<!-- <img src="img/kf-logo.png" class="logo"> -->
+							<div  								id="printQR" style="padding: 5px;display: inline-block;border:2px solid #e67817;margin-left:10px;margin-top:15px">    
+								   <qr text="qrcodeData" id="anycanvas" correction-level="'L'" size="200" image="true" ></qr><img src="img/kf-bioplantr.png" class="logo"><br>{{qrcodeData}}</div>
+						</div>
+						<div class="col-md-6"></div>
+						<div class="col-md-6">
+							<div align="right" style="margin-top:5%;">
+								<button type="submit" class="btn_serach" id="success"
+									ng-click="vm.print()">Print</button>
+							</div>
+						</div>
+						</div>
+					</div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+							<tr>
+								<th>Sr No</th>
+								<th>Machine Name</th>
+								<th>Company Name</th>
+								<th>Login Name</th>
+							    <th>Model</th>
+								<th>Op System</th>
+								<th>Ram Capacity</th>
+								 <th>hard Disk Cap</th>
+								 <th>Equipment Id</th>
+								 <th>Category</th>
+								  <th>Location</th>
+								   <th>Lab</th>
+								   
+								<th>Action</th>
+							</tr>
+						</thead>
+            <tbody>
+							<tr ng-repeat="asset in vm.assets">
+								<td>{{$index+1}}</td>
+								<td>{{asset.machine}}</td>
+								<td> {{asset.comapnyName}} </td>
+								<td> {{asset.loginName}} </td>
+								<td>{{asset.model}}</td>
+								 <td>{{asset.opSystem}}</td>
+								<td>{{asset.ramCapacity}}</td>
+								<td>{{asset.hardDiskCap}}</td> 
+								<td>{{asset.equipmentId}}</td>
+								<td>{{asset.category.cat_name}}</td>
+								<td>{{asset.location.locationName}}</td>
+								<td>{{asset.lab.labName}}</td>
+								
+								
+							
+								
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info" title="Edit"	ng-click="vm.add(asset)">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-danger" title="Delete" ng-click="vm.delet(asset)">
+									    <i class="fa fa-trash" aria-hidden="true"></i> 
+									</button>
+									 <button type="button" class="btn btn-info" title="View QRCODE" ng-click="vm.viewQr(asset)">
+										<i class="fa fa-qrcode" aria-hidden="true"></i>
+									</button>
+									
+									
+									
+								</td>
+							</tr>
+						</tbody>
+        </table>
+    </div>
+</div>
+

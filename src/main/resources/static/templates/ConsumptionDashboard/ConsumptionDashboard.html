@@ -1,0 +1,178 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+	.card-container {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+		/* width: 20%; */
+		/* max-width: 900px; */
+	}
+
+	.card {
+		background-color: #fff;
+		padding: 10px;
+		height: 150px;
+		width: 100%;
+		border-radius: 10px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		display: flex;
+		align-items: center;
+		transition: transform 0.3s ease;
+
+	}
+
+	.card:hover {
+		transform: translateY(-5px);
+
+	}
+
+	.icon-container {
+		background-color: #eef2f7;
+		padding: 15px;
+		border-radius: 50%;
+		margin-right: 20px;
+		font-size: 24px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #3498db;
+
+	}
+
+	.info h3 {
+		font-size: 18px;
+		color: #333;
+
+	}
+
+	.info p {
+		font-size: 14px;
+		color: #555;
+		margin-top: 5px;
+
+	}
+	.chart-line, .chart-bar{
+		display: block;
+    height: 100% !important;
+    width: 56vw !important;
+	}
+</style>
+<div class="container-fluid">
+	<div class="row" style="margin-top: 50px;">
+	</div>
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="card-container">
+				<div class="card" style="background-color: #3fb99b61;"
+					ng-click="	goToMeterList()">
+					<div class="icon-container">
+						<img alt="" src="templates/ConsumptionDashboard/voltmeter.png" style="width: 50px;">
+					</div>
+					<div class="info">
+						<h1><b>{{vm.overviewDahboardCardCounts.noOfDevice}} </b> </h1> <br>
+						<br>
+						<p> Total Devices</p>
+					</div>
+				</div>
+
+				<div class="card" style="background-color: #e98b028f;">
+					<div class="icon-container">
+						<img alt="" src="templates/ConsumptionDashboard/energy.png" style="width: 50px;">
+					</div>
+					<div class="info">
+						<h1 class=""><b>{{vm.overviewDahboardCardCounts.totalConsumption}} </b></h1>
+						<br>
+						<span class="">KWH</span> 						
+						<p> Total Units Consumption</p>
+					</div>
+				</div>
+
+				<div class="card" style="background-color:#99dfe48f;">
+					<div class="icon-container">
+						<img alt="" src="templates/ConsumptionDashboard/energy1.png" style="width: 50px;">
+					</div>
+					<div class="info">
+						<h1><b>{{vm.overviewDahboardCardCounts.lastMonthConsumption}}</b> </h1> 
+						<br>
+						<span class="">KWH</span> 	
+						<p> Last Month Units Consumption</p>
+					</div>
+				</div>
+
+				<div class="card" style="background-color:#336cd98f;">
+					<div class="icon-container">
+						<img alt="" src="templates/ConsumptionDashboard/energy2.png" style="width: 50px;">
+					</div>
+					<div class="info">
+
+						<h1><b>{{vm.overviewDahboardCardCounts.lastDayConsumption}}</b></h1> 
+						<br>
+						<span class="">KWH</span> 	
+						<p> Last Day Units Consumption</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-7" style="		margin-left: 50px;">
+			<div class="container">
+				<h5>Unit Consumption</h5>
+				<select class="sel_year" ng-model="selectedConsumption"
+					ng-change="changeUnitConsumption(selectedConsumption)">
+					<option value="7" selected>Last 7 Days</option>
+					<option value="15">Last 15 Days</option>
+					<option value="30">Last 1 Month</option>
+				</select>
+				<canvas class="chart chart-line" chart-data="vm.chartUnitData" chart-labels="vm.chartUnitLabels"
+					chart-series="vm.chartSeriesCon" chart-options="vm.chartOptions2" chart-colors="vm.chartColors2"
+					style="display: block; height: 440px;">
+				</canvas>
+
+
+
+
+			</div>
+		</div>
+
+
+
+	</div>
+
+	<div class="row">
+		<div class="col-lg-4">
+			<h2>Active vs Inactive Devices</h2>
+			<div class="">
+
+				<canvas id="pie" class="chart chart-pie" chart-options="vm.chartPieOptions"
+					chart-data="vm.chartPieCharts" chart-colours="vm.statusPieColours23"
+					chart-labels="vm.statusPieLabels"></canvas>
+			</div>
+		</div>
+		<div class="col-lg-8" style="		margin-left: 0px;">
+			<div class="container">
+				<h5>Min & Max Voltage Graph</h5>
+				<select class="sel_year" ng-model="selectedVoltage" ng-change="changeValtage(selectedVoltage)">
+					<option value="7" selected>Last 7 Days</option>
+					<option value="15">Last 15 Days</option>
+					<option value="30">Last 1 Month</option>
+				</select>
+				<!--		<canvas class="chart chart-bar"
+					        chart-data="vm.chartDataOverall"
+					        chart-labels="vm.chartLabelsOverall"
+					        chart-series="['Open', 'Closed']" 
+					        chart-options="vm.chartOptions"
+					        chart-colors="vm.chartColors3"
+					        style="display: block; width: 100%; height: 600px;">
+					</canvas>-->
+				<canvas class="chart chart-bar" chart-data="vm.chartDataComparison"
+					chart-labels="vm.chartLabelsComparison" chart-series="['MAX', 'MIN']"
+					chart-options="vm.chartOptions" chart-colors="vm.chartColorsComparison">
+				</canvas>
+
+
+			</div>
+		</div>
+	</div>
+
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

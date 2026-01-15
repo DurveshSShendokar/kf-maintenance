@@ -1,0 +1,169 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+   .modal {
+    display: flex;
+    position: fixed;
+    top: 10%;
+    left: 0;
+     background-color: transparent;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: flex-start;
+     overflow: auto; 
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+     width: 500px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; 
+}
+
+
+.modal-backdrop {
+    display: none !important; /* Hides the black background */
+}
+
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.modal-actions button {
+    margin: 5px;
+    padding: 12px 30px;
+    background-color: #008B8B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-actions button:hover {
+    background-color: #005f5f;
+}
+
+       
+
+</style>
+
+
+
+
+<div class="container-fluid" style="padding-top:5px;">
+   
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Upload PPM Excel </h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row top">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn_serach btn-sm" id="success" style="background: #008B8B; border: 1px solid #103e57; color:white;" ng-click="vm.upload()">Upload</button>
+                </div>
+            </div>
+            <br>
+            
+          
+			            <div class="row form-border" ng-show="uploadTab">
+							<div class="col-md-4">
+							                   <label>Select Lab:</label>
+							                   <select class="form-control" ng-model="vm.selectedLab" ng-options="lab.lab_id as lab.labName for lab in vm.labs">
+							                       <option value="">-- Select Lab --</option>
+							                   </select>
+							               </div>
+
+							               <div class="col-md-4">
+							                   <label>Select File:</label>
+											   <input type="file" class="form-control" id="fileUpload" onchange="angular.element(this).scope().vm.setFile(this.files)" required />
+							               </div>
+
+							               <div class="col-md-2" style="margin-top: 25px;">
+							                   <button type="submit" class="btn_serach" id="success" ng-click="vm.importFile()">Import</button>
+							               </div>
+
+							               <div class="col-md-2" style="margin-top: 25px;">
+							                   <button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+							               </div>
+								  </div>
+				
+				
+				
+			
+
+
+          
+
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+							<tr>
+								<th>Sr No</th>
+								<th>File Name</th>
+								<th>Lab Name</th>
+								<th>Uploaded Date </th>
+							  
+								<th>Download</th>
+							</tr>
+						</thead>
+            <tbody>
+							<tr ng-repeat="spares in vm.files">
+								<td>{{$index+1}}</td>
+								<td>{{spares.fileName}}</td>
+								<td> {{spares.lab.labName}} </td>
+								<td> {{spares.uploadedAt | date : 'dd-MM-yyyy : hh:mm a'}} </td>
+													
+							
+								
+								<td class="text-nowrap">
+									
+									<button type="button" class="btn btn-download" title="Downlaod" ng-click="vm.download(spares)">
+									    <i class="fa fa-download" aria-hidden="true"></i> 
+									</button>
+									
+									<button type="button" class="btn btn-danger" title="Delete" ng-click="vm.deleteFile(spares)">
+									       <i class="fa fa-trash" aria-hidden="true"></i> 
+									   </button>
+									
+								</td>
+							</tr>
+						</tbody>
+        </table>
+    </div>
+</div>
+

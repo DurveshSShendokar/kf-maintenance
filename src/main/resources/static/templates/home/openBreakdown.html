@@ -1,0 +1,105 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008b8b;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btnn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+        background: #008B8B;
+    border: 1px solid #008B
+}
+       
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+ 
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Open Breakdown</h2>
+    </div>
+</div>
+<div class="row">
+
+	<div class="col-md-6">
+	</div>
+	
+	<div class="col-md-2">
+		</div>
+	<div class="col-md-3">
+		<button type="submit" class="btnn_serach" id="success" style="background: #008B8B; border: 1px solid #103e57; color:white;"															font-size: 22px;"
+			ng-click="export()">  Export</i></button>
+
+		<button id="btnExport" ng-json-export-excel data="vm.openBreakdown" report-fields="vm.labels"
+			style="display:none" filename="'Open Breakdown'"></button>
+
+	</div>
+</div>
+
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered " 							style="background-color:#008B8B;">
+						<thead class="orange">
+							<tr>
+							<th>Sr.No</th>
+							<th>Breakdown Slip</th>
+								
+								<th>Machine Name</th>
+								<th>Description Of Breakdown</th>
+								
+							
+								<th>Raised Date</th>
+								<th>raised By</th>
+								<th>Status</th>
+											
+											
+								
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="breakdown in vm.openBreakdown">
+								<td>{{$index+1}}</td>
+								<td>{{breakdown.bd_slip}}</td>							
+								<td>{{breakdown.machine.machine_name}}- {{breakdown.machine.eqid}}</td>
+								<td>{{breakdown.observation}}</td>
+								
+					
+								
+								<td>{{breakdown.ticket_raised_time | date:'dd-MM-yyyy'}}</td>
+								<td>{{breakdown.addedBy.firstName}} {{breakdown.addedBy.lastName}}</td>
+								 <td>
+						                        <span ng-switch="breakdown.status">
+						                            <span ng-switch-when="1">Open</span>
+						                            <span ng-switch-when="2">Trial</span>
+						                            <span ng-switch-when="3">Closed</span>
+						                          
+						                        </span>
+					            </td>		
+								
+								
+								
+								
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+ 	
+ 
+ 
+ 
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

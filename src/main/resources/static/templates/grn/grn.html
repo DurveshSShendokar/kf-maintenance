@@ -1,0 +1,180 @@
+<div id="header"></div>
+<!--    <link rel="stylesheet" href="css/styles.css"> -->
+<!--    <link rel="stylesheet" href="css/jquery.dataTables.min.css"> -->
+
+<style type="text/css">
+*{margin:0px;}
+.main{margin:5% auto;}
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.b{border-style: ridge; border-color: #008B8B; border-width: thin; padding-top: 2vh;}
+</style>
+
+
+	<div class="container">		
+		<!-- <div class="row top">
+			
+			<md-autocomplete
+	          md-selected-item="selectedItem"
+	          md-items="item in items"
+	          md-search-text="searchText"
+	          md-item-text="item.display"
+	          md-min-length="0"
+	          placeholder="What is your favorite US state?">
+	        <md-item-template>
+	          <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.display}}</span>
+	        </md-item-template>
+	        <md-not-found>
+	          No states matching "{{searchText}}" were found.
+	          <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+	        </md-not-found>
+	      </md-autocomplete>
+			
+			
+		</div> -->
+		
+	 <div class="row top">
+			<div class="col-lg-12 col-xs-12">
+				<div class="botm_text">  <h3 style="margin-top: 0;"> GOODS RECEIPT NOTE - GRN </h3> </div>
+			</div>
+		</div> 
+		
+		
+		
+		<div class="row top">
+			<!-- <div class="col-sm-12 header-name text-center">
+				<span>GRN</span>
+			</div> -->
+			<div class="col-sm-2 col-xs-3">
+				<label class="control-form"> Vendor Name: <span style="color:red;">*</span></label>
+			</div>
+			<div class="col-sm-4 col-xs-3">
+				<input type="text" ng-model="vendor" ng-blur="fetchMaterialDetails(vendor)" class="form-control f_left"
+					uib-typeahead="vendor as vendor.name for vendor in vendorDetails | filter:$viewValue:startsWith | limitTo:15"
+					typeahead-no-results="vendors" placeholder="Select Vendor">
+					
+				<!-- <select class="form-control f_left" ng-model="vendor" ng-change="fetchMaterialDetails(vendor)">
+					<option value="selectVendor">Select Vendor Name</option>	ng-hide="hideSelectVendor" 
+					<option ng-repeat="opts in vendorDetails track by $index" value="{{opts}}">{{opts.name}} </option>
+				</select> -->
+			</div>
+			<div class="col-sm-2 col-xs-3">
+				<label class="control-form"> GRN Id: <span style="color:red;">*</span></label>
+			</div>
+			<div class="col-sm-4 col-xs-3">
+				<input type="number" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="grnNo" ng-disabled="false" class="f_left form-control">
+			</div>
+		</div>
+		<div class="row p_t">
+			<div class="col-sm-2 col-xs-3">
+				<label class="control-form"> Material Name: <span style="color:red;">*</span></label>
+			</div>
+			<div class="col-sm-4 col-xs-3">
+				<select class="form-control f_left" ng-disabled="false" ng-model="materialObj" ng-change="changeMaterialFun(materialObj)">
+					<option value="selectMaterial">Select Material Name</option>	<!-- ng-hide="hideSelectMaterial"  -->
+					<option ng-repeat="opts in materialDetails track by $index" value="{{opts}}">{{opts.name}} </option>
+				</select>
+			</div>
+			<div class="col-sm-2 col-xs-3">
+				<label class="control-form"><!-- <span style="color:red;">*</span> --> Vendor No: </label>
+			</div>
+			<div class="col-sm-4 col-xs-3">
+				<input type="text" ng-model="vendorId" ng-disabled="true" class="f_left form-control">
+			</div>
+		</div>
+		<div class="row p_t">
+			<div class="col-sm-2 col-xs-3">
+				<label class="control-form"><!-- <span style="color:red;">*</span> --> Vendor Reference No: </label>
+			</div>
+			<div class="col-sm-4 col-xs-3">
+				<input type="text" ng-model="vendorRefNo" ng-disabled="true" class="f_left form-control">
+			</div>
+			<div class="col-sm-3 col-xs-3"></div>
+			<div class="col-sm-3 col-xs-3">
+				<button class="btn_serach" style="width:100%;" ng-click="fetchTableData()"> Submit </button>
+			</div>
+		</div>
+		<div class="row p-t-10" style="margin-top:5%;" ng-show="showTable">
+			<div class="col-sm-12 col-xs-12">	
+				<div class="table-responsive">          
+				  <table class="table table1" id="tbl_grn" datatable="ng" dt-column-defs="dtColumnDefs" dt-options="dtOptions">	<!-- dt-column-defs="dtColumnDefs" -->
+					<thead>
+					  <tr>
+						<th style="padding-bottom:3.5vh;">#</th>
+						<th style="padding-bottom:3.5vh;"> GRN ID </th>
+						<th style="padding-bottom:3.5vh;"> ITEM DETAILS </th>
+						<th style="padding-bottom:3.5vh;"> VENDOR NAME </th>
+						<th style="padding-bottom:3.5vh;"> DATE </th>
+						<!-- <th> Item Lot ID </th> -->
+						<th style="padding-bottom:3.5vh;"> ITEM LOT NO </th>
+						<th style="padding-bottom:3.5vh;"> QTY </th>
+						<th> <input type="checkbox" ng-model="vm.selectAllChk" ng-click="selectAllTable()" style="margin-left:22%;"> </th>
+						<th style="padding-bottom:3.5vh;"> PRINT QTY </th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr ng-repeat="arr in allDetails track by $index">
+						<td style="padding-bottom:3.5vh;">{{$index + 1}}</td>
+						<td style="padding-bottom:3.5vh;"> {{arr.grnId}} </td>
+						<td style="padding-bottom:3.5vh;"> {{arr.itemDtils}} </td>
+						<td style="padding-bottom:3.5vh;"> {{arr.venName}} </td>
+						<td style="padding-bottom:3.5vh;"> {{arr.grnDate | date:'dd-MM-yyyy'}} </td>
+						<!-- <td> {{arr.grnItmLotID}} </td> -->
+						<td style="padding-bottom:3.5vh;"> {{arr.itemLotNo}} </td>
+						<td style="padding-bottom:3.5vh;"> {{arr.batchQty}} </td>
+						<td> <input type="checkbox" ng-checked="arr.printQty" ng-click="enablePrintQuantity(arr)"> </td>
+						<td> <input id="print{{$index}}" type="number" ng-model="arr.printCopies" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-disabled="!arr.printQty"> </td>
+					  </tr>
+					</tbody>
+				  </table>
+				</div>
+			</div>
+			<div class="col-sm-12 col-xs-12 p-t-10" style="padding-bottom: 2vh;">
+				<button class="btn_serach" style="width:20%;float:right;" ng-disable="disableQrCodeButton" ng-click="makeCode()"> Generate Qr Code  </button>
+			</div>
+		</div>
+		<div id="QR" ng-show="finalArr.length > 0">	<!-- class="row p_t p_b"  -->
+			<div class="b" ng-repeat="arr in finalArr track by $index" ng-hide='arr.copy' style="">	<!-- ng-hide='$index > 0'  -->
+				<div class="main" style="border:1px solid #000;padding:5px;width:377px;font-family:arial;height:189px;page-break-after: always;">	
+					<p style="font-size:13px;font-family:arial;font-weight:500;">Renata Precision Components Pvt Ltd.</p>
+					<div style="width:58%;text-align: center;float:left;margin-right:1%;">
+						<h3 title="{{arr.itemDtils}}" style="font-size: 13px;margin-top:0px;padding-left:5px;font-weight:600;width:100%;text-overflow: ellipsis;">{{arr.itemDtils}}</h3>
+						<p title="{{arr.barcode}}" style="font-size: 13px;position: relative;margin-top:0px;padding-left:5px;width:100%;text-overflow: ellipsis;">QR Code. {{arr.barcode}} </p>
+						<!-- <p title="{{arr.itemLotNo}}" style="font-size: 13px;position: relative;margin-top:0px;padding-left:5px;width:100%;text-overflow: ellipsis;">Lot no. {{arr.itemLotNo}} </p> -->
+					</div>
+					<div style="float:left;width:38%;margin-left:1%;margin-top: -10%;">
+						<p ></p>
+						<!-- <img src="code.png"> -->
+							<div style="max-width: 100%;height: auto;width:60%;text-align: center;" id="qr{{$index}}"></div>
+<!-- 						</p> -->
+						<p style="">{{arr.grnDate | date:'dd-MM-yy'}}</p>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-xs-12 p-t-10">
+			<button class="btn_serach" style="width: 20%; float: right;" ng-hide="printButton" ng-click="printCode()"> Print  </button>
+		</div>
+	</div>
+<div id="footer"></div>
+<!-- <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery.dataTables.min.js" type="text/javascript"></script> -->
+<script> 
+    /* $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    }); */
+	
+	 /* $(document).ready( function () {
+		$('#tbl_grn').DataTable({
+			"aoColumnDefs": [
+			                 { 'bSortable': false, 'aTargets': [ 7 ] }
+			                 
+			              ]
+		});
+	}); */ 
+</script> 		 

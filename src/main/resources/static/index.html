@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" class="no-js">
+	<head>
+		<title>KF Bioplant</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="application/x-javascript">addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- ========== Css Files ========== -->
+		<link rel="stylesheet"	href="css/root.css">
+		<link rel="stylesheet"	href="css/style.css">
+		<link rel="stylesheet"	href="templates/views/css/bootstrap.min.css"			media="screen">
+		<link rel="stylesheet"	href="templates/views/css/font-awesome.min.css"			media="screen">
+		<link rel="stylesheet"	href="templates/views/css/animate-css/animate.min.css"	media="screen">
+		<link rel="stylesheet"	href="templates/views/css/lobipanel/lobipanel.min.css"	media="screen">
+		<link rel="stylesheet"	href="templates/views/css/prism/prism.css"				media="screen">
+		<link rel="stylesheet"	href="templates/views/css/main.css"						media="screen">
+		<link rel="stylesheet"	href="templates/views/css/icheck/skins/line/blue.css">
+		<link rel="stylesheet"	href="templates/views/css/icheck/skins/line/red.css">
+		<link rel="stylesheet"	href="templates/views/css/icheck/skins/line/green.css">
+		<link rel="stylesheet" 	href="bower_components/angular-toastr/dist/angular-toastr.css"type="text/css" />
+		
+		<link rel="stylesheet" href="css/dataTable.css">
+		<link rel="stylesheet" href="css/jquery.dataTables.min.css">
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+		
+	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.19/jspdf.plugin.autotable.min.js"></script>
+
+		
+<!-- 		   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+ -->		<!-- <link rel="stylesheet" href="angular-material/angular-material.min.css"> -->
+		   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+		   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+		   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+		   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+		   
+		   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+		   
+		   
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="js/jquery.dataTables.min.js"></script>
+		
+		<script src="bower_components/angular/angular.min.js"></script>
+		<script src="bower_components/angular-loader/angular-loader.min.js"></script>
+		<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+		<script src="bower_components/angular-route/angular-route.min.js"></script>
+		<script	src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<script	src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+		<script	src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+		
+		<script src="js/ui-bootstrap-tpls-2.1.4.js"></script>
+		<script src="bower_components/chart.js/dist/Chart.min.js"></script>
+		<script	src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+		<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+		<script src="templates/app.js"></script>
+	
+		<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+		
+		<script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/plugins.js"></script>
+		<script type="text/javascript" src="js/bootstrap-select/bootstrap-select.js"></script>
+		<script type="text/javascript" src="js/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+		<script type="text/javascript" src="js/summernote/summernote.min.js"></script>
+		<script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/ng-json-export-excel@1.1.1/ng-json-export-excel.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/highcharts-more.js"></script>
+		<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+		<script	src="js/table2excel.js"></script>
+				<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.full.min.js"></script>
+				
+		<!-- <script type="text/javascript" src="js/chartist/chartist.js"></script> -->
+		<!-- <script type="text/javascript" src="js/chartist/chartist-plugin.js"></script> -->
+		<!-- <script type="text/javascript" src="js/easypiechart/easypiechart.js"></script>
+		<script type="text/javascript" src="js/easypiechart/easypiechart-plugin.js"></script> -->
+		<!-- <script type="text/javascript" src="js/sparkline/sparkline.js"></script>
+		<script type="text/javascript" src="js/sparkline/sparkline-plugin.js"></script>
+		<script type="text/javascript" src="js/rickshaw/d3.v3.js"></script> -->
+		<!-- <script type="text/javascript" src="js/rickshaw/rickshaw.js"></script>
+		<script type="text/javascript" src="js/rickshaw/rickshaw-plugin.js"></script> -->
+		<script type="text/javascript" src="js/sweet-alert/sweet-alert.min.js"></script>
+		<!-- <script type="text/javascript" src="js/kode-alert/main.js"></script> -->
+		<!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script> -->
+		<!-- <script type="text/javascript" src="js/gmaps/gmaps.js"></script> -->
+		<!-- <script type="text/javascript" src="js/gmaps/gmaps-plugin.js"></script> -->
+		
+		
+		<!--<script type="text/javascript" src="js/jquery-ui/jquery-ui.min.js"></script>-->
+		
+		
+		<!-- <script type="text/javascript" src="js/moment/moment.min.js"></script> -->
+		<!-- <script type="text/javascript" src="js/full-calendar/fullcalendar.js"></script> -->
+		<script type="text/javascript" src="js/date-range-picker/daterangepicker.js"></script>
+		
+		
+		<!--<script type="text/javascript" src="templates/views/js/jquery/jquery-2.2.4.min.js"></script>-->
+		
+		
+		
+		<!--<script type="text/javascript" src="templates/views/js/jquery-ui/jquery-ui.min.js"></script>-->
+		
+		<script type="text/javascript" src="templates/views/js/main.js"></script>
+		<script type="text/javascript" src="templates/views/js/qrcode.js"></script>
+		<script type="text/javascript" src="js/datatables/datatables.min.js"></script>
+		<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
+		
+		<script src="//kendo.cdn.telerik.com/2016.3.914/js/kendo.all.min.js"></script>
+	
+		
+<script src="bower_components/qrcode/lib/qrcode.min.js"></script>
+<script src="bower_components/angular-qr/angular-qr.min.js"></script>
+
+
+		
+		
+		<!-- Angular Material requires Angular.js Libraries -->
+		  <!-- <script src="angular-material/angular-animate.min.js"></script>
+		  <script src="angular-material/angular-aria.min.js"></script>
+		  <script src="angular-material/angular-messages.min.js"></script> -->
+
+	  <!-- Angular Material Library -->
+	 	 <!-- <script src="angular-material/angular-material.min.js"></script> -->
+		
+		
+		
+		<!-- <script src="js/jquery-1.10.2.js"></script> -->
+		<!-- Directive file start -->
+		<script src="directive\checklist-model.js"></script>
+		
+		<!-- constant file start -->
+		<script src="templates\constants.js"></script>
+		<!-- constant file end -->
+			<!-- constant file start -->
+		<script src="templates\directives\camelCase.js"></script>
+		<!-- constant file end -->
+		
+		
+		<!-- common files start-->
+		<script src="templates/common/export-csv.js"></script>
+		<script src="templates/common/bar-chart.js"></script>
+		<script src="templates\common\tree.js"></script>
+		<!-- common files end-->
+		
+		<!-- Generic Start -->
+	<script src="templates/generic/generic.module.js"></script>
+	<script src="templates/generic/generic.factory.js"></script>
+	<script src="templates/generic/generic.http.js"></script>
+	<script src="templates/generic/FileSaver.js"></script>
+	<script src="templates/generic/json-export-excel.js"></script>
+	<script src="templates/	AssetInventory/	barcode.js"></script>
+	 <script src="bower_components/bwip-js/freetype.js"></script>
+	<script src="bower_components/bwip-js/bwip.js"></script>
+	<script src="bower_components/bwip-js/lib/canvas.js"></script>
+	      
+<!------------------------------ maintenance start --------------------------------------->
+
+		<!-- FTR Start -->
+		<script src="templates/ftr/ftr.module.js"></script>
+		<script src="templates/ftr/ftr.controller.js"></script>
+		
+		<script src="templates/ftr/mouldftr.controller.js"></script>
+		
+		<script src="templates/ftr/ftr.service.js"></script>
+		<script src="templates/ftr/ftr.http.js"></script>
+		<!-- FTR End -->
+		
+		<!-- MTTR Start -->
+		<script src="templates/mttr/mttr.module.js"></script>
+		<script src="templates/mttr/mttr.controller.js"></script>
+		
+		<script src="templates/mttr/mouldmttr.controller.js"></script>
+		
+		<script src="templates/mttr/mttr.service.js"></script>
+		<script src="templates/mttr/mttr.http.js"></script>
+		<!-- MTTR End -->
+		
+		<!-- MTBF Start -->
+		<script src="templates/mtbf/mtbf.module.js"></script>
+		<script src="templates/mtbf/mtbf.controller.js"></script>
+		
+		<script src="templates/mtbf/mouldmtbf.controller.js"></script>
+		
+		<script src="templates/mtbf/mtbf.service.js"></script>
+		<script src="templates/mtbf/mtbf.http.js"></script>
+		<!-- MTBF End -->
+		
+
+		
+		<!-- breakdownhistory Start -->
+		<script src="templates/breakdownhistory/breakdownhistory.module.js"></script>
+		<script src="templates/breakdownhistory/breakdownhistory.controller.js"></script>
+		<script src="templates/breakdownhistory/breakdownhistory.service.js"></script>
+		<script src="templates/breakdownhistory/breakdownhistory.http.js"></script>
+		<!-- breakdownhistory End -->
+
+		
+		
+		<!-- User Start -->
+		<script src="templates/trial/trial.module.js"></script>
+		<script src="templates/trial/trial.controller.js"></script>
+		<script src="templates/trial/trial.service.js"></script>
+		<script src="templates/trial/trial.http.js"></script>
+		<!-- User End -->
+		
+		<!-- Breakdown Start -->
+		<script src="templates/breakdown/breakdown.module.js"></script>
+		<script src="templates/breakdown/breakdown.controller.js"></script>
+		<script src="templates/breakdown/breakdown.service.js"></script>
+		<script src="templates/breakdown/breakdown.http.js"></script>
+		<!-- Breakdown End -->
+		
+		
+		<!-- Breakdown Update Start -->
+		<script src="templates/breakdownupdate/breakdownupdate.module.js"></script>
+		<script src="templates/breakdownupdate/breakdownupdate.controller.js"></script>
+		<script src="templates/breakdownupdate/breakdownupdate.service.js"></script>
+		<script src="templates/breakdownupdate/breakdownupdate.http.js"></script>
+		<!-- Breakdown Update End -->
+		
+		
+		<!-- category Start -->
+		<script src="templates/category/category.module.js"></script>
+		<script src="templates/category/category.controller.js"></script>
+		<script src="templates/category/category.service.js"></script>
+		<script src="templates/category/category.http.js"></script>
+		<!-- category End -->
+		
+		
+		
+		<!-- User Start -->
+		<script src="templates/shift/shift.module.js"></script>
+		<script src="templates/shift/shift.controller.js"></script>
+		<script src="templates/shift/shift.service.js"></script>
+		<script src="templates/shift/shift.http.js"></script>
+		<!-- User End -->
+		
+		
+		<!-- Machine Start -->
+		<script src="templates/machine/machine.module.js"></script>
+		<script src="templates/machine/machine.controller.js"></script>
+		<script src="templates/machine/machine.service.js"></script>
+		<script src="templates/machine/machine.http.js"></script>
+		<!-- Machine End -->
+		
+		<!-- Checklist master Start -->
+		<script src="templates/checklist/checklist.module.js"></script>
+		<script src="templates/checklist/checklist.controller.js"></script>
+		<script src="templates/checklist/checklist.service.js"></script>
+		<script src="templates/checklist/checklist.services.js"></script>
+		<script src="templates/checklist/checklist.http.js"></script>
+		<!-- Checklist master End -->
+		
+		<!-- Machine master Start -->
+		<script src="templates/machine_mst/machine_mst.module.js"></script>
+		<script src="templates/machine_mst/machine_mst.controller.js"></script>
+		<script src="templates/machine_mst/machine_mst.service.js"></script>
+		<script src="templates/machine_mst/machine_mst.http.js"></script>
+		<!-- Machine master End -->
+		
+		
+		<!-- Mainetenace List  Start -->
+		<script src="templates/maintlist/maintlist.module.js"></script>
+		<script src="templates/maintlist/maintlist.controller.js"></script>
+		<script src="templates/maintlist/maintlist.service.js"></script>
+		<!-- <script src="templates/maintlist/maintlist.services.js"></script> -->
+		<script src="templates/maintlist/maintlist.http.js"></script>
+		<!--  Mainetenace List  End -->
+		
+		
+	
+		
+<!------------------------------ maintenance end --------------------------------------->		
+		
+		
+<!------------------------------ scrap start --------------------------------------->
+		<!-- report Start -->
+		<script src="templates/report/scraptypereport.module.js"></script>
+		<script src="templates/report/scraptypereport.controller.js"></script>
+		<script src="templates/report/scrapdeptreport.controller.js"></script>
+		<script src="templates/report/scraptypereport.service.js"></script>
+		<script src="templates/report/scraptypereport.http.js"></script>
+		<!-- report End -->
+		
+		
+		<!-- scrap form Start -->
+		<script src="templates/scrap/scrap.module.js"></script>
+		<script src="templates/scrap/scrap.controller.js"></script>
+		<script src="templates/scrap/scrapDepartment.controller.js"></script>
+		<script src="templates/scrap/scrapyard.controller.js"></script>
+		<script src="templates/scrap/scrap.service.js"></script>
+		<script src="templates/scrap/scrap.http.js"></script>
+		<!-- scrap form End -->
+		
+		<!-- scrap Department form Start -->
+		<script src="templates/scrap/scrapDepartment.controller.js"></script>
+		<!-- scrap Department form End -->
+
+<!------------------------------ scrap end --------------------------------------->
+		
+		
+	
+		<!-- Main Start -->
+		<script src="templates/main/main.module.js"></script>
+		<script src="templates/main/main.controller.js"></script>
+		<script src="templates/main/main.service.js"></script>
+		<!-- Main End -->
+	
+		<!-- home Start -->
+		<script src="templates/home/home.module.js"></script>
+		<script src="templates/home/home.controller.js"></script>
+		<script src="templates/home/home.service.js"></script>
+		<!-- home End -->
+		
+	
+		
+		<!-- User Start -->
+		<script src="templates/user/user.module.js"></script>
+		<script src="templates/user/user.controller.js"></script>
+		<script src="templates/user/user.service.js"></script>
+		<script src="templates/user/user.http.js"></script>
+		<!-- User End -->
+
+		
+		
+				
+		
+
+		<!-- User To Role Start -->
+		<script src="templates/userToRole/userToRole.module.js"></script>
+		<script src="templates/userToRole/userToRole.controller.js"></script>
+		<script src="templates/userToRole/userToRole.service.js"></script>
+		<script src="templates/userToRole/userToRole.http.js"></script>
+		<!-- User To Role End -->
+		
+		<!-- Role To User Start -->
+		<script src="templates/roleToUser/roleToUser.module.js"></script>
+		<script src="templates/roleToUser/roleToUser.controller.js"></script>
+		<script src="templates/roleToUser/roleToUser.service.js"></script>
+		<script src="templates/roleToUser/roleToUser.http.js"></script>
+		<!-- Role To User End -->
+		
+		<!-- roleManagement Start -->
+		<script src="templates/roleManagement/roleManagement.module.js"></script>
+		<script src="templates/roleManagement/roleManagement.controller.js"></script>
+		<script src="templates/roleManagement/roleManagement.service.js"></script>
+		<script src="templates/roleManagement/roleManagement.http.js"></script>
+		<!-- roleManagement End -->
+		
+
+		<!-- Reports Start -->
+		<script src="templates/reports/reports.module.js"></script>
+		<script src="templates/reports/reports.controller.js"></script>
+		<script src="templates/reports/reports.service.js"></script>
+		<script src="templates/reports/reports.http.js"></script>
+		<!-- Reports End -->
+
+
+		<!-- Login form Start -->
+		<script src="templates/login_form/login_form.module.js"></script>
+		<script src="templates/login_form/login_form.controller.js"></script>
+		<script src="templates/login_form/login_form.service.js"></script>
+		<script src="templates/login_form/login_form.http.js"></script>
+		<!-- Login form End -->
+		
+		
+		
+		
+		<!-- Login form Start -->
+		<script src="templates/cunsumption_device/cunsumption_device.controller.js"></script>
+		<script src="templates/cunsumption_device/cunsumption_device.module.js"></script>
+	
+		<!-- Login form End -->
+		
+		
+		
+		<!-- Login form Start -->
+		<script src="templates/maintDepertment/maintDepertment.controller.js"></script>
+		<script src="templates/maintDepertment/maintDepertment.module.js"></script>
+		
+		<script src="templates/machineOwner/machineOwner.module.js"></script>
+		<script src="templates/machineOwner/machineOwner.controller.js"></script>
+		
+		<script src="templates/consumptionReport/consumptionReport.module.js"></script>
+		<script src="templates/consumptionReport/consumptionReport.controller.js"></script>
+		<script src="templates/maintreport/maintreport.module.js"></script>
+		<script src="templates/maintreport/maintreport.controller.js"></script>
+		
+		
+			<script src="templates/machineOperation/machineOperation.module.js"></script>
+		<script src="templates/machineOperation/machineOperation.controller.js"></script>
+		
+		
+		<script src="templates/uploads/uploads.module.js"></script>
+		<script src="templates/uploads/uploads.controller.js"></script>
+		
+		<script src="templates/AssetInventory/AssetInventory.module.js"></script>
+		<script src="templates/AssetInventory/AssetInventory.controller.js"></script>
+		
+		<script src="templates/Employee/Employee.module.js"></script>
+		<script src="templates/Employee/Employee.controller.js"></script>
+		
+		<script src="templates/spare_mst/spare_mst.module.js"></script>
+		<script src="templates/spare_mst/spare_mst.controller.js"></script>
+		
+		
+		<script src="templates/lab_mst/lab_mst.module.js"></script>
+		<script src="templates/lab_mst/lab_mst.controller.js"></script>
+		
+			
+		<script src="templates/location_mst/location_mst.module.js"></script>
+		<script src="templates/location_mst/location_mst.controller.js"></script>
+		
+			
+		<script src="templates/department_mst/department_mst.module.js"></script>
+		<script src="templates/department_mst/department_mst.controller.js"></script>
+		
+			
+		<script src="templates/category_mst/category_mst.module.js"></script>
+		<script src="templates/category_mst/category_mst.controller.js"></script>
+		
+		<script src="templates/Allocation/Allocation.module.js"></script>
+		<script src="templates/Allocation/Allocation.controller.js"></script>
+		
+		<script src="templates/AssetAllocation/AssetAllocation.module.js"></script>
+		<script src="templates/AssetAllocation/AssetAllocation.controller.js"></script>
+		
+		<script src="templates/SpareStocking/SpareStocking.module.js"></script>
+		<script src="templates/SpareStocking/SpareStocking.controller.js"></script>
+		
+		
+		<script src="templates/Complaint/Complaint.module.js"></script>
+		<script src="templates/Complaint/Complaint.controller.js"></script>
+		
+		<script src="templates/Ticket/Ticket.module.js"></script>
+		<script src="templates/Ticket/Ticket.controller.js"></script>
+		
+			<script src="templates/dashboard/dashboard.module.js"></script>
+		<script src="templates/dashboard/dashboard.controller.js"></script>
+		
+		<script src="templates/Device/Device.module.js"></script>
+		<script src="templates/Device/Device.controller.js"></script>
+		
+		
+		
+		<script src="templates/UnitLocation/UnitLocation.module.js"></script>
+		<script src="templates/UnitLocation/UnitLocation.controller.js"></script>
+		
+		
+		
+		<script src="templates/ModBusAddress/ModBusAddress.module.js"></script>
+		<script src="templates/ModBusAddress/ModBusAddress.controller.js"></script>
+		
+		
+		<script src="templates/DeviceModelAddress/DeviceModelAddress.module.js"></script>
+		<script src="templates/DeviceModelAddress/DeviceModelAddress.controller.js"></script>
+		
+		
+		<script src="templates/ControlPanelLocation/ControlPanelLocation.module.js"></script>
+		<script src="templates/ControlPanelLocation/ControlPanelLocation.controller.js"></script>
+		
+		
+		
+		
+		
+		<script src="templates/EnergyMeterModule/EnergyMeterModule.module.js"></script>
+		<script src="templates/EnergyMeterModule/EnergyMeterModule.controller.js"></script>
+		
+		<script src="templates/EnergyMeterRegister/EnergyMeterRegister.module.js"></script>
+		<script src="templates/EnergyMeterRegister/EnergyMeterRegister.controller.js"></script>
+		
+		<script src="templates/EnergyMeterMaster/EnergyMeterMaster.module.js"></script>
+		<script src="templates/EnergyMeterMaster/EnergyMeterMaster.controller.js"></script>
+		
+		<script src="templates/MeterDetials/MeterDetials.module.js"></script>
+		<script src="templates/MeterDetials/MeterDetials.controller.js"></script>
+		
+		
+		<script src="templates/PPMDashboard/PPMDashboard.module.js"></script>
+		<script src="templates/PPMDashboard/PPMDashboard.controller.js"></script>
+		
+		
+		<script src="templates/BreakDownDashboard/BreakDownDashboard.module.js"></script>
+		<script src="templates/BreakDownDashboard/BreakDownDashboard.controller.js"></script>
+		
+		
+		
+		
+		<script src="templates/ConsumptionDashboard/ConsumptionDashboard.module.js"></script>
+		<script src="templates/ConsumptionDashboard/ConsumptionDashboard.controller.js"></script>
+		
+		
+		<script src="templates/WeekWiseMaintenance/WeekWiseMaintenance.module.js"></script>
+				<script src="templates/WeekWiseMaintenance/WeekWiseMaintenance.controller.js"></script>
+	<script src="templates/WeekWiseBrekdown/WeekWiseBrekdown.module.js"></script>
+	<script src="templates/WeekWiseBrekdown/WeekWiseBrekdown.controller.js"></script>
+	
+	
+	
+		<script src="templates/Complaint_Summary_Report/Complaint_Summary_Report.module.js"></script>
+		<script src="templates/Complaint_Summary_Report/Complaint_Summary_Report.controller.js"></script>
+		
+		<script src="templates/Engineer_Complaint_Status/Engineer_Complaint_Status.module.js"></script>
+		<script src="templates/Engineer_Complaint_Status/Engineer_Complaint_Status.controller.js"></script>
+		
+		<script src="templates/TicketReport/TicketReport.module.js"></script>
+		<script src="templates/TicketReport/TicketReport.controller.js"></script>
+		
+		
+		<script src="templates/EnergyMeterPriceSlab/EnergyMeterPriceSlab.module.js"></script>
+		<script src="templates/EnergyMeterPriceSlab/EnergyMeterPriceSlab.controller.js"></script>
+		
+		
+		<script src="templates/EnergyMeterRegisterGroup/EnergyMeterRegisterGroup.module.js"></script>
+		<script src="templates/EnergyMeterRegisterGroup/EnergyMeterRegisterGroup.controller.js"></script>
+		
+		
+		<script src="templates/Notification/Notification.module.js"></script>
+		<script src="templates/Notification/Notification.controller.js"></script>
+		
+		
+		<script src="templates/reportConsumption/reportConsumption.module.js"></script>
+		<script src="templates/reportConsumption/reportConsumption.controller.js"></script>		
+		
+		<script src="templates/AlertConfiguration/AlertConfiguration.module.js"></script>
+		<script src="templates/AlertConfiguration/AlertConfiguration.controller.js"></script>	
+			
+		<script src="templates/DashboardDesign/DashboardDesign.module.js"></script>
+			<script src="templates/DashboardDesign/DashboardDesign.controller.js"></script>	
+			
+			<script src="templates/reportBreakdownHistory/reportBreakdownHistory.module.js"></script>
+			<script src="templates/reportBreakdownHistory/reportBreakdownHistory.controller.js"></script>
+			
+			
+			<script src="templates/reportEnergyConsumption/reportEnergyConsumption.module.js"></script>
+			<script src="templates/reportEnergyConsumption/reportEnergyConsumption.controller.js"></script>	
+			
+
+			<script src="templates/reportBreakdownHistory/reportBreakdownHistory.module.js"></script>
+			<script src="templates/reportBreakdownHistory/reportBreakdownHistory.controller.js"></script>	
+			
+			<script src="templates/GaugeChart/GaugeChart.module.js"></script>
+						<script src="templates/GaugeChart/GaugeChart.controller.js"></script>	
+		<!-- Login form End   -->
+
+			<script src="templates/SpareReport/SpareReport.module.js"></script>
+			<script src="templates/SpareReport/SpareReport.controller.js"></script>	
+			
+			<script src="templates/SpareUtilReport/SpareUtilReport.module.js"></script>
+			<script src="templates/SpareUtilReport/SpareUtilReport.controller.js"></script>	
+			
+			<script src="templates/generalBreakdown/generalBreakdown.module.js"></script>
+			<script src="templates/generalBreakdown/generalBreakdown.controller.js"></script>	
+			
+				
+			
+			<script src="templates/DateWise_Breakdown_Report/DateWise_Breakdown_Report.module.js"></script>
+			<script src="templates/DateWise_Breakdown_Report/DateWise_Breakdown_Report.controller.js"></script>	
+			
+			
+			<script src="templates/StatusWise_breakdown_Report/StatusWise_breakdown_Report.module.js"></script>
+			<script src="templates/StatusWise_breakdown_Report/StatusWise_breakdown_Report.controller.js"></script>	
+			
+			<script src="templates/BreakdownReport/BreakdownReport.module.js"></script>
+			<script src="templates/BreakdownReport/BreakdownReport.controller.js"></script>
+		
+			<script src="templates/Breakdown_Report_2/Breakdown_Report_2.module.js"></script>
+			<script src="templates/Breakdown_Report_2/Breakdown_Report_2.controller.js"></script>
+			
+			<script src="templates/Analysis_Report/Analysis_Report.module.js"></script>
+			<script src="templates/Analysis_Report/Analysis_Report.controller.js"></script>
+			
+			<script src="templates/PPMLabWise/PPMLabWise.module.js"></script>
+			<script src="templates/PPMLabWise/PPMLabWise.controller.js"></script>
+			
+			<script src="templates/Break_dashboard/Break_dashboard.module.js"></script>
+			<script src="templates/Break_dashboard/Break_dashboard.controller.js"></script>
+			
+			<script src="templates/SpareConsumptionReport/SpareConsumptionReport.module.js"></script>
+			<script src="templates/SpareConsumptionReport/SpareConsumptionReport.controller.js"></script>
+			
+			<script src="templates/MaintSpareStocking/MaintSpareStocking.module.js"></script>
+			<script src="templates/MaintSpareStocking/MaintSpareStocking.controller.js"></script>
+			
+			<script src="templates/maintspare_mst/maintspare_mst.module.js"></script>
+			<script src="templates/maintspare_mst/maintspare_mst.controller.js"></script>
+			
+			<script src="templates/UserWise_PPM_Report/UserWise_PPM_Report.module.js"></script>
+			<script src="templates/UserWise_PPM_Report/UserWise_PPM_Report.controller.js"></script>
+			
+			<script src="templates/PPMoverdue/PPMoverdue.module.js"></script>
+			<script src="templates/PPMoverdue/PPMoverdue.controller.js"></script>
+			
+			<script src="templates/LabDash/LabDash.module.js"></script>
+			<script src="templates/LabDash/LabDash.controller.js"></script>
+			
+			<script src="templates/UserWise_Breakdown_Report/UserWise_Breakdown_Report.module.js"></script>
+			<script src="templates/UserWise_Breakdown_Report/UserWise_Breakdown_Report.controller.js"></script>
+						
+			<script src="templates/ApprovedPPM/ApprovedPPM.module.js"></script>
+			<script src="templates/ApprovedPPM/ApprovedPPM.controller.js"></script>
+			
+
+			<script src="templates/ComplaintReAllocation/ComplaintReAllocation.module.js"></script>
+			<script src="templates/ComplaintReAllocation/ComplaintReAllocation.controller.js"></script>
+			
+			<script src="templates/AssetReAllocation/AssetReAllocation.module.js"></script>
+						<script src="templates/AssetReAllocation/AssetReAllocation.controller.js"></script>
+									
+						<script src="templates/machine_history/machine_history.module.js"></script>
+									<script src="templates/machine_history/machine_history.controller.js"></script>
+													
+						<script src="templates/Upload_PPMExcel/Upload_PPMExcel.module.js"></script>
+						<script src="templates/Upload_PPMExcel/Upload_PPMExcel.controller.js"></script>
+						
+						<script src="templates/AssetAllocationReport/AssetAllocationReport.module.js"></script>
+												<script src="templates/AssetAllocationReport/AssetAllocationReport.controller.js"></script>	
+														
+			
+			
+		<!-- Login form End   
+		Break_dashboard
+		-->
+
+		
+		<!-- <script type="text/javascript" src="js/custom.js"></script>  -->
+		
+	</head>
+	<body>
+		<div class="loading"><img src="img/loading.gif" alt="loading-img"></div>
+		<div ui-view="main"></div>
+	</body>
+</html>

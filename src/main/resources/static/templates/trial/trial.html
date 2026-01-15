@@ -1,0 +1,274 @@
+<style>
+.white {
+	background-color: #fff;
+}
+
+.act-add {
+	color: rgb(111, 170, 188);
+	text-align: center;
+	font-size: 15px;
+}
+
+.dark-cyan {
+    background-color: #008B8B;
+    color: #fff;
+}
+.act-edit {
+	color: rgb(152, 108, 153);
+	text-align: center;
+	font-size: 15px;
+}
+
+.act-add .fa, .act-edit .fa {
+	font-size: 20px;
+}
+
+.width-80 .row {
+	margin: 1% 0;
+}
+
+.width-80 .row .control-label {
+	text-align: right;
+	font-weight: 600;
+}
+
+.width-80 {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.btn-orange, .btn-orange:hover {
+	background-color: #008B8B;
+	color: #fff;
+}
+
+.btn-red, .btn-red:hover {
+	background-color: rgb(237, 27, 37);
+	color: #fff;
+}
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.header-name span {
+	font-size: 25px;
+}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+</style>
+<div class="container-fluid " style="padding-top: 50px;">
+	<div class="row page-title-div">
+		<div class="col-sm-12 header-name">
+			 <span>Trial Sheet</span>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="panel-body table-responsive">
+	<!-- 	<div class="col-md-12 col-xs-12">
+			<div class="col-md-3 col-xs-12">
+				<label for="fullname">Select
+					Status <span style="color:#c00">*</span> :</label> <select ng-model="trial.status" class="form-control"
+					required>
+					<option value="">Select Type</option>
+					<option value="1">Waiting
+						for Maintenance</option>
+					<option value="2">Waiting
+						for Trial</option>
+					<option value="3">Approved</option>
+					<option value="4">Approved
+						With Deviation</option>
+				</select>
+			</div>
+			<div class="col-md-3 col-xs-12">
+				<label for="fullname">Start Date <span style="color:#c00">*</span> :</label> <input id="may1"
+					type="date" ng-model="trial.start_date" ng-change="fetchdata()"
+					class="form-control">
+				</td>
+
+			</div>
+
+			<div class="col-md-3 col-xs-12">
+				<label for="fullname">End Date <span style="color:#c00">*</span> :</label> <input id="may1"
+					type="date" ng-model="trial.end_date" ng-change="fetchdata()"
+					class="form-control">
+				</td>
+
+			</div>
+			<div class="col-md-3 col-xs-12">
+				<button type="button" class="btn_serach"
+					style="margin-top: 9%;" ng-click="vm.getMaintData(trial)">
+					<i class="fa fa-search" aria-hidden="true"></i> Search
+				</button>
+			</div>
+		</div> -->
+		</div>
+		<div class="container-fluid table-responsive">
+		<table datatable="ng" id="example" class="table table-bordered">
+			<thead style="background-color: #fff;">
+				<tr class="orange">
+					<th>ID</th>
+					<th>Slip Number</th>
+				
+					<th>Date</th>
+				
+					<th>Machine</th>
+					<th>Breakdown 	Description</th>
+					<th>Root Cause</th>
+					<th>Corrective Action </th>
+					<th>Attend By</th>
+				
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="breakdownupdate in vm.breakdownupdates">
+					<td>{{$index+1}}</td>
+					<td>{{breakdownupdate.breakdown.bd_slip}}</td>
+				
+					<td>{{breakdownupdate.breakdown_date | date: 'dd-MM-yyyy
+						hh:mm:ss'}}</td>
+
+					<td nowrap ng-if="breakdownupdate.machine.type==1">Machine</td>
+					<td nowrap ng-if="breakdownupdate.machine.type==2">Auxiliary</td>
+					<td>{{breakdownupdate.machine.machine_name}} - {{breakdownupdate.machine.eqid}} </td>
+					<td>{{breakdownupdate.observation}}</td>
+					<td>{{breakdownupdate.root_cause}}</td>
+					<td>{{breakdownupdate.action_taken}}</td>
+					<td>{{breakdownupdate.action_by}}</td>
+					
+					<td nowrap ng-if="breakdownupdate.breakdown.status==1">Waiting
+						for Maintenance</td>
+					<td nowrap ng-if="breakdownupdate.breakdown.status==2">Waiting
+						for Trial</td>
+					<td nowrap ng-if="breakdownupdate.breakdown.status==3">Approved</td>
+					<td nowrap ng-if="breakdownupdate.breakdown.status==4">Approved
+						With Deviation</td>
+
+
+					<td class="text-nowrap">
+						<button type="button" class="btn btn-info"
+							ng-click="vm.add(breakdownupdate)"
+							ng-disabled="breakdownupdate.disableAddTrial">
+							<i class="fa fa-plus"></i></button>
+					
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="container form-border" ng-show="showTrialSheet">
+	<div>
+		<div class="col-sm-12 header-name">
+			<img src="img/breakdown.png"> <span>Trail Sheet</span>
+		</div>
+		<div class="row" style="margin: 2% 0;">
+			<div class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-3">
+						<p class="text-right" style="font-weight: 600;">Ticket No.:</p>
+					</div>
+					<div class="col-sm-9">
+						<input type="text" class="form-control"
+							ng-model="trial.breakdownupdate.breakdown.bd_slip" id="ticket-no"
+							name="ticket-no" disabled>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="input-group mb-3" style="width: 100%;">
+					<div class="input-group">
+						<span class="input-group-addon oranage">Date</span> <input
+							type="date" ng-model="trial.trial_date" class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="col-sm-12">
+			<!--<h4>Previous Trail Histroy</h4>
+			<table id="assembly_list_QR" datatable="ng" class="table table-bordered"
+				style="width: 100%">
+				<thead>
+					<tr class="dark-cyan">
+						<th>#</th>
+						<th>Trial Date</th>
+						<th>Time</th>
+						<th>Done By</th>
+						<th>Remark</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="arr in vm.trialHistory">
+						<td>{{$index + 1}}</td>
+						<td>{{arr.trial_date | date: 'dd-MM-yyyy'}}</td>
+						<td>{{arr.trial_date | date: 'hh:mm'}}</td>
+											
+						<td>{{arr.breakdown.done_by}}</td>
+						<td>{{arr.comment}}</td>
+					</tr>
+
+				</tbody>
+			</table>-->
+		</div>
+		
+		
+		<div class="row" style="margin: 2% 0;">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2">
+				<label class="control-label" style="font-weight: 600;">Trail
+					Result <span style="color:#c00">*</span>:</label>
+			</div>
+			<div class="col-sm-8">
+				<select class="form-control" 	ng-model="trial.trial_result" ng-change="setTrail(trial.trial_result)">
+									<option value="OK">OK</option>
+									<option value="Not OK">Not OK</option>
+									
+								</select>
+				
+			</div>
+			
+		
+
+		</div>
+		<div class="row" style="margin: 2% 0;" ng-if="trial.trial_result=='Not OK'">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2">
+				<label class="control-label" style="font-weight: 600;">Remark <span style="color:#c00">*</span>
+					:</label>
+			</div>
+			<div class="col-sm-8">
+				<input type="text" name="Comment" ng-model="trial.comment"
+					class="form-control">
+			</div>
+		</div>
+		<div class="row" style="margin: 2% 0;">
+			
+			<div class="col-sm-8">
+				<div class="row">
+					<div class="col-sm-5">
+					</div>
+						
+					<div class="col-sm-7" 					>
+						<div class="row" style="margin-top: 1%; margin-bottom: 1%" >
+							<button class="btn btn-orange col-sm-7" 							ng-if="trial.trial_result=='Not OK'"
+								style="width: 50%; max-width: 54%;" ng-click="vm.ok1(trial)">Send
+								For Maintenance</button>
+							<button class="btn btn-success col-sm-5" 								ng-if="trial.trial_result!='Not OK'"
+								style="margin-left: 3px; width: 48%" ng-click="vm.ok(trial)">Approve</button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

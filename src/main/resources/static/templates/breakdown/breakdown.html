@@ -1,0 +1,166 @@
+<style>
+.white {
+	background-color: #fff;
+}
+
+.act-add {
+	color: rgb(111, 170, 188);
+	text-align: center;
+	font-size: 15px;
+}
+
+.act-edit {
+	color: rgb(152, 108, 153);
+	text-align: center;
+	font-size: 15px;
+}
+
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.act-add .fa, .act-edit .fa {
+	font-size: 20px;
+}
+
+.width-80 .row {
+	margin: 1% 0;
+}
+
+.width-80 .row .control-label {
+	text-align: right;
+	font-weight: 600;
+}
+
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+.width-80 {
+	width: 50%;
+	margin: 0 auto;
+}
+</style>
+
+<div class="container form-border">
+	<div class="row ">
+		<div class="col-sm-12 header-name">
+			<h1 style="margin-bottom:3%;"><span>Breakdown Create Memo</span></h1>
+		</div>
+	</div>
+	<div class="width-80">
+	
+		<div class="form-group">
+				<div class="col-sm-6">
+					<span class="txt f-r">Select lab <span style="color:#c00;">*</span> : </span>
+				</div>
+				<div class="col-sm-6">
+					
+					<select class="form-control mandtry"
+					        ng-model="vm.lab" id="lab"
+					        ng-options="lab as lab.labName for lab in vm.labs" 
+							ng-change="vm.onLabChange(vm.lab)"
+					        required>
+					    <option value="" disabled selected>Select lab</option>
+					</select>
+
+				</div>
+		</div>
+		
+		<div class="form-group">
+						<div class="col-sm-6">
+							<span class="txt f-r">Select Department <span style="color:#c00;">*</span> : </span>
+						</div>
+						<div class="col-sm-6">
+							
+							<select class="form-control mandtry"
+																					ng-model="department" id="department"
+																					ng-options="department as department.departmentName for department in vm.departments" 
+																					style="height: calc(2.25rem + 3px);margin-top: -5px;" required>
+																					<option value="" disabled selected>Select department</option>
+																				</select>
+						</div>
+				</div>
+		
+	<!--	<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Shift <span style="color:#c00;">*</span> :</label>
+			</div>
+			<div class="col-sm-6">
+					<select class="form-control" ng-model="selectedShift">	  ng-change="showSelectMachine" 
+						<option value="selectShift"> Select shift </option>
+						<option ng-repeat="shift in vm.shifts" value="{{shift}}"> {{shift.shift_name}} </option>
+					</select>
+			</div>
+		</div>-->
+		<div class="row">
+			
+				<div class="form-group">
+				<div class="col-sm-6">
+					<span class="txt f-r">Select Machine <span style="color:#c00;">*</span> : </span>
+				</div>
+				<div class="col-sm-6">
+					<select class="form-control" 
+					        ng-model="selectedMachineNames" 
+					        ng-change="vm.changeMachineNames(selectedMachineNames)">
+					    <option value="">Select Machine</option>
+					    <option ng-repeat="opts in vm.machineNames" value="{{opts}}">{{opts}}</option>
+					</select>
+
+				</div>
+			</div>
+			<div class="form-group">
+			    <div class="col-sm-6">
+			        <span class="txt f-r">Select Equipment <span style="color:#c00;">*</span> : </span>
+			    </div>
+			    <div class="col-sm-6">
+					<select class="form-control" 
+					        ng-model="selectedEquipment" 
+					        ng-options="eq.machine_id as eq.eqid for eq in vm.filteredMachines"
+					        ng-change="updateLocation(selectedEquipment)">
+					    <option value="">Select Equipment</option>
+					</select>
+
+
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <div class="col-sm-6">
+			        <span class="txt f-r">Location <span style="color:#c00;">*</span> : </span>
+			    </div>
+			    <div class="col-sm-6">
+			        <textarea class="form-control" rows="3" ng-model="vm.locationName" readonly></textarea>
+			    </div>
+			</div>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Breakdown Description  :</label>
+			</div>
+			<div class="col-sm-6">
+				<textarea class="form-control" ng-model="breakdown.observation" rows="3"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<label class="control-label">Breakdown Raised By :</label>
+			</div>
+			<div class="col-sm-6">
+				<input type="text" name="decetectedby" ng-model="breakdown.detected_by" class="form-control">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-6">
+				<button class="btn_serach" ng-click="vm.ok(breakdown)">Submit
+					</button>
+			</div>
+		</div>
+	</div>
+</div>

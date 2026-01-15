@@ -1,0 +1,119 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr { border: 1px solid #ccc !important; }
+.orange { background-color: #008B8B; }
+.orange th { color: #fff; }
+.navbar {
+    background-color: #008B8B;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.btn_search {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.form-control {
+    width: 100%;
+}
+.table-bordered {
+    width: 70%;
+    margin: 0 auto; 
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+</style>
+
+<div class="container">
+    <div class="row page-title-div">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2 class="title" style="text-align: center;">Analysis Time Report</h2>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="machineSelect">Select Machines <span style="color:#c00;">*</span>:</label>
+                <select 
+                    ng-model="vm.selectedmachine" 
+                    ng-change="vm.generateBreakWiseReport(vm.selectedmachine)" 
+                    ng-options="machine.machine_id as machine.machine_name for machine in vm.machines" 
+                    class="form-control" required>
+                    <option value="">Select Machines:</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="col-md-6 center-button">
+            <button type="button" class="btn_search" ng-click="vm.export()">Export</button>
+        </div>
+    </div>
+</div>
+<!-- 
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered">
+            <thead class="orange">
+                <tr>
+                    <th>Sr No</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>No. Of. Breakdowns</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="vm.BreakRepo">
+                    <td>1</td>
+                    <td>{{vm.BreakRepo.fromDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{vm.BreakRepo.toDate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{vm.BreakRepo.numberOfBreakdowns}}</td>
+                </tr>
+                <tr ng-if="!vm.BreakRepo">
+                    <td colspan="4" class="text-center">No data available.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+-->
+
+
+ 
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+            <tr>
+                <th>Sr No</th>
+                <th>Machine Name</th>
+                <th> Status</th>
+                <th>No. Of. Days</th>
+                
+                <th>Raised Date</th>
+                
+              
+              
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-if="vm.BreakRepo.length === 0">
+                <td colspan="12" class="text-center">No data available.</td>
+            </tr>
+            <tr ng-repeat="repo in vm.BreakRepo">
+                    <td>{{$index + 1}}</td>
+                    <td>{{repo.machineName}}</td>
+                    <td>{{repo.status}}</td>
+                   
+                    <td>{{repo.noOfDays !== null ? repo.noOfDays : 'N/A'}}</td>
+                    <td>{{repo.ticketRaisedTime | date:'dd-MM-yyyy'}}</td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+</div> 

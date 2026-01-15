@@ -1,0 +1,104 @@
+<!-- <script type="text/javascript"
+	src="templates/ftr/kendo/highcharts.js"></script> -->
+<style>
+.white {
+	background-color: #fff;
+}
+
+.act-add {
+	color: rgb(111, 170, 188);
+	text-align: center;
+	font-size: 15px;
+}
+
+.act-edit {
+	color: rgb(152, 108, 153);
+	text-align: center;
+	font-size: 15px;
+}
+
+.act-add .fa, .act-edit .fa {
+	font-size: 20px;
+}
+
+.width-80 .row {
+	margin: 1% 0;
+}
+
+.width-80 .row .control-label {
+	text-align: right;
+	font-weight: 600;
+}
+
+.width-80 {
+	width: 100%;
+	margin: 0 auto;
+}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 header-name">
+			<img src="img/breakdown.png"><span>MTTR Report</span>
+		</div>
+	</div>
+	<div class="col-sm-1"></div>
+	<div class="col-sm-10" style="margin-left:8%;">
+		<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Mould Name <span style="color:red;">*</span> :</label>
+			</div>
+			<div class="col-sm-6">
+				<select id="mould" ng-model="selectMould" class="form-control"  ng-change="vm.changeMachine();">
+					<option value="selectMould"> Select mould </option>
+					<option ng-repeat="opts in vm.mouldList" value="{{opts}}"> {{opts.mould_code}} </option>
+				</select>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Equipment Category Group <span style="color:red;">*</span> :</label>
+			</div>
+			<div class="col-sm-6" ng-hide="">
+				<select class="form-control" ng-model="category" ng-change="vm.changeCategory();">
+					<option value="category"> Select category </option>
+					<option  ng-repeat="opts in vm.categories|filter:{cat_name:'All MOULD'}" value="{{opts}}"> {{opts.cat_name}} </option>
+				</select>
+			</div>
+		</div>
+		
+		
+		
+		<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Duration <span style="color:red;">*</span>:</label>
+			</div>
+			<div class="col-sm-6">
+				<select class="form-control" ng-model="reportDuration" ng-disabled="true">
+					<option value="monthly">Monthly</option>
+					<option value="quarterly">Quarterly</option>
+				</select>
+			</div>
+		</div>
+		
+		
+		<div class="row" style="height:52px">
+			<div class="col-sm-7"></div>
+			<div class="col-sm-4">
+				<button class="btn_serach" style="width:47%"; ng-click="vm.getReportGenerationDetails();">Submit
+					</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div id="container" ng-if="showGraph" report-Chart type="column" title-text="" sub-Title-Text="" categories="categories" y-Axis-Text="Hours" series="series" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<!-- 		<div id="container4"></div> -->
+	</div>
+</div>
+
+
+
+
+

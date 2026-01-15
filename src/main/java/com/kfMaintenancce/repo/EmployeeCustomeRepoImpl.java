@@ -1,0 +1,134 @@
+package com.kfMaintenancce.repo;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import com.kfMaintenancce.dto.ColumnSearch;
+import com.kfMaintenancce.dto.GroupSearchDTO;
+import com.kfMaintenancce.model.Employee;
+
+public class EmployeeCustomeRepoImpl implements EmployeeCustomeRepo {
+	@PersistenceContext
+	EntityManager entityManager;
+	
+	
+	@Override
+	public List<Employee> getEmployeeByLimit(int pageNo, int perPage) {
+		// TODO Auto-generated method stub
+		try {
+			long result = 0;
+			Query q = null;
+			result = (long) entityManager
+					.createQuery(
+							"SELECT count(*) FROM Employee a ")
+					.getSingleResult();
+			q = entityManager.createQuery(
+					"select a from  Employee a ",
+					Employee.class);
+			System.out.println("Count  " + result);
+
+		
+			
+			int first=(pageNo-1) * perPage;
+			q.setFirstResult(first); // modify this to adjust paging
+			q.setMaxResults(perPage);
+
+			List<Employee> list = q.getResultList();
+			return list;
+
+		} finally {
+			// TODO: handle finally clause
+			entityManager.close();
+		}
+	}
+
+	@Override
+	public List<Employee> getEmployeeByLimitAndGroupSearch(GroupSearchDTO groupSearchDTO) {
+		// TODO Auto-generated method stub
+		int pageNo = groupSearchDTO.getPageNo();
+		int perPage = groupSearchDTO.getPerPage();
+
+		StringBuilder queryBuilder = new StringBuilder("SELECT e FROM Employee e WHERE ");
+		int parameterIndex = 1;
+		for (ColumnSearch columnSearch : groupSearchDTO.getColumns()) {
+		    if (!columnSearch.getValue().isEmpty()) {
+		        if (parameterIndex > 1) {
+		            queryBuilder.append(" AND ");
+		        }
+		        queryBuilder.append("e.").append(columnSearch.getColumnName()).append(" LIKE :searchText").append(parameterIndex++);
+		    }
+		}
+
+		Query query = entityManager.createQuery(queryBuilder.toString(), Employee.class);
+
+		parameterIndex = 1;
+		for (ColumnSearch columnSearch : groupSearchDTO.getColumns()) {
+		    if (!columnSearch.getValue().isEmpty()) {
+		        query.setParameter("searchText" + parameterIndex++, "%" + columnSearch.getValue() + "%");
+		    }
+		}
+
+		int total_count = query.getResultList().size();
+		System.out.println("total_count " + total_count);
+
+		int firstResult = (pageNo - 1) * perPage;
+		query.setFirstResult(firstResult);
+		query.setMaxResults(perPage);
+
+		List<Employee> list = query.getResultList();
+		System.out.println("Value  " + list.size());
+
+		return list;
+
+	}
+
+	@Override
+	public int getAssetCountByLimitAndGroupSearch(GroupSearchDTO groupSearchDTO) {
+		// TODO Auto-generated method stub
+
+		int pageNo = groupSearchDTO.getPageNo();
+		int perPage = groupSearchDTO.getPerPage();
+
+		Query q = null;
+
+		String queryStr = "from Employee a  where";
+		int i = 0;
+		for (ColumnSearch columnSearch : groupSearchDTO.getColumns()) {
+
+			if (columnSearch.getValue() != "" || !columnSearch.getValue().equalsIgnoreCase("")) {
+				if (i == 0) {
+					queryStr += " a." + columnSearch.getColumnName() + " LIKE : searchText"+i;
+
+				} else {
+					queryStr += " AND a." + columnSearch.getColumnName() + " LIKE : searchText"+i;
+
+				}
+			}
+			i++;
+		}
+
+
+		System.out.println("QUERY STRING " + queryStr);
+
+		q = entityManager.createQuery(queryStr, Employee.class);
+
+		int j=0;
+		for (ColumnSearch columnSearch : groupSearchDTO.getColumns()) {
+
+			if (columnSearch.getValue() != "" || !columnSearch.getValue().equalsIgnoreCase("")) {
+
+				System.out.println("Column  " + columnSearch.getColumnName());
+				System.out.println("Value  " + columnSearch.getValue());
+
+				q.setParameter("searchText"+j, "%" + columnSearch.getValue() + "%");
+
+			}
+			j++;
+		}
+		int total_count = q.getResultList().size();
+		return total_count;
+	}
+}

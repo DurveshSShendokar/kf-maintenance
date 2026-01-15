@@ -1,0 +1,100 @@
+<div id="header"></div>
+   <link rel="stylesheet" href="css/styles.css">
+		<div class="container">
+			<div class="row top">
+				<div class="centre">
+					<div class="top_contain">
+					<div class="row">
+						<div class="col-lg-2 col-xs-3">
+							<img src="img/icon/finished_g.png" />
+						</div>
+						<div class="col-lg-6 col-xs-4">
+							<h3 class="txt_top"> Finish Goods  Recipt </h3>
+						</div>
+					</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-xs-3" >
+							<div class="f-r"> Status :</div>
+						</div>
+						<div class="col-lg-6 col-xs-6" >
+							<div>  
+								<select class="form-control return_input">
+								  <option value="volvo">Volvo</option>
+								  <option value="saab">Saab</option>
+								  <option value="mercedes">Mercedes</option>
+								  <option value="audi">Audi</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-10">
+						<div class="col-lg-3 col-xs-3" >
+							<div class="f-r"> Material Nick Name :</div>
+						</div>
+						<div class="col-lg-6 col-xs-6" >
+							<div>  
+								<input type="text" class="form-control return_input">
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-10">
+						<div class="col-lg-3 col-xs-3" >
+							<div class="f-r"> Material Name :</div>
+						</div>
+						<div class="col-lg-6 col-xs-6" >
+							<div>  
+								<input type="text" class="form-control return_input">
+							</div>
+						</div>
+					</div>
+					<div class="row p-t-10">
+						<div class="col-lg-3 col-xs-3" >
+							 
+						</div>
+						<div class="col-lg-6 col-xs-6" >
+							<div>  
+								<button class="btn_main_serach"> Search </button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row p-t-20 p-b-20">
+						<div class="col-lg-12 col-xs-12">
+						  <div class="table-responsive tbl_goods">          
+							  <table class="table">
+								<thead>
+								  <tr>
+									<th> # </th>
+									<th> Item No </th>
+									<th> Description </th>
+									<th> QR Barcode </th>
+									<th> Qty </th>
+									<th> Status </th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td>1</td>
+									<td>Anna</td>
+									<td>Pitt</td>
+									<td>35</td>
+									<td>New York</td>
+									<td>USA</td>
+								  </tr>
+								</tbody>
+							  </table>
+						  </div>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<div id="footer"></div>
+<script src="js/jquery-1.10.2.js"></script>
+<script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+</script> 		 

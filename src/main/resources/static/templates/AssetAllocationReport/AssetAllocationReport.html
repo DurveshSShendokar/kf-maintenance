@@ -1,0 +1,152 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange { background-color: #008B8B; }
+.orange th { color: #fff; }
+.navbar {
+    background-color: #008B8B;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.btn_search {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.form-control {
+    width: 100%;
+}
+.table-bordered {
+    width: 70%;
+    margin: 0 auto; 
+}
+.center-button {
+    display: flex;
+     justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #fff;
+}
+.bg-success { background-color: #28a745; }
+.bg-secondary { background-color: #6c757d; }
+
+
+.center-button {
+    display: flex;
+    justify-content: flex-end;  /* change to center if you want */
+    gap: 10px; /* space between buttons */
+    margin-top: 20px;
+}
+
+
+</style>
+
+
+<div class="container">
+    <div class="row page-title-div">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2 class="title" style="text-align: center;">Asset Allocation Report</h2>
+        </div>
+    </div>
+    <br>
+
+	<div class="row">
+	    <!-- Asset Dropdown -->
+	    <div class="col-md-4">
+	        <div class="form-group">
+	            <label for="assetSelect">Select Asset <span style="color:#c00;">*</span> :</label>
+	            <select ng-model="vm.selectedAssetId" 
+	                    ng-options="asset.asset_inventory_id as (asset.equipmentId + ' - ' + asset.comapnyName) for asset in vm.assets" 
+	                    class="form-control" >
+	                <option value="">-- Select Asset --</option>
+	            </select>
+	        </div>
+	    </div>
+
+	    <!-- Start Date -->
+	    <div class="col-md-4">
+	        <div class="form-group">
+	            <label for="startDate">Start Date:</label>
+	            <input type="date" ng-model="vm.startDate" class="form-control" />
+	        </div>
+	    </div>
+
+	    <!-- End Date -->
+	    <div class="col-md-4">
+	        <div class="form-group">
+	            <label for="endDate">End Date:</label>
+	            <input type="date" ng-model="vm.endDate" class="form-control" />
+	        </div>
+	    </div>
+	</div>
+
+	<div class="row">
+	    <div class="col-md-12" style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
+	        <button type="button" class="btn_search" ng-click="vm.fetchAssetHistoryReport()">Get Report</button>
+	        <button type="button" class="btn_search" ng-click="vm.exportToExcel()">Export</button>
+	    </div>
+	</div>
+
+
+<!-- Table Section -->
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered">
+            <thead class="orange">
+                <tr>
+                    <th>Sr No</th>
+                    <th>Asset Type</th>
+                    <th>Asset ID</th>
+                    <th>computer Name</th>
+                    <th>Department</th>
+                    <th>Lab</th>
+                    <th>Inside Lab Location</th>
+                    <th>Status</th>
+                    <th>Allocated To</th>
+                    <th>Allocation Date</th>
+                    <th>Deallocation Date</th>
+                </tr>
+            </thead>
+            <tbody>
+				
+				
+				<!-- History Allocations -->
+				               <tr ng-repeat="hist in vm.assetHistoryReport.historyAllocations">
+				                   <td>{{$index + 1}}</td>
+				                   <td>{{hist.assetInventory.machine}}</td>
+				                   <td>{{hist.assetInventory.equipmentId}}</td>
+				                   <td>{{hist.assetInventory.comapnyName}}</td>
+				                   <td>{{hist.assetInventory.category.department.departmentName}}</td>
+				                   <td>{{hist.assetInventory.lab.labName}}</td>
+				                   <td>{{hist.assetInventory.labInsideLoc}}</td>
+				                   <td><span class="badge bg-secondary">{{hist.status}}</span></td>
+				                   <td>{{hist.allocateTo ? (hist.allocateTo.firstName + ' ' + hist.allocateTo.lastName) : 'N/A'}}</td>
+				                   <td>{{hist.allocationDate | date:'dd-MM-yyyy hh:mm a'}}</td>
+				                   <td>{{hist.deallocationDate ? (hist.deallocationDate | date:'dd-MM-yyyy hh:mm a') : 'N/A'}}</td>
+				               </tr>
+				
+                <!-- Active Allocations -->
+                <tr ng-repeat="alloc in vm.assetHistoryReport.activeAllocations">
+                    <td>{{$index + 1}}</td>
+                    <td>{{alloc.assetInventory.machine}}</td>
+                    <td>{{alloc.assetInventory.equipmentId}}</td>
+                    <td>{{alloc.assetInventory.comapnyName}}</td>
+                    <td>{{alloc.assetInventory.category.department.departmentName}}</td>
+                    <td>{{alloc.assetInventory.lab.labName}}</td>
+                    <td>{{alloc.assetInventory.labInsideLoc}}</td>
+                    <td><span class="badge bg-success">{{alloc.status}}</span></td>
+                    <td>{{alloc.allocateTo ? (alloc.allocateTo.firstName + ' ' + alloc.allocateTo.lastName) : 'N/A'}}</td>
+                    <td>{{alloc.allocationDate | date:'dd-MM-yyyy hh:mm a'}}</td>
+                    <td>{{alloc.deallocationDate ? (alloc.deallocationDate | date:'dd-MM-yyyy hh:mm a') : 'N/A'}}</td>
+                </tr>
+
+               
+            </tbody>
+        </table>
+    </div>
+</div>

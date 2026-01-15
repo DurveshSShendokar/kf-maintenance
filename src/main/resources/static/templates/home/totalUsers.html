@@ -1,0 +1,65 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+
+.orange{ background-color: #008b8b;}
+
+
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+
+       
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+   
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Total Users</h2>
+    </div>
+</div>
+		
+
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered " style="background-color:#008B8B;">
+						<thead class="orange">
+							<tr>
+								<th>Sr.No</th>
+							<th>User Name</th>
+								<th>Email Id</th>
+								<th>Gender</th>
+								 <th>Contact No.</th>
+								
+								
+								
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="user in vm.totalUsers">
+								<td>{{$index+1}}</td>
+								<td> {{ user.firstName }} {{ user.lastName }} </td>
+								<td> {{user.emailId}} </td>
+								<td>{{user.gender}}</td>
+								 <td>{{user.contactNo}}</td>
+								
+								
+								
+								
+								
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+ 

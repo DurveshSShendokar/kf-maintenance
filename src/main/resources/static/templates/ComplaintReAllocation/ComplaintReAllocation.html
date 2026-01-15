@@ -1,0 +1,170 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+   .form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}     
+        
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+   .modal {
+    display: flex;
+    position: fixed;
+    top: 10%;
+    left: 0;
+     background-color: transparent;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: flex-start;
+     overflow: auto; 
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+     width: 500px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; 
+}
+
+
+.modal-backdrop {
+    display: none !important; /* Hides the black background */
+}
+
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.modal-actions button {
+    margin: 5px;
+    padding: 12px 30px;
+    background-color: #008B8B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-actions button:hover {
+    background-color: #005f5f;
+}
+
+</style>
+
+
+<div class="container-fluid" style="padding-top:5px;">
+   
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Ticket Re-Allocation</h2>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row top">
+        <div class="col-sm-12">
+			
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                </div>
+            </div>
+			
+			
+            <div class="row form-border" ng-show="addNewTab">
+					<div class="col-md-6">
+					    <div class="form-group">
+					        <label for="exampleInputPassword13">Engineers <span style="color:#c00;">*</span> :</label>
+					        <select ng-model="ComplaintReAllocation.complaint.allocateTo" ng-options="allocateTo.firstName + ' ' + allocateTo.lastName for allocateTo in vm.employees track by allocateTo.id" class="form-control" required>
+					            <option value="">Select Employee</option>
+					        </select>
+					    </div>
+					</div>
+     
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.ReAllocate(ComplaintReAllocation)">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+                    </div>
+                </div>	
+            </div>
+			
+			
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+							<tr>
+								<th>Sr No</th>
+							
+								<th>Re-Allocate Ticket No. </th>
+								<th> Allocate Engineer</th>
+								<th>Ticket Status</th>
+								<th>Allocation Date</th>
+								
+								
+							   
+								<th>Action</th>
+							</tr>
+						</thead>
+            <tbody>
+							<tr ng-repeat="allocation in vm.allocations">
+								<td>{{$index+1}}</td>
+							
+								<td>{{allocation.complaint.ticketNo}} </td>
+								
+								<td> {{ allocation.engineer.firstName }} {{ allocation.engineer.lastName }} </td>
+								<td>{{allocation.status}}</td>
+								<td> {{allocation.allocationDate |date:'dd-MM-yyyy'}} </td>
+								
+								
+								
+							
+								
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info" title="Re-Allocate"	ng-click="vm.add(allocation)">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+									</button>
+								
+									
+									
+
+									
+								</td>
+							</tr>
+						</tbody>
+        </table>
+    </div>
+</div>
+

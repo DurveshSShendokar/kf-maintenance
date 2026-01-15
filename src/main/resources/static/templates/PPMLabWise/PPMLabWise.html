@@ -1,0 +1,695 @@
+<style>
+
+.container-fluid {
+     background-color: #e9ecef; 
+}
+
+.page-title-div{
+    background-color: #e9ecef;
+}
+
+
+.dash-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 16px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+    height: 140px;
+    flex: 0 0 calc(25% - 20px);
+   
+
+}
+.dash-card:hover {
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transform: scale(1.1);
+	transition: all 0.5s ease;
+ }
+
+.dash-card .card-header {
+	border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+	
+    padding: 0px 13px;
+
+}
+
+.dash-card .card-body {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dash-card .card-title {
+    color: #212529;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.dash-card:hover .card-title {
+  color: white;
+}
+
+.dash-card .card-text {
+    
+    font-size: 1.6rem;
+    line-height: 1.6;
+    
+}
+
+
+.h4
+ {
+ margin: 10% auto;
+ }
+
+
+.card-bodyy {
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 0 0 16px 16px; 
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.card-headerr {
+    font-size: 24px;
+   
+    padding: 20px; 
+    background-color: #f8f9fa;
+    color: black; 
+    border-radius: 16px 16px 0 0; 
+    
+       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.card-headerr:hover
+{
+ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transition: all 0.5s ease;
+}
+
+.total-users-card{
+    margin-right: 10px; 
+    
+}
+
+.total-machines-card {
+   
+    margin-left: 10px; 
+}
+
+
+.total-card{
+    margin-right: 10px; 
+    
+}
+
+.open-card {
+   
+    margin-left: 10px;
+}
+
+.trial-card{
+    margin-right: 10px; 
+    
+}
+
+.closed-card {
+   
+    margin-left: 10px; 
+}
+
+.today-fetch-card{
+    margin-right: 10px; 
+    
+}
+
+
+
+
+.table-container {
+    width: 70%; /* Adjust the width as needed */
+    margin: 10;
+  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 16px;
+    background-color: #fff;
+}
+.table_header {
+    width: 100%;
+    font-size: 24px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    color: black;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0; /* Ensure no margins around the header */
+}
+
+.table_header:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    background-color: #008B8B;
+    color: #ffffff !important;
+    transition: all 0.5s ease;
+}
+
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange { background-color: #008B8B; }
+.orange th { color: #fff; }
+.navbar {
+    background-color: #008B8B;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.btn_search {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.form-control {
+    width: 100%;
+}
+.table-bordered {
+    width: 70%;
+    margin: 0 auto; 
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.table {
+    width: 100%;
+    margin-bottom: 1	rem;
+    background-color: #fff;
+    border-collapse: collapse;
+     font-size: 1.2rem; 
+      border-radius: 16px; /* Add rounded corners */
+    overflow: hidden; /* Ensure the rounded corners are visible */
+}
+
+.table th, .table td {
+    padding: 0.5rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.move-right {
+    margin-left: 50%; 
+    text-align: left; 
+}
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-left: 3px solid #6c757d;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -8px;
+    width: 16px;
+    height: 16px;
+    background-color: #6c757d;
+    border-radius: 50%;
+}
+
+
+.green-circle {
+         width: 20px;
+         height: 20px;
+         background-color: green;
+         border-radius: 50%;
+         display: inline-block;
+     }	
+	 .red-circle {
+	          width: 20px;
+	          height: 20px;
+	          background-color: red;
+	          border-radius: 50%;
+	          display: inline-block;
+	      }	
+		  .yellow-circle {
+		            width: 20px;
+		            height: 20px;
+		            background-color: rgb(255, 255, 128);
+		            border-radius: 50%;
+		            display: inline-block;
+		        }	
+  .circle {
+        width: 40px; 
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #000; /* Text color for contrast */
+        margin: auto;
+        font-size: 14px;
+        cursor: pointer; /* Indicates clickable */
+        transition: transform 0.2s;
+    }
+
+.circle:hover {
+        transform: scale(1.1); /* Slight zoom effect on hover */
+    }
+    .open-data {
+        background-color: #FFB6C1; /* Light Red for Open Data */
+    }
+    .closed-data {
+        background-color: #90EE90; /* Light Green for Closed Data */
+    }
+    .trail-data {
+        background-color: #D8BFD8; /* Light Green for Closed Data */
+    }
+
+
+</style>
+
+
+	<div class="container-fluid">
+   	 <div class="row page-title-div">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+           <h2 class="title move-right"> LabWise PPM Dashboard</h2>
+
+            
+      <div class="row">
+    <div class="col-md-4">
+        <label for="labSelect">Select Lab <span style="color:#c00;">*</span>:</label>
+		<select 
+		    ng-model="vm.selectedLabName" 
+		    ng-options="lab.labName as lab.labName for lab in vm.labs"
+		    ng-change="vm.onLabSelect(vm.selectedLabName)"                        
+		    class="form-control" required>
+		    <option value="">Select Lab:</option>
+		</select>
+
+    </div>
+</div>
+
+        </div>
+        
+          <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card"  ng-click="vm.showPPMDetails('open')" >
+                <div class="card-header">Open PPM</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.records.openCount || 0 }}</h5>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card"  ng-click="vm.showPPMDetails('closed')">
+                <div class="card-header">Closed PPM</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{  vm.records.closedCount || 0 }}</h5>
+                </div>
+            </div>
+        </div>
+        
+        
+         <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card"  ng-click="vm.showPPMDetails('trial')">
+                <div class="card-header">Overdue PPM </div>
+                <div class="card-body">
+  				<h5 class="card-text card-title">{{ vm.records.overdueCount || 0}}</h5>
+                </div>
+            </div>
+        </div>
+        
+        
+         <div class="col-md-3" >
+            <div class="card mb-sm-1 dash-card total-users-card"  ng-click="vm.showPPMDetails('total')" >
+                <div class="card-header">Total PPM </div>
+                <div class="card-body">
+  				<h5 class="card-text card-title">{{ vm.records.totalCount || 0 }}</h5>
+                </div>
+            </div>
+        </div>
+        
+        
+         <div class="col-md-3">
+            <div class="card mb-sm-1 dash-card total-users-card"  >
+                <div class="card-header">Total machines </div>
+                <div class="card-body">
+  				<h5 class="card-text card-title">{{ vm.counts.totalMachines || 0}}</h5>
+                </div>
+            </div>
+        </div>
+        
+		<div class="col-md-3">
+		           <div class="card mb-sm-1 dash-card total-users-card" ng-click="vm.showPPMDetails('Approval')" >
+		               <div class="card-header">Approved PPM </div>
+		               <div class="card-body">
+		 				<h5 class="card-text card-title">{{ vm.ApprovalPPM.count || 0}}</h5>
+		               </div>
+		           </div>
+		       </div>
+			   
+			   <div class="col-md-3">
+			              <div class="card mb-sm-1 dash-card total-users-card" ng-click="vm.showPPMDetails('UnApproval')"  >
+			                  <div class="card-header">UnApproved PPM </div>
+			                  <div class="card-body">
+			    				<h5 class="card-text card-title">{{ vm.UnApprovalPPM.count || 0}}</h5>
+			                  </div>
+			              </div>
+			          </div>
+        
+          
+        
+    </div>
+	
+	
+				
+	<div class="container">
+	    <div class="row top">
+	        <div class="col-sm-12">
+	            </div>
+				</div>
+				</div>
+				
+				
+				
+				<div class="container">
+				    <div class="row top">
+				        <div class="col-sm-12">
+				
+				
+				 <div class="row form-border" ng-show="addNewTab">
+				            
+								<div class="row">
+											
+											
+											
+										<div style="margin-top: 3%;width: 100%">
+												
+											<div class="col-sm-12">
+													
+												<div class="row">
+													
+													<div class="col-sm-2">
+													</div>
+													
+													<div class="col-sm-2" style="margin-left:-3%">
+														<p class="control-label" style="text-align:center;font-weight:600;text-transform: uppercase;">Equipment :</p>
+													</div>
+													
+													<div class="col-sm-6">
+														<input type="text" class="form-control" ng-disabled="true" ng-model="equipment" name="equipment" id="equipment">
+
+													</div>
+													
+													<div class="col-sm-2">
+													</div>
+													
+												</div>
+												
+											</div>
+												
+									   </div>
+									</div>
+				            
+									<div class="col-sm-12">
+										<table id="assembly_list_QR" datatable="ng" class="table table-bordered margin-tb" style="width:100%">
+										    <thead>
+										        <tr class="orange">
+										            <th class="dark-cyan-bg">#</th>
+										            <th class="dark-cyan-bg">Checklist</th>
+										            <th class="dark-cyan-bg">Acceptable Range</th> 
+										            <th class="dark-cyan-bg">Value</th>
+										        </tr>
+										    </thead>
+										    <tbody>
+										        <tr ng-repeat="arr in vm.loadChecklist">
+										            <td>{{$index + 1}}</td>
+										            <td>{{arr.task}}</td>                         
+										            <td>{{arr.acceptableRange}}</td>                         
+										            <td>{{arr.status}}</td>
+										        </tr>
+										    </tbody>
+										</table>
+
+										
+												 
+												 <div class="row right create-break margin-tb">
+												 						     	<div class="col-sm-8">
+												 						     		<button class="btn btn-primary" ng-click="vm.cancel()">cancel</button>
+												 						     	</div>
+												 								
+												 						     </div>
+												 
+								</div>
+										
+									
+				              
+				                
+				                
+								
+				            </div>
+				        </div>
+				    </div>
+				</div>
+
+
+				
+				
+				
+
+				    <div class="row">
+				<div class="container">
+				    <div class="panel-body table-responsive" style="margin-left: -396px; margin-right: -396px;">
+				       <table datatable="ng" id="example" class="table table-bordered" style="width: 100%; height: auto;">
+				           <thead class="orange">
+				                 <tr>
+				                        <th>Sr No</th>
+				                        <th>Machine Name</th>
+				                        <th>Equipment ID</th>				                    
+				                       
+				                        <th>frequency</th>
+				                        <th>Overall Status</th>
+										<th> Status </th>
+										<th>Raised By</th>
+										<th>Done By</th>
+				                        <th>Schedule Time</th>
+				                        
+				                        <th>Closed Time</th>
+										<th>Action</th>
+				                        
+				                    </tr>
+				            </thead>
+				            <tbody>
+				                <tr ng-repeat="spare in vm.PPMDetails track by $index">
+				                    <td>{{$index + 1}}</td>
+				                    <td>{{spare.machine.machine_name}}</td>
+				                    <td>{{spare.machine.eqid}}</td>
+				            
+				                    <td>{{spare.frequency}}</td>
+				                    
+				                   
+				                   <td>{{ spare.overall_status ? spare.overall_status : 'N/A' }}</td>
+								   <td>
+								       <span ng-switch="spare.statusCode">
+								           <span ng-switch-when="1">
+								               <span ng-if="spare.approvalBit == 2">UnApproved</span>
+								               <span ng-if="spare.approvalBit != 2">Open</span>
+								           </span>
+								           <span ng-switch-when="0">Closed</span>
+								           <span ng-switch-when="2">Approved</span>
+								       </span>
+								   </td>
+
+									
+									<td>{{spare.raisedBy.firstName}} {{spare.raisedBy.lastName}}</td>
+									<td>
+									  {{ spare.done_by ? (spare.done_by.firstName + ' ' + spare.done_by.lastName) : 'N/A' }}
+									</td>
+
+				                     <td>{{spare.schedule_date | date : 'dd-MM-yyyy : hh:mm a'}}</td>
+				                     
+									
+
+				                    
+				                     <td>
+				                        <span ng-if="!spare.closedDate">Still Open</span>
+				                        <span ng-if="spare.closedDate">{{spare.closedDate | date : 'dd-MM-yyyy : hh:mm a' }}</span>
+				                    </td>
+									
+									<td class="text-nowrap">
+																	<button type="button" class="btn btn-info" title="Edit"	ng-click="vm.add(spare)">
+																		<i class="fa fa-edit" aria-hidden="true"></i>
+																	</button>
+									
+					                </tr>
+				            </tbody>
+				        </table>
+				    </div>
+				</div>
+					</div>
+				
+				
+				
+				
+				
+</div>
+
+
+
+<div class="container">
+    <div class="panel-body table-responsive" style="margin-left: -396px; margin-right: -396px;">
+    
+        <!-- Week dropdown -->
+     <div class="row">
+            <div class="col-md-12 text-right">
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="weekDropdown">Select Week:</label>
+                        <select 
+                            class="form-control" 
+                            id="weekDropdown" 
+                            ng-model="vm.selectedWeek" 
+                            ng-options="week for week in vm.availableWeeks"
+                            ng-change="vm.onWeekChange()">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Data Table -->
+        <table datatable="ng" id="example" class="table table-bordered" style="background-color:#008B8B;">
+            <thead class="orange">
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Machine Name</th>
+                    <th>open Data</th>
+                     <th>closed Data</th> 
+                </tr>
+            </thead>
+            <tbody>
+                 <tr ng-repeat="arr in vm.dataWeekMachine">
+            <td>{{$index + 1}}</td>
+            <td>{{arr.machineName}}</td>
+          
+            
+            <td ng-repeat="data in arr.weekDatas">	<div class="circle open-data" title="Open"> {{data.open}} </div> 
+								
+								<br/>	
+								
+								
+								</td>
+             <td ng-repeat="data in arr.weekDatas">	 <div class="circle closed-data"> {{data.closed}}</div>
+								
+								<br/>	
+								
+								
+								</td>
+        </tr>
+        
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<!--				
+<div class="row">
+    <div class="col-md-6">
+        <label>Select Week:</label>
+        <select ng-model="vm.selectedWeek" ng-change="vm.updateGraphData('week')">
+            <option value="">None</option>
+            <option ng-repeat="week in vm.weeks" value="{{week}}">Week {{week}}</option>
+        </select>
+    </div>
+
+    <div class="col-md-6">
+        <label>Select Month:</label>
+        <select ng-model="vm.selectedMonth" ng-change="vm.updateGraphData('month')">
+            <option value="">None</option>
+            <option ng-repeat="(index, month) in ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']" value="{{index + 1}}">
+                {{month}}
+            </option>
+        </select>
+    </div>
+
+    <div class="col-md-12">
+        <h4 class="card-headerr">Maintenance Overview</h4>
+        <div class="card-bodyy">
+            <canvas class="chart chart-bar"
+                chart-data="vm.chartDataOverall"
+                chart-labels="vm.chartLabelsOverall"
+                chart-series="['Open', 'Closed', 'Overdue']"
+                chart-options="vm.chartOptions"
+                chart-colors="vm.chartColorsOverall"
+                style="display: block; width: 100%; height: 600px;">
+            </canvas>
+        </div>
+    </div>
+</div>-->
+
+	
+  
+	
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+	 
+	 
+	
+	
+	
+	

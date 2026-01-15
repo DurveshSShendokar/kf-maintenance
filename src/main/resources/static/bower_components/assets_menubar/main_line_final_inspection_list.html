@@ -1,0 +1,109 @@
+<div id="header"></div>
+   <link rel="stylesheet" href="css/styles.css">
+		<div class="container">
+			<div class="row top">
+				<div class="centre">
+					<div class="top_contain">
+					<div class="row">
+						<div class="col-lg-2 col-xs-3">
+							<img src="img/icon/main_line.png" />
+						</div>
+						<div class="col-lg-6 col-xs-4">
+							<h3 class="txt_top"> Main Line Final Inspection List </h3>
+						</div>
+					</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-xs-12">
+							<div class="table-responsive row_width">          
+							  <table class="table">
+								<tbody>
+								  <tr>
+									<td> <div class="txt">  Date  </div> </td>
+									<td> 
+										<input type="date" class="form-control return_input">
+									</td>
+									<td> <div class="txt"> Time </div> </td>
+									<td>
+										<input type="text" class="form-control return_input">
+									</td>
+								  </tr>
+								</tbody>
+							  </table>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-3 col-xs-3" >
+							<div class="f-r"> Status :</div>
+						</div>
+						<div class="col-lg-6 col-xs-6" >
+							<div>  
+								<select class="form-control return_input">
+								  <option value="volvo"> </option>
+								  <option value="saab">Saab</option>
+								  <option value="mercedes">Mercedes</option>
+								  <option value="audi">Audi</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row p-t-20">
+						<div class="col-lg-12 col-xs-12">
+							<h1> Current Shift Data </h1>
+						</div>
+					</div>
+					
+					<div class="row p-t-20">
+						<div class="col-lg-12 col-xs-12">
+							<div class="search">
+							  <input class="search__input" placeholder="Search"/>
+							   <button class="search__button">Serach <i class="fa fa-search "> </i> </button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row p-t-20 p-b-20">
+						<div class="col-lg-12 col-xs-12">
+						  <div class="table-responsive tbl_main_line">          
+							  <table class="table">
+								<thead>
+								  <tr>
+									<th> # </th>
+									<th> Item No </th>
+									<th> QR Code </th>
+									<th> Actual Qty </th>
+									<th> Accept </th>
+									<th> Hold </th>
+									<th> Reject </th>
+									<th> Action </th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td> 1 </td>
+									<td> 01 </td>
+									<td> Mouse </td>
+									<td> 44 </td>
+									<td> 15 </td>
+									<td> 15 </td>
+									<td>  15 </td>
+									<td>  Scan </td>
+								  </tr>
+								</tbody>
+							  </table>
+						  </div>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<div id="footer"></div>
+<script src="js/jquery-1.10.2.js"></script>
+<script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+</script> 		 

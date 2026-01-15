@@ -1,0 +1,461 @@
+<style>
+	.tab-active{
+	background-color: 			#017cc0
+	}
+	.tab-inactive{
+		background-color: #f1f5f8	
+	}
+.container-fluid {
+     background-color: #e9ecef; 
+}
+
+.page-title-div{
+    background-color: #e9ecef;
+}
+
+
+.dash-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 16px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+    height: 140px;
+    flex: 0 0 calc(25% - 20px);
+   
+
+}
+.dash-card:hover {
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transform: scale(1.1);
+	transition: all 0.5s ease;
+ }
+
+.dash-card .card-header {
+	border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+	
+    padding: 0px 13px;
+
+}
+
+.dash-card .card-body {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dash-card .card-title {
+    color: #212529;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.dash-card:hover .card-title {
+  color: white;
+}
+
+.dash-card .card-text {
+    
+    font-size: 1.6rem;
+    line-height: 1.6;
+    
+}
+
+
+.h4
+ {
+ margin: 10% auto;
+ }
+
+
+.card-bodyy {
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 0 0 16px 16px; 
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.card-headerr {
+    font-size: 24px;
+   
+    padding: 20px; 
+    background-color: #f8f9fa;
+    color: black; 
+    border-radius: 16px 16px 0 0; 
+    
+       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.card-headerr:hover
+{
+ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transition: all 0.5s ease;
+}
+
+.total-users-card{
+    margin-right: 10px; 
+    
+}
+
+.total-machines-card {
+   
+    margin-left: 10px; 
+}
+
+
+.total-card{
+    margin-right: 10px; 
+    
+}
+
+.open-card {
+   
+    margin-left: 10px;
+}
+
+.trial-card{
+    margin-right: 10px; 
+    
+}
+
+.closed-card {
+   
+    margin-left: 10px; 
+}
+
+.today-fetch-card{
+    margin-right: 10px; 
+    
+}
+
+.green-circle {
+         width: 20px;
+         height: 20px;
+         background-color: green;
+         border-radius: 50%;
+         display: inline-block;
+     }	
+	 .red-circle {
+	          width: 20px;
+	          height: 20px;
+	          background-color: red;
+	          border-radius: 50%;
+	          display: inline-block;
+	      }	
+		  .yellow-circle {
+		            width: 20px;
+		            height: 20px;
+		            background-color: rgb(255, 255, 128);
+		            border-radius: 50%;
+		            display: inline-block;
+		        }	
+  .circle {
+        width: 40px; 
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #000; /* Text color for contrast */
+        margin: auto;
+        font-size: 14px;
+        cursor: pointer; /* Indicates clickable */
+        transition: transform 0.2s;
+    }
+    .circle:hover {
+        transform: scale(1.1); /* Slight zoom effect on hover */
+    }
+    .open-data {
+        background-color: #FFB6C1; /* Light Red for Open Data */
+    }
+    .closed-data {
+        background-color: #90EE90; /* Light Green for Closed Data */
+    }
+    .trail-data {
+        background-color: #D8BFD8; /* Light Green for Closed Data */
+    }
+
+</style>
+
+	<div class="container-fluid" 	>
+	
+	  		<div class="row">
+		        <div class="col-md-12" 		style="text-align: center;">
+		            <h2>Breakdown  Dashboard</h2>
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+					        <div class="col-md-12" 	>
+					            <h2>Overall Breakdowns</h2>
+					        </div>
+			</div>
+		    
+		     <div class="row">
+		        
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card open-card" ng-click="handleUsersCardClickopen('totalopenBreakdown')">
+		                <div class="card-header">Open 	Breakdowns</div>
+		                <div class="card-body">
+                    <h5 class="card-text card-title">{{vm.BreakCount.openCount}}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        		 
+		        		 
+		            <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card closed-card"  ng-click="handleUsersCardClickclosed('totalclosedBreakdown')" >
+		                <div class="card-header">Closed Breakdowns</div>
+		                <div class="card-body">
+                    <h5 class="card-text card-title">{{vm.BreakCount.closedCount}}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        		        
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card today-fetch-card" ng-click="handleUsersCardClicktrial('totaltrialBreakdown')" >
+		                <div class="card-header">Trail Breakdowns</div>
+		                <div class="card-body">
+                    <h5 class="card-text card-title">{{vm.BreakCount.trialCount}}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        
+		     
+		     
+				<div class="col-md-3">
+						            <div class="card mb-sm-1 dash-card total-card" ng-click="handleUsersCardClickover('overallBreakdown')" >
+						                <div class="card-header">Total Breakdowns</div>
+						                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.BreakCount.totalBreakdowns }}</h5>
+						                 <!--     <h5 class="card-text card-title">{{ vm.totalMaintaince.totalCount }}</h5>-->
+						                </div>
+						            </div>
+				 </div>
+		    </div><br>
+		    
+		    
+		
+			
+			
+	
+				
+		    <div class="row">
+		        
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card open-card" ng-click="handleMachinesCardClick('totalMachines')" >
+		                <div class="card-header">Total 	Machines</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MachineCount.totalMachines }}</h5>
+		                    
+		                </div>
+		            </div>
+		        </div>
+				
+		    </div>
+		    
+		    <div class="row">
+					        <div class="col-md-12" 	>
+					            <h2>WEEK No :: {{showTypeData}}  -->  {{startDate}}  ( TO )    {{endDate}}</h2>
+					        </div>
+			</div>
+		    
+		     <div class="row">
+		        
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card open-card" ng-click="handleOpenBreakdownCardClick('openBreakdown')">
+		                <div class="card-header">Open Breakdown</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.BreakdownCount.open}}</h5>
+		                    
+		                </div>
+		            </div>
+		        </div>
+		        		        
+		        
+		        
+		        
+		        
+		         <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card closed-card" ng-click="handleTrialBreakdownCardClick('trialBreakdown')">
+		                <div class="card-header">Trial Breakdown</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.BreakdownCount.trail}}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        
+		        
+		          <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card closed-card" ng-click="handleClosedBreakdownCardClick('closedBreakdown')">
+		                <div class="card-header">Closed Breakdown</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.BreakdownCount.closed}}</h5>
+		                </div>
+		            </div>
+		        </div>
+				
+		    </div>
+		    
+		    
+		    
+		    
+		</div>
+	
+			
+		
+<div class="container">
+    <div class="panel-body table-responsive" style="margin-left: -396px; margin-right: -396px;">
+    
+        <!-- Week dropdown -->
+         <div class="col-md-1">
+		       <div class="form-group">
+		  <label for="weekDropdown">Select Week:</label>
+		  <select 
+		    class="form-control" 
+		    id="weekDropdown" 
+		    ng-model="vm.selectedWeek" 
+		    ng-options="week for week in vm.availableWeeks"
+		    ng-change="vm.onWeekChange()">
+		  </select>
+		</div>
+		</div>
+
+        <!-- Data Table -->
+        <table datatable="ng" id="example" class="table table-bordered" style="background-color:#008B8B;">
+            <thead class="orange">
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Machine Name</th>
+                    <th>open Data</th>
+                    <th>Trial Data</th> 
+                     <th>closed Data</th> 
+                </tr>
+            </thead>
+            <tbody>
+                 <tr ng-repeat="arr in vm.dataWeekMachine">
+            <td>{{$index + 1}}</td>
+            <td>{{arr.machineName}}</td>
+          
+            
+            <td ng-repeat="data in arr.weekDatas">	<div class="circle open-data" title="Open"> {{data.open}} </div> 
+								
+								<br/>	<i class="fa fa-eye" aria-hidden="true" ng-click="gotoDetials(data,arr.machineName,'Open')"></i>
+								
+								
+								</td>
+             <td ng-repeat="data in arr.weekDatas">	 <div class="circle trail-data"> {{data.trail}}</div>
+								
+								<br/>	<i class="fa fa-eye" aria-hidden="true" ng-click="gotoDetials(data,arr.machineName,'Trial')"></i>
+								
+								
+								</td>
+								
+			 <td ng-repeat="data in arr.weekDatas">	 <div class="circle closed-data"> {{data.closed}}</div>
+								
+								<br/>	<i class="fa fa-eye" aria-hidden="true" ng-click="gotoDetials(data,arr.machineName,'Closed')"></i>
+								
+								
+								</td>					
+								
+        </tr>
+        
+            </tbody>
+        </table>
+    </div>
+</div>	
+			
+		<div class="row" 		>		
+				
+	
+			<div class="col-md-6">
+					<div class="panel-body container-fluid">
+					    <div class="card2">
+					     <div class="col-md-6">
+					        <select id="machineFilter" ng-model="vm.selectedMachineCount" ng-change="vm.updateMachineData2()">
+					            <option value="5">5</option>
+					            <option value="10">10</option>
+					            <option value="20">20</option>
+					        </select>
+					    </div>
+					      <h4 class="card-headerr">Breakdown Counts By Machine</h4>
+					        <div class=" card-bodyy">
+					            <canvas class="chart chart-bar"
+					                    chart-data="vm.chartData1"
+					                    chart-labels="vm.chartLabels1"
+					                    chart-series="['Open', 'Closed', 'Trial']"
+					                    chart-options="vm.chartOptions1"
+					                    chart-colors="vm.chartColors1"
+					                    style="display: block; width: 100%; height: 600px;">
+					           </canvas>        
+					        </div>
+					    </div>
+					</div>
+				</div>
+				<div class="col-md-6">						
+						<div class="panel-body container-fluid">
+						    <div class="card2">
+						    <div class="col-md-6">
+							        <select id="machineOwnerFilter" ng-model="vm.selectedMachineOwnerCount" ng-change="vm.updateMachineData3()">
+							            <option value="5">5</option>
+							            <option value="10">10</option>
+							            <option value="20">20</option>
+							        </select>
+							    </div>
+						        <h4 class="card-headerr">Breakdown Counts By Machine Owner</h4>
+						        <div class=" card-bodyy">
+						            <canvas class="chart chart-bar"
+						                    chart-data="vm.chartData2"
+						                    chart-labels="vm.chartLabels2"
+						                    chart-series="['Open', 'Closed', 'Trial']"
+						                    chart-options="vm.chartOptions2"
+						                    chart-colors="vm.chartColors2"
+						                    style="display: block; width: 100%; height: 600px;">
+						           </canvas>        
+						        </div>
+						    </div>
+						</div>
+				</div>
+			
+		</div>
+		<div class="row" 		>
+		
+	
+			</div>
+				 
+
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+	 
+	 
+	
+	
+	

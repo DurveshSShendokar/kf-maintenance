@@ -1,0 +1,117 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+</style>
+<div class="container-fluid" style="padding-top:50px;">
+	<div class="row page-title-div">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2 class="title" style="text-align:center;">Depertment</h2>
+		</div>
+	</div>
+</div>
+<div class="container">
+			<div class="row top">
+				<div class="col-sm-12">
+								
+					<div class="row">
+					<div class="row">
+					<div class="col-md-4">
+					</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Department Name : <span style="color:#c00;">*</span></label> 
+								<input type="text" class="form-control" ng-model="department.departmentName" placeholder="Department Name"	ng-required="true">
+							</div>
+						</div>
+						</div>
+				
+						<div class="row">
+						<div class="col-md-6"></div>
+						<div class="col-md-3">
+							<div  style="margin-top:5%;">
+								<button type="submit" class="btn_serach" id="success"
+									ng-click="vm.save(department)">Submit</button>
+							</div>
+							</div>
+							
+						</div>
+							<div class="row" ng-show="viewQrTab">
+						
+						<div class="col-md-4">
+						</div>
+						
+						<div class="col-md-6">
+						
+							 <qr text="qrcodeData" id="anycanvas" correction-level="'L'" size="200" image="true" ></qr>
+						</div>
+						<div class="col-md-6"></div>
+						<div class="col-md-6">
+							<div align="right" style="margin-top:5%;">
+								<button type="submit" class="btn_serach" id="success"
+									ng-click="vm.print()">Print</button>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+				</div>
+</div>
+						
+
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered ">
+						<thead class="orange">
+							<tr>
+								<th>Sr No </th>
+							
+								<th> Department Name</th>
+								
+							
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="department in vm.departments">
+								<td>{{$index+1}}</td>
+								<td> {{department.departmentName}} </td>
+								
+								
+								
+								
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info"	ng-click="vm.edit(department)">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-danger" ng-click="vm.delte(department)">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</button>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+					
+						
+		
+
+		
+		

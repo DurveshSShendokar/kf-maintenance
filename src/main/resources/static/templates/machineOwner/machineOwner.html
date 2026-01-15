@@ -1,0 +1,185 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+
+
+.loading-blur {
+    pointer-events: none;
+    opacity: 0.5;
+}
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.7);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #f15a24; /* your brand color */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+</style>
+
+
+<div class="container-fluid" style="padding-top:50px;">
+	<div class="row page-title-div">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2 class="title" style="text-align:center;">Machine Owner</h2>
+		</div>
+	</div>
+</div>
+<div class="container">
+	
+	<div ng-show="vm.isLoading" class="loader-overlay">
+	    <div class="spinner"></div>
+	</div>
+
+
+			<div class="row top">
+				<div class="col-sm-12">
+								
+					<div class="row " >
+						
+						
+					
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="exampleInputPassword13">Machine Name <span style="color:#c00;">*</span> :</label> 
+							  <select class="form-control" ng-model="machOwner.machineName">
+				                <option value="">Select Machine</option>
+				                <option ng-repeat="machine in vm.machineNames" value="{{machine}}">{{machine}}</option>
+				            </select>	
+							</div>
+						</div>
+						
+						
+						<div class="col-md-3">
+						    <div class="form-group">
+						        <label>Machine EQID <span style="color:#c00;">*</span> :</label>
+						        <select class="form-control" ng-model="machOwner.machineId">
+						            <option value="">Select Machine EQID</option>
+						            <option ng-repeat="eq in vm.machineEqids" value="{{eq.machine_id}}">{{eq.eqid}}</option>
+						        </select>
+						    </div>
+						</div>		
+						
+						
+												<div class="col-md-3">
+														<div class="form-group">
+															<label for="exampleInputPassword13">
+														User <span style="color:#c00;">*</span> :</label> 
+														 <select class="form-control" ng-model="machOwner.userId">
+											                <option value="">Select User</option>
+											                <option ng-repeat="user in vm.users" value="{{user.id}}">
+											                    {{user.firstName}} {{user.lastName}}
+											                </option>
+											            </select>
+														</div>
+													</div>
+					
+						</div>
+							<div class="row" ng-show="viewQrTab">
+						
+						<div class="col-md-4">
+						</div>
+						
+						<div class="col-md-6">
+						
+							 <qr text="qrcodeData" id="anycanvas" correction-level="'L'" size="200" image="true" ></qr>
+						</div>
+						
+						</div>
+					</div>
+				</div>
+				</div>
+</div>
+						
+
+		<div class="container" ng-class="{'loading-blur': vm.isLoading}">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered ">
+						<thead class="orange">
+							<tr>
+								
+							<th>Sr No.</th>
+								
+								<th>Machine Name</th>
+								<th>Equipment Id</th>
+							
+								<th>User</th>
+								
+								
+							
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="machineOwner in vm.machineOwners|reverse">
+								<td>{{$index+1}}</td>
+							
+								<td>{{machineOwner.machine.machine_name}} </td>
+								<td>{{machineOwner.machine.eqid}}</td>
+								
+								<td>{{machineOwner.user.firstName}} {{machineOwner.user.lastName}}</td>
+								
+								
+								
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info"	ng-click="vm.edit(machineOwner)">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-danger" ng-click="vm.delet(machineOwner)">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</button>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+					
+						
+		
+
+		
+		

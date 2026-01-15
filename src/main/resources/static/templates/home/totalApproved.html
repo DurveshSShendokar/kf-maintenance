@@ -1,0 +1,278 @@
+<style>
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008b8b;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+
+	.orange th {
+		color: #fff;
+	}
+	.wrap-text {
+	    resize: none;  /* Prevent manual resizing */
+	    overflow-y: auto;  /* Enable vertical scrolling if needed */
+	    white-space: pre-wrap;  /* Ensures text wraps properly */
+	    word-wrap: break-word;  /* Break long words */
+	    height: auto; /* Auto-adjust height based on content */
+	    min-height: 50px;  /* Set a reasonable minimum height */
+	}
+
+
+	navbar {
+		background-color: #008B8B;
+		padding: 10px 0;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+	}
+	
+	.form-border {
+	    border: 2px solid #ccc;
+	    padding: 20px;
+	    border-radius: 10px;
+	    margin-top: 20px;
+	}
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h2 class="title" style="text-align:center;">Total Approved PPM</h2>
+	</div>
+</div>
+
+<div class="row">
+
+	
+	 <div class="row" ng-if="!vm.addNewTab">
+     <div class="col-md-4"></div> 
+    <div class="col-md-2">
+        <label for="fromDate">From Date</label>
+        <input type="date" id="fromDate" ng-model="vm.fromDate" class="form-control" >
+    </div>
+    <div class="col-md-2">
+        <label for="toDate">To Date</label>
+        <input type="date" id="toDate" ng-model="vm.toDate" class="form-control" ng-change="vm.filterComplaints()">
+    </div>
+</div>
+
+	<div class="col-md-8">
+		</div>
+	<!-- <div class="col-md-1" >
+                    <button type="button" class="btn_serach" id="success"
+                        style="background: #008B8B; border: 1px solid #103e57; color:white;"
+                        ng-click="vm.exportToExcel()">Export</button>
+                        
+                </div>-->
+</div>
+
+
+
+
+
+<div class="container">
+		    <div class="row top">
+		        <div class="col-sm-12">
+		
+		
+					<div class="row form-border" ng-show="addNewTab">
+						<div class="row">
+						    <button class="btn" style="background-color: #008B8B; color: white;" ng-click="exportToPDF()">
+						        <i class="fa fa-file-pdf-o"></i> Export to PDF
+						    </button>
+						</div>
+
+
+					    <div class="row form-border" >
+					        <div class="col-lg-12">
+					            <h2 class="title text-center">Approved PPM Sheet</h2>
+					        </div>
+					    </div>
+
+					    <div style="margin-top: 3%; width: 100%;">
+					        <div class="col-sm-12">
+					            <!-- Top section -->
+					            <div class="row">
+					                <!-- Left Side -->
+					                <div class="col-sm-6">
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Lab:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="lab">
+					                    </div>
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Location:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="location">
+					                    </div>
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Machine Name:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="MachineName">
+					                    </div>
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Equipment ID:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="equipment">
+					                    </div>
+										
+					                </div>
+
+					                <!-- Right Side -->
+					                <div class="col-sm-6">
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Schedule Date:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="ScheduleDate">
+					                    </div>
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Closed Date:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="ClosedDate">
+					                    </div>
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Approved Date:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="closedApprovalDate">
+					                    </div>
+										<div class="form-group">
+									        <label class="control-label font-weight-bold">Frequency:</label>
+										    <input type="text" class="form-control" ng-disabled="true" ng-model="Freq">
+																				</div>
+					                </div>
+					            </div>
+
+					            <!-- Table -->
+					            <div class="row">
+					                <div class="col-sm-12">
+					                    <table id="assembly_list_QR" datatable="ng" class="table table-bordered margin-tb" style="width:100%">
+					                        <thead>
+					                            <tr class="orange">
+					                                <th class="dark-cyan-bg">#</th>
+					                                <th class="dark-cyan-bg">Checklist</th>
+					                                <th class="dark-cyan-bg">Acceptable Range</th>
+					                                <th class="dark-cyan-bg">Value</th>
+					                            </tr>
+					                        </thead>
+					                        <tbody>
+					                            <tr ng-repeat="arr in vm.loadChecklist.datas.checkpointlist">
+					                                <td>{{$index + 1}}</td>
+					                                <td>{{arr.task}}</td>
+					                                <td>{{arr.acceptableRange}}</td>
+					                                <td>{{arr.status}}</td>
+					                            </tr>
+					                        </tbody>
+					                    </table>
+					                </div>
+					            </div>
+
+					            <!-- Below Table -->
+					            <div class="row">
+					                <!-- Left Side -->
+					                <div class="col-sm-6">
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Overall Status:</label>
+					                         <textarea class="form-control wrap-text" ng-disabled="true" ng-model="overallStatus"></textarea>
+					                    </div>
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Executive Remark:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="ExecutiveRemark">
+					                    </div>
+					                </div>
+
+					                <!-- Right Side -->
+					                <div class="col-sm-6">
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Done By:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="DoneBy">
+					                    </div>
+					                    <div class="form-group">
+					                        <label class="control-label font-weight-bold">Approved By:</label>
+					                        <input type="text" class="form-control" ng-disabled="true" ng-model="ApprovalBy">
+					                    </div>
+										
+										<div class="row right create-break margin-tb">
+																			 						     	<div class="col-sm-8">
+																			 						     		<button class="btn btn-primary" ng-click="vm.cancel()">cancel</button>
+																			 						     	</div>
+																			 								
+																			 						     </div>
+										
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+		
+		
+
+
+
+
+
+
+
+<div class="container">
+	<div class="panel-body table-responsive">
+		<table datatable="ng" id="example" class="table table-bordered " style="background-color:#008B8B;">
+			<thead class="orange">
+				<tr>
+					<th>Sr No</th>
+													<th>Machine </th>
+													
+													<th>LabName</th>
+													<th>Frequency</th>
+													<th>Overall Status</th>
+													<th>raised By</th>
+													<th>Done By</th>
+													<th>Executive Remark</th>
+													<th>Schedule Date</th>
+													<th>Closed Date</th>
+													<th>Approved Date</th>
+													<th>Action</th>
+
+
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="department in vm.filteredComplaints">
+					<td>{{$index+1}}</td>
+													<td>{{department.machine.machine_name}}-{{department.machine.eqid}}</td>
+													
+													<td>{{department.lab.labName}}</td>
+													<td>{{department.frequency}}</td>
+													<td>{{department.overall_status}}</td>
+													<td>{{department.raisedBy.firstName}}-{{department.raisedBy.lastName}}</td>
+													<td>{{department.done_by.firstName}}-{{department.done_by.lastName}}</td>
+													<td>{{department.executiveRemark}}</td>
+													<td>{{department.schedule_date | date : 'dd-MM-yyyy : hh:mm a'}}</td>
+													<td>{{department.closedDate | date : 'dd-MM-yyyy : hh:mm a'}}</td>
+													<td>{{department.closedApprovalDate | date : 'dd-MM-yyyy : hh:mm a'}}</td>
+
+					
+
+
+													<td class="text-nowrap">
+																						<button type="button" class="btn btn-info" title="View"	ng-click="vm.add(department)">
+																							<i class="fa fa-eye" aria-hidden="true"></i>
+																						</button>
+																						
+																						
+																					</td>
+
+
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+
+
+<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

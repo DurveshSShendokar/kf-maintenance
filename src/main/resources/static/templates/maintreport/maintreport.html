@@ -1,0 +1,208 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+</style>
+<script type="text/javascript" src="templates/ftr/kendo/highcharts.js"></script>
+<script type="text/javascript" src="js/jquery.table2excel.js"></script>
+
+<div class="container-fluid" style="padding-top:50px;">
+	<div class="row page-title-div">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2 class="title" style="text-align:center;"> Maintenance Report</h2>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row top">
+		<div class="col-sm-12">
+		
+			<div class="row">
+			
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-12 col-xs-12">
+	<!-- 
+							<div class="col-md-6 col-xs-12">
+							<label for="fullname">Select Type  :</label>
+								 <select ng-model="type" class="form-control" required>
+									<option value="">Select Type</option>
+									<option value="1">Machine</option>
+									<option value="2">Auxiliary</option>
+								</select>
+							</div> -->
+							<div class="col-md-3 col-xs-12">
+							</div>
+							<div class="col-md-6 col-xs-12">
+								<div class="form-group">
+									<label for="fullname">Select Machine :</label> 
+									<!-- <select class="form-control" ng-model="selectMachine" ng-change="vm.changeMachine(selectMachine)" >	ng-change="vm.changeMachine(selectedMachine);"
+									<option value="selectMachine"> Select machine </option>
+									<option ng-show="type == opts.type" ng-repeat="opts in vm.machines" value="{{opts.machine_id}}"> {{opts.machine_name}} </option>
+								</select> -->
+								
+								<select class="form-control mandtry"
+																			ng-model="selectMachine" ng-change="vm.changeMachine(selectMachine)"  id="employee"
+																			ng-options="machine as machine.machine_name+' - '+machine.eqid  for machine in vm.machines"
+																			style="height: calc(1.75rem + 14px)" required>
+																			<option value="" disabled selected>Select Machine </option>
+																		</select>
+								</div>
+							</div>
+							
+							
+						
+							
+						
+							
+							<!-- <div class="col-md-3 col-xs-12">
+								<button type="button" class="btn_serach" style="margin-top: 6%;width:100%"	ng-click="vm.getRecord(maint)">
+									Search
+								</button>
+							</div> -->
+	
+	</div>
+					
+						
+	<div class="panel-body table-responsive">
+		<table datatable="ng" id="maintenanceReport" class="table table-bordered">
+			<thead class="orange">
+				<tr>
+					<td>ID</td>
+				
+					<td>Machine Name</td>
+					<td>Scheduled Date</td>
+					<td>Maintenance Type</td>	
+					<td>Frequency</td>
+					<td>Observation</td>
+					<td>Done by</td>
+					
+					<!-- <th>Action</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="maint in vm.maintlists">
+					<td>{{$index+1}}</td>
+				
+					<td>{{maint.machine.machine_name}}</td>
+					<td>{{maint.schedule_date | date:'dd-MM-yyyy'}}</td>
+					<td>{{maint.mode}}</td>
+					<td>{{maint.frequency}}</td>
+					<td>{{maint.overall_status}}</td>
+					<td>{{maint.done_by}}</td>
+						
+				
+					
+					<!-- <td class="text-nowrap">
+						<button type="button" title="Checklist" class="btn btn-success"	ng-click="vm.getChecklist(maint);vm.getChecklist2(maint)">
+						<i class="fa fa-check-square-o" aria-hidden="true"></i>
+						</button>
+						<button type="button" title="DELETE" class="btn btn-danger" ng-click="vm.delet(maint)">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</button>
+					</td> -->
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>
+	<div class="col-sm-12" style="margin-bottom: 2%;">
+			<button class="btn btn-info" ng-show="vm.maintlists.length > 0"
+				style="width: 20%; float: right;" export-to-csv
+				id="export_to_excel" name="machinebreakdownhistory">Export</button>
+		</div>
+	
+	
+	
+	<div class="container" ng-if="showEdit">
+		<div class="row">
+			<div class="col-sm-12 header-name">
+				<span style="text-transform: uppercase;">Maintain Work Date</span>
+			</div>
+			<div style="margin-top: 3%;width: 100%">
+				<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-2">
+					</div>
+					<div class="col-sm-2" style="margin-left:-3%">
+						<p class="control-label" style="text-align:center;font-weight:600;text-transform: uppercase;">Equipment :</p>
+					</div>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" ng-disabled="true" ng-model="equipment" name="equipment" id="equipment">
+					</div>
+					<div class="col-sm-2">
+					</div>
+				</div>
+				<!-- <div class="row btn-botm" style="margin-top:1%;margin-bottom: 1%;">
+					<div class="col-sm-4"></div>
+					<div class="col-sm-4"><button class="btn btn-primary">PREDITIVE</button></div>
+					<div class="col-sm-4"><button class="btn btn-warning oranage">YEARLY</button></div>
+				</div> -->
+				</div>
+			</div>
+			</div>
+			<div class="col-sm-12">
+				<table id="assembly_list_QR" datatable="ng" class="table table-bordered margin-tb" style="width:100%">
+		        <thead>
+		            <tr class="oranage">
+		                <th>#</th>
+		                <th>Checklist</th>
+		                  <th>Operation Method</th>
+		                <!-- <th>Expected</th> -->
+		                <th>Value</th>
+		                <!-- <th></th> -->
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr ng-repeat="arr in vm.checklists">
+		                <td>{{$index + 1}}</td>
+		                <td>{{arr.task}}</td>
+		                 <td>{{arr.operation}}</td>
+		                <!-- <td>If fond break replace same</td> -->
+		                <td><input type="text" class="form-control"  ng-model="arr.status"></td>
+		                <!-- <td></td> -->
+		            </tr>
+		         </tbody>
+		     </table>
+		     <div class="row margin-tb">
+		     	<div class="col-sm-12">
+		     		<h5>Overall Observation</h5>
+		     		<textarea class="form-control" ng-model="vm.observation" rows="4" id="overall"></textarea>
+		     	</div>
+		     </div>
+		     <div class="row margin-tb">
+		     	<div class="col-sm-4"><p class="control-label" style="font-weight:600;text-align:right;text-transform: uppercase;">Action Done By :-</p></div>
+		     	<div class="col-sm-5"><input type="text" name="action-by" ng-model="actionDoneBy" id="action-by" class="form-control" ng-disabled="true"></div>
+		     	<div class="col-sm-3"><button class="btn btn-success" style="width: 100%;font-size:18px;font-weight: 500;" ng-click="vm.saveMaintenanceReport();">Save</button></div>
+		     </div>
+		     <div class="row right create-break margin-tb">
+		     	<div class="col-sm-12">
+		     		<button class="btn btn-primary" ui-sref="main.breakdown({machine : machineDetails.machine})">Create Breakdown</button>
+		     	</div>
+		     </div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<script>
+	$('#export_to_excel').click(function() {
+		$("#maintenanceReport").table2excel({
+			exclude : ".action",
+			name : "All Enterprises",
+			filename : "Maintenance Report",
+			fileext : ".xls",
+			exclude_img : true,
+			exclude_links : true,
+			exclude_inputs : true
+		});
+
+	});
+</script>
+
+
+				
+	

@@ -1,0 +1,668 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .text-success-dark {
+    color: #155724; /* Darker green */
+}
+
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.text-danger-dark {
+    color: #721c24; /* Darker red */
+}
+        
+        
+        
+    
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+   .modal {
+    display: flex;
+    position: fixed;
+    top: 10%;
+    left: 0;
+     background-color: transparent;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: flex-start;
+     overflow: auto; 
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+     width: 500px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; 
+}
+
+
+.modal-backdrop {
+    display: none !important; /* Hides the black background */
+}
+
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.modal-actions button {
+    margin: 5px;
+    padding: 12px 30px;
+    background-color: #008B8B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-actions button:hover {
+    background-color: #005f5f;
+}
+
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Asset Inventory</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row top">
+        <div class="col-sm-12">
+        
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2" ng-show="!addSpareTab && !addDocumentTab  && !uploadTab" >
+                    <button type="submit" class="btn_serach btn-sm" id="success"
+                        style="background: #008B8B; border: 1px solid #103e57; color:white;"
+                        ng-click="vm.addNew()">Add</button>
+                </div>
+                <div class="col-md-2" ng-show=" !addNewTab && !addSpareTab && !isEditing && !addDocumentTab  && !uploadTab">
+                    <button type="submit" class="btn_serach btn-sm" id="success"
+                        style="background: #008B8B; border: 1px solid #103e57; color:white;"
+                        ng-click="vm.upload()">Upload</button>
+                </div>
+              <!--  <div class="col-md-2" ng-show=" !addNewTab && !addSpareTab && !isEditing && !addDocumentTab  && !uploadTab" >
+                    <button type="button" class="btn_serach btn-sm" id="success"
+                        style="background: #008B8B; border: 1px solid #103e57; color:white;"
+                        ng-click="vm.export()">Export</button>
+                        
+                </div>-->
+				
+				
+				
+				
+            </div>
+			<br>
+			<div class="row">
+			
+			<div class="col-md-2" ng-show="!addSpareTab && !addDocumentTab">
+																<button type="submit" class="btn_serach btn-sm" id="success" style="background: #008B8B; border: 1px solid #103e57;"
+																	ng-click="multiPrintCanvas()">Print Multiple</button>
+														</div>	
+														<div>
+															<label for="pageSize">PerPage: </label>
+															<select id="pageSize" ng-model="vm.pageSize" ng-change="vm.updatePageSize()" ng-options="size for size in vm.pageSizeOptions">
+															</select> 
+														</div>	
+			</div>											
+            
+            
+<div class="row" ng-show="uploadTab">
+    <br>
+    <div class="col-md-6">
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input custom-file-input-modal form-control" id="inputExcelFile"
+                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                    onchange="angular.element(this).scope().handleFileSelect(this.files)">
+                <label class="custom-file-label" for="inputExcelFile" aria-describedby="inputGroupFileAddon02">Choose file</label>
+            </div>
+        </div>
+        
+         <div class="col-md-2">
+        <div align="right" style="margin-top:5%;">
+            <button type="button" class="btn btn-primary" ng-click="vm.downloadTemplate()">Download Excel Template</button>
+        </div>
+    </div>
+        
+    </div>
+    
+  
+    
+   
+   
+    
+     <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.uploadNew()">Upload</button>
+                       
+                    </div>
+                    
+                    
+                </div>
+                
+</div>
+
+						</div>
+						</div>
+						
+            
+<div ng-show="addSpareTab">
+    <h3>Add Spare</h3>
+    <div class="row form-border ">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="equipmentId">Equipment ID:</label>
+                <input type="text" class="form-control" ng-model="spareData.equipmentId" placeholder="Equipment ID" readonly>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="spareName">Spare Names:</label>
+                <select ng-model="spareData.spare_ids" 
+                        ng-options="spare.spare_id as spare.spare_name for spare in vm.spares" 
+                        class="form-control" 
+                        multiple>
+                    <option value="">Select Spares:</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <button type="button" class="btn_serach" ng-click="vm.saveSpare(spareData)">Save</button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn_serach" ng-click="vm.cancel()">Cancel</button>
+        </div>
+    </div>
+
+
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+                <tr>
+                    <th>SrNo</th>
+                  
+                    <th>Spare Names</th>
+                    <th>Spare Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="spare in vm.assignSpares track by $index">
+                    <td>{{$index + 1}}</td>
+                    
+                    <td>{{spare.spare.spare_name}}</td>
+                     <td>
+			                        <span ng-switch="spare.spare.active">
+			                            <span ng-switch-when="1">Active</span>
+			                            <span ng-switch-when="0">In-Active</span>
+			                           
+			                        </span>
+			                    </td>
+                        
+                    
+                    	<td class="text-nowrap">
+                    	
+  		  <button class="btn btn-refresh btn-sm" ng-click="vm.toggleStatus(spare.spare)">
+                            <i class="fa fa-refresh" ng-class="{'text-success-dark': spare.spare.active === 1, 'text-danger-dark': spare.spare.active === 0}"></i>
+                        </button>
+                    	
+									 <button type="button" class="btn btn-danger" title="Delete" ng-click="vm.remove(spare.id)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+
+								</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+<!-- New Add Document Tab -->
+<div ng-show="addDocumentTab">
+    <h3>Add Document</h3>
+    <div class="row form-border">
+        <div class="col-md-6">
+            <label for="equipmentId">Equipment ID:</label>
+            <input type="text" class="form-control" ng-model="documentData.equipmentId" readonly>
+        </div>
+        
+        <div class="col-md-6">
+            <label for="equipmentId">Models:</label>
+            <input type="text" class="form-control" ng-model="documentData.model" readonly>
+        </div>
+        <br>
+        <div class="col-md-6">
+            <label for="document">Upload Document:</label>
+			<input type="file" ng-file-select multiple onchange="angular.element(this).scope().handleFileSelect(this.files)" />
+            <div ng-if="documentData.files && documentData.files.length > 0">
+                <ul>
+                    <li ng-repeat="file in documentData.files">{{file.name}}</li>
+                </ul>
+            </div>
+        </div><br>
+        <div class="col-md-3">
+            <button type="button" class="btn_serach" ng-click="vm.saveDocument()">Save</button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn_serach" ng-click="vm.cancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Documents Table -->
+    <div class="container ">
+        <div class="panel-body table-responsive">
+         <div ng-if="vm.noDocumentsFound" class="alert alert-warning" role="alert">
+            No documents found for this asset.
+        </div>
+ 			<table datatable="ng" id="example" class="table table-bordered" ng-if="!vm.noDocumentsFound">       
+		          <thead class="orange">
+		                    <tr>
+		                        <th>SrNo</th>                      
+		                        <th>Document Name</th>
+		                        <th>Upload Date</th>
+		                        <th>Document Status</th>
+		                        <th>Actions</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+                    <tr ng-repeat="document in vm.loadDocuments">
+                        <td>{{$index + 1}}</td>
+                        <td>{{document.userManualName}}</td>
+                        <td>{{document.uploadDate | date : 'dd-MM-yyyy'}}</td>
+                         <td>
+			                        <span ng-switch="document.active">
+			                            <span ng-switch-when="1">Active</span>
+			                            <span ng-switch-when="0">In-Active</span>
+			                           
+			                        </span>
+			                    </td>
+                        <td>
+							<button class="btn btn-refresh btn-sm" ng-click="vm.toggleStatus(document)">
+							    <i class="fa fa-refresh" ng-class="{'text-success-dark': document.active === 1, 'text-danger-dark': document.active === 0}"></i>
+							</button>
+
+
+                           <button class="btn btn-primary btn-sm" ng-click="vm.openDocument(document.upload_id)">
+							    <i class="fa fa-eye"></i> <!-- Eye icon -->
+							</button>
+							
+							<button class="btn btn-danger btn-sm" ng-click="vm.removedocument(document.upload_id)">
+							    <i class="fa fa-trash"></i> <!-- Trash icon -->
+							</button>
+							
+							<button class="btn btn-secondary btn-sm" ng-click="vm.downloaddocument(document.upload_id)">
+							    <i class="fa fa-download"></i> <!-- Trash icon -->
+							</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Viewing Document -->
+<script type="text/ng-template" id="documentModalContent.html">
+    <div class="modal-header">
+        <h5 class="modal-title">View Document</h5>
+        <button type="button" class="close" ng-click="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+       
+            <!-- Zoom Controls -->
+            <span style="margin-right: 10px;">Zoom:</span>
+            <span class="zoom-control" ng-click="zoomIn()" style="cursor: pointer; font-size: 20px; margin-left: 5px;">+</span>
+            <span class="zoom-control" ng-click="zoomOut()" style="cursor: pointer; font-size: 20px; margin-left: 5px;">-</span>
+        
+        
+        <!-- Use Angular's ng-src for the iframe source with a style for zoom -->
+        <iframe ng-src="{{ documentUrl }}" ng-style="{'transform': 'scale(' + zoomLevel + ')', 'transform-origin': 'top left'}" style="width: 100%; height: 700px; border: none;"></iframe>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" ng-click="close()">Close</button>
+    </div>
+</script>
+
+
+
+
+
+        
+				            
+            
+    <div class="row form-border" ng-show="addNewTab">
+            <br>
+                <div class="col-md-6" style="width: 51%">
+                    <div class="form-group">
+                        <label for="name13">Asset Name <span style="color:#c00;">*</span>:</label>
+                        <input type="text" class="form-control" ng-model="AssetInventory.machine" placeholder="Asset Name" ng-required="true">
+                    </div>
+                </div>
+                
+                 
+						
+                
+				<div class="col-md-6">
+							    <div class="form-group">
+							        <label>Select Category <span style="color:#c00;">*</span> :</label>
+							        <select 
+							            ng-model="AssetInventory.category.cat_id"
+							            ng-options="cat.cat_id as cat.catName for cat in vm.categories"
+							            class="form-control" required>
+							            <option value="">Select Category :</option>
+							        </select>
+							    </div>
+							</div>
+
+
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputPassword13">Select Lab <span style="color:#c00;">*</span> :</label>
+                        <select ng-model="AssetInventory.lab.lab_id" ng-options="lab.lab_id as lab.labName for lab in vm.labs" class="form-control" required>
+                            <option value="">Select Lab:</option>
+                        </select>
+                    </div>
+                </div>
+                
+                
+			
+                
+              
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Model <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.model" placeholder="Model"	ng-required="true">
+							</div>
+						</div>
+						
+							<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Computer Name <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.comapnyName" placeholder="Computer Name"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Login Name <span style="color:#c00;">*</span> :</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.loginName" placeholder="Login Name"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Operating System  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.opSystem" placeholder="Operating System"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Ram Capacity	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.ramCapacity" placeholder="Ram Capacity"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Hard Disk Capacity	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.hardDiskCap" placeholder="hard Disk Capacity"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13"> It Department Code	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.it_Dept" placeholder="It Department Code"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13"> Plant Location	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.plant_Loc" placeholder="Plant Location	"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13"> Lab Code	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.labCode" placeholder="Lab Code"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13"> Lab Inside Location	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.labInsideLoc" placeholder="Lab Inside Location"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13"> Laser Printer	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.laserPrint" placeholder="Laser Printer"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13"> Bar Code Printer	:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.barCodePrint" placeholder="Bar Code Printer"	ng-required="true">
+							</div>
+						</div>
+						
+						 <div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Equipment Id  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="AssetInventory.equipmentId" placeholder="Equipment Id"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						
+						
+						
+						
+
+              
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.ok(AssetInventory)">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+			<div class="row" ng-if="viewQrTab" >
+							
+						
+							<div class="col-md-6" ng-show="vm.isQrVisible" id="printQR" 	 style="padding: 5px;display: inline-block;border:2px solid #008B8B;margin-left:10px;margin-top:15px">    
+									   <qr text="qrcodeData" id="anycanvas" correction-level="'L'" size="200" image="true" ></qr><br>{{qrcodeData}}</div>
+							</div>
+							<div class="col-md-6"></div>
+							<div class="col-md-6" ng-show="!addSpareTab && vm.isQrVisible && !addDocumentTab ">
+															<div align="right" style="margin-top:5%;">
+																<button type="submit" class="btn_serach" id="success"
+																	ng-click="vm.print()">Print</button>
+															</div>	
+												
+								
+							</div>
+							</div>
+	
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table  id="example" class="table table-bordered ">
+           <thead class="orange">
+							<tr>
+								<th class="text-center">
+								 Select All
+	                       <input class="c_check" type="checkbox" ng-model="vm.selectAllChk" ng-click="selectAllTable()">
+			                    </th>
+								<th>Sr No</th>
+								<th>Asset Name</th>
+								<th>Computer Name</th>
+								<th>Login Name</th>
+							    <th>Model</th>
+								<th>Op System</th>
+								<th>Ram Capacity</th>
+								 <th>hard Disk Cap</th>
+								 <th>Equipment Id</th>
+								 <th>Category</th>
+								   <th>SubCategory</th> 
+								
+								    <th>Lab</th> 
+								    
+								    <th>It_Dept_Code</th> 
+								    <th>Plant_Loc</th> 
+								    <th>Lab_Code</th> 
+								    <th>Lab_Inside_Loc</th> 
+								   
+								    <th>Laser_Printer</th> 
+								    <th>BarCode_Printer</th> 
+								   <th>QR code</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+            <tbody>
+							<tr ng-repeat="asset in vm.assets">
+								<td class="text-center" style="width:60px" width="24%">
+								<input class="c_check" type="checkbox" ng-checked="asset.check" ng-click="selectQR($index)">
+							  </td>
+								<td>{{ vm.currentPage * vm.pageSize + $index + 1 }}</td>
+								<td>{{asset.machine}}</td>
+								<td> {{asset.comapnyName}} </td>
+								<td> {{asset.loginName}} </td>
+								<td>{{asset.model}}</td>
+								 <td>{{asset.opSystem}}</td>
+								<td>{{asset.ramCapacity}}</td>
+								<td>{{asset.hardDiskCap}}</td> 
+								<td>{{asset.equipmentId}}</td>
+								<td>{{asset.category.cat_name}}</td>
+								<td>{{asset.subCat}}</td>
+								
+								<td>{{asset.lab.labName}}</td>
+								
+								<td>{{asset.it_Dept}}</td>
+								<td>{{asset.plant_Loc}}</td>
+								<td>{{asset.labCode}}</td>
+								<td>{{asset.labInsideLoc}}</td>
+								
+								<td>{{asset.laserPrint}}</td>
+								<td>{{asset.barCodePrint}}</td>
+								
+								<td>
+								  <div id="xxx" style="page-break-after: always;" 
+			                      ng-init="config={ name : 'qrcode', type : 'qrcode', text : asset.equipmentId, scale : { x : 2.5, y : 2.5 }, options : 'eclevel=M'}">
+		                       <td-barcode config="config" id="$index"></td-barcode>
+			                    </div>
+					           </td>
+							
+								
+								<td class="text-nowrap">
+								
+									<button type="button" class="btn btn-info" title="Edit"	ng-click="vm.add(asset)">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-danger" title="Delete" ng-click="vm.delet(asset)">
+									    <i class="fa fa-trash" aria-hidden="true"></i> 
+									</button>
+									 <button type="button" class="btn btn-info"  title="View QRCODE" ng-click="vm.viewQr(asset);  vm.toggleQrView()">
+										<i class="fa fa-qrcode" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-info" title="Add Spare" ng-click="vm.showAddSpareForm(asset)">
+									    <i class="fa fa-wrench" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-info" title="Add Document" ng-click="vm.ShowAddDocumentTab(asset)">
+									    <i class="fa fa-file-text" aria-hidden="true"></i>
+									</button>
+
+									
+								</td>
+							</tr>
+						</tbody>
+        </table>
+		
+		
+		<!-- Pagination Controls with Page Numbers -->
+								<div>
+								    <button ng-click="vm.prevPage()" ng-disabled="vm.currentPage == 0">Previous</button>
+
+								    <button ng-repeat="n in vm.getVisiblePages()" 
+								        ng-click="vm.load_Assets(n)" 
+								        ng-class="{'active': n === vm.currentPage}">
+								        {{ n + 1 }}
+								    </button>
+
+								    <button ng-click="vm.nextPage()" ng-disabled="vm.currentPage == vm.totalPages - 1">Next</button>
+								</div>
+		
+		
+    </div>
+</div>
+
+  
+
+
+
+
+<!-- Confirmation Modal -->
+<div ng-show="vm.showModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-title">Confirmation</span>
+        <p>Are you sure you want to delete this spare?</p>
+        <div class="modal-actions">
+            <button class="btn_serach" ng-click="vm.confirmDelete()">Delete</button>
+            <button class="btn_serach" ng-click="vm.cancelDelete()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+

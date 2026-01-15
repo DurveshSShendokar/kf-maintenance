@@ -1,0 +1,153 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+</style>
+<div class="container-fluid" style="padding-top:50px;">
+	<div class="row page-title-div">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2 class="title" style="text-align:center;">Consumption  Device Master</h2>
+		</div>
+	</div>
+</div>
+<div class="container">
+			<div class="row top">
+				<div class="col-sm-12">
+				<div class="row">
+					<div class="col-md-10"></div>
+						<div class="col-md-2">
+								<button type="submit" class="btn_serach btn-sm" id="success" style="background: #008B8B; border: 1px solid #103e57;"
+									ng-click="vm.add()">add</button>
+						</div>			
+				</div>					
+					<div class="row" ng-show="addNewTab">
+					<div class="row">
+					<div class="col-md-6">
+							<div class="form-group">
+								<label for="exampleInputPassword13">Select
+							Type <span style="color:#c00;">*</span> :</label> <select ng-model="device.deviceType"
+									
+									class="form-control" required>
+									<option value="">Select Type</option>
+									<option value="Electric">Electric</option>
+									<option value="Fuel">Fuel</option>
+									<option value="Water">Water</option>
+									<option value="Gas">Gas</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Machine Id : <span style="color:#c00;">*</span></label> 
+								<input type="text" class="form-control" ng-model="device.meterId" placeholder="Meter Id"	ng-required="true">
+							</div>
+						</div>
+						</div>
+				<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Device Mac:</label> 
+								<input type="text" class="form-control" ng-model="device.deviceMac" placeholder="Device Mac"	ng-required="true">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Location :</label> 
+								<input type="text" class="form-control" ng-model="device.location" placeholder="Location"	ng-required="true">
+							</div>
+						</div>
+						</div>	
+						<div class="row">
+						<div class="col-md-6"></div>
+						<div class="col-md-3">
+							<div  style="margin-top:5%;">
+								<button type="submit" class="btn_serach" id="success"
+									ng-click="vm.save(device)">Submit</button>
+							</div>
+							</div>
+							<div class="col-md-3">
+							<div  align="right"style="margin-top:5%;">
+								<button type="submit" class="btn-danger" id="success"
+									ng-click="vm.cancel()">Cancel</button>
+							</div>
+						</div>
+						</div>
+							<div class="row" ng-show="viewQrTab">
+						
+						<div class="col-md-4">
+						</div>
+						
+						<div class="col-md-6">
+						
+							 <qr text="qrcodeData" id="anycanvas" correction-level="'L'" size="200" image="true" ></qr>
+						</div>
+						<div class="col-md-6"></div>
+						<div class="col-md-6">
+							<div align="right" style="margin-top:5%;">
+								<button type="submit" class="btn_serach" id="success"
+									ng-click="vm.print()">Print</button>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+				</div>
+</div>
+						
+
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered ">
+						<thead class="orange">
+							<tr>
+								<th>Sr No </th>
+							
+								<th>Device Type</th>
+								<th>Meter Id </th>
+								
+								<th>Device Mac</th>
+								<th>Location</th>
+								<th>Added By</th>
+								<th>Added Date</th>
+							
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="device in vm.consumptionDevices">
+								<td>{{$index+1}}</td>
+								<td> {{device.deviceType}} </td>
+								<td>{{device.meterId}}</td>
+								<td>{{device.deviceMac}}</td>
+								<td>{{device.location}}</td>
+								<td>{{device.addedBy}}</td>
+								<td>{{device.addedDate}}</td>
+								
+								
+								
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info"	ng-click="vm.edit(device)">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-danger" ng-click="vm.delte(device)">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</button>
+									
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+					
+						
+		
+
+		
+		

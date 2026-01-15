@@ -1,0 +1,126 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr {
+    border: 1px solid #ccc !important;
+}
+.orange { background-color: #008B8B; }
+.orange th { color: #fff; }
+.navbar {
+    background-color: #008B8B;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.btn_search {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+</style>
+
+
+
+<div class="container">
+    <div class="row page-title-div">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2 class="title" style="text-align: center;">Ticket Resolution Report</h2>
+        </div>
+        <div class="col-md-2">
+                        <button type="button" class="btn_serach btn-sm" id="success" style="background: #008B8B; border: 1px solid #008B8B; color:white;" ng-click="vm.export()">Export</button>
+                    </div>
+    </div><br>
+
+	
+
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+            <label for="date-filter">Select Date Filter:</label>
+            <select class="form-control" ng-model="vm.selectedDateFilter" ng-change="vm.onFilterChange()" id="date-filter">
+                <option value="" selected>Select Filter</option>
+                <option value="day">Day Wise</option>
+                <option value="date">Date Wise</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-xs-12" ng-if="vm.selectedDateFilter === 'day'">
+        <div class="form-group">
+            <label for="day-date">Select Date:</label>
+            <input type="date" class="form-control" ng-model="vm.selectedDayDate" id="day-date" ng-change="vm.onDateChange()" required>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-xs-12" ng-if="vm.selectedDateFilter === 'date'">
+        <div class="form-group">
+            <label for="from-date">From Date:</label>
+            <input type="date" class="form-control" ng-model="vm.selectedFromDate" id="from-date" ng-change="vm.onDateChange()" required>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-xs-12" ng-if="vm.selectedDateFilter === 'date'">
+        <div class="form-group">
+            <label for="to-date">To Date:</label>
+            <input type="date" class="form-control" ng-model="vm.selectedToDate" id="to-date" ng-change="vm.onDateChange()" required>
+        </div>
+    </div>
+    
+    <!--  <div class="col-md-12 col-xs-12 center-button">
+        <button class="btn_search" ng-click="vm.generateTicketSummaryReport()" style="width: 150px;">Generate </button>
+    </div>-->
+    
+</div>
+
+
+
+<div class="panel-body table-responsive">
+    <table datatable="ng" id="ticketReport" class="table table-bordered">
+        <thead class="orange">
+            <tr>
+                <th>Sr No</th>
+                <th>Ticket No</th>
+                <th>Asset Name</th>
+                <th>Assigned Engineer</th>
+                <th>Complaint Status</th>
+                <th>Complaint Date & Time</th>
+               
+                <th>Admin Process Time (In Hours)</th>
+                <th>Engineer Process Time (In Hours)</th>
+                <th>Engineer Solution Time (In Hours)</th>
+                <th>Total Time (In Hours)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-if="vm.TicketSummary.length === 0">
+                <td colspan="12" class="text-center">No data available.</td>
+            </tr>
+            <tr ng-repeat="complaint in vm.TicketSummary">
+                <td>{{$index + 1}}</td>
+                <td>{{complaint.ticketNo}}</td>
+                <td>{{complaint.equipmentId}}-{{complaint.comapnyName}}</td>
+                <td>{{complaint.allocateTo}}</td>
+                <td>
+                    <span ng-switch="complaint.status">
+                        <span ng-switch-when="1">Open</span>
+                        <span ng-switch-when="2">Allocate</span>
+                        <span ng-switch-when="3">In-Process</span>
+                        <span ng-switch-when="4">Closed</span>
+                    </span>
+                </td>
+                <td>{{complaint.complaintDate}}</td>
+              
+				<td>{{complaint.adminProcessHours}}</td>
+				<td>{{complaint.engineerProcessHours}}</td>
+				<td>{{complaint.engineerSolutionHours}}</td>
+				<td>{{complaint.totalHours}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+    
+

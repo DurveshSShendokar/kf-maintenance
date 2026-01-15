@@ -1,0 +1,184 @@
+<style>
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+
+	.orange th {
+		color: #fff;
+	}
+
+	navbar {
+		background-color: #008B8B;
+		padding: 10px 0;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+	}
+
+
+	.btn_serach {
+		background-color: #008B8B;
+		border: 1px solid #008B8B;
+		color: white;
+	}
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			<h2 class="navbar navbar-brand" href="#">KF Bioplant</h2>
+		</div>
+	</nav>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h2 class="title" style="text-align:center;">Location</h2>
+	</div>
+</div>
+<div class="container">
+	<div class="row top">
+		<div class="col-sm-12">
+			<div class="row">
+				<div class="col-md-10">
+
+				</div>
+				<div class="col-md-2">
+					<button type="submit" class="btn_serach btn-sm" id="success"
+						style="background: #008B8B; border: 1px solid #103e57; color:white;"
+						ng-click="vm.add()">Add</button>
+				</div>
+				<div class="col-md-2">
+					<button type="submit" class="btn_serach btn-sm" id="success"
+						style="background: #008B8B; border: 1px solid #103e57; color:white;"
+						ng-click="vm.upload()">Upload</button>
+				</div>
+
+				<div class="col-md-2">
+					<button type="button" class="btn_serach btn-sm" id="success"
+						style="background: #008B8B; border: 1px solid #103e57; color:white;"
+						ng-click="vm.export()">Export</button>
+				</div>
+			</div>
+			<br/>
+			<br/>	
+			<div class="row" ng-show="uploadTab">
+				<br>
+				<div class="col-md-6">
+
+					<div class="input-group">
+						<div class="custom-file">
+							<input type="file" class="custom-file-input custom-file-input-modal form-control"
+								id="inputExcelFile"
+								accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+								onchange="angular.element(this).scope().handleFileSelect(this.files)">
+							<label class="custom-file-label" for="inputExcelFile"
+								aria-describedby="inputGroupFileAddon02">Choose file</label>
+								
+								
+								<a href="../UnitLocation/Chemical.xlsx" type="button"
+																						class="btn Header__containerLi uploadmaster "
+																						style="background-color: #64c5b1;color: white" title="Upload">Download format</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6"></div>
+				<div class="col-md-6">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success" ng-click="vm.uploadNew()">Upload</button>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			<div class="row" ng-show="addNewTab">
+
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Plant Name <span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="unitLocation.plantName"
+							placeholder="Enter Location Name" ng-required="true">
+						 <span style="color: red;" ng-show="plantNameErr"> Plant Name Is Mandetory</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13"> Location Name :</label>
+						<input type="text" class="form-control" ng-model="unitLocation.locationName"
+							placeholder="Enter Location Name" ng-required="true">
+						<span style="color: red;" ng-show="locationNameErr">Location Name Is Mandetory</span>
+					</div>
+				</div>
+
+
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Address:</label>
+						<textarea class="form-control" ng-model="unitLocation.address"
+							placeholder="Computer Name" ng-required="true"></textarea>
+							
+					</div>
+				</div>
+
+
+
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success"
+							ng-click="vm.ok(unitLocation)">Submit</button>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<div class="container">
+	<div class="panel-body table-responsive">
+		<table datatable="ng" id="example" class="table table-bordered ">
+			<thead class="orange">
+				<tr>
+					<th>Sr No</th>
+					<th>Plant  Name</th>
+					<th>Location Name</th>
+					<th>Address</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="unitLocation in vm.unitLocations">
+					<td>{{$index+1}}</td>
+					<td>{{unitLocation.plantName}}</td>
+					<td> {{unitLocation.locationName}} </td>
+					<td> {{unitLocation.address}} </td>
+				
+
+					<td class="text-nowrap">
+						<button type="button" class="btn btn-info" title="Edit" ng-click="vm.edit(unitLocation)">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</button>
+						<button type="button" class="btn btn-danger" title="Delete" ng-click="vm.deletLocation(unitLocation)">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</button>
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

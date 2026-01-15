@@ -1,0 +1,116 @@
+<style>
+.material .btn_serach {
+	width: 25%;
+	color: #fff !important;
+}
+
+#materialIssuedReport_length {
+	display: block;
+}
+</style>
+<div id="header"></div>
+<div class="container">
+
+	<div class="row top">
+		<div class="col-sm-12 col-xs-12" align="center">
+			<h2>Material Issue History</h2>
+		</div>
+		<div class="col-sm-12 col-xs-12 material">
+			<div class="margin_l">
+				<div class="row b_mi" style="width: 100%;">
+					<div class="col-sm-6 col-xs-6">
+						<div class="row">
+							<div class="col-sm-3 col-xs-6">
+								<span class="f-r control-label"> Start Date:<span
+									style="color: red;">*</span>
+								</span>
+							</div>
+							<div class="col-sm-9 col-xs-6">
+								<input id="fromDate" class="form-control" ng-model="fromDate"
+									type="date" style="padding-left: 0%;"
+									ng-change="vm.getItemsList();">
+								<!-- ng-model="fromDate" -->
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xs-6">
+						<div class="row">
+							<div class="col-sm-3 col-xs-6">
+								<span class="f-r control-label">End Date:<span
+									style="color: red;">*</span>
+								</span>
+							</div>
+							<div class="col-sm-9 col-xs-6">
+								<input id="toDate" ng-model="toDate" class="form-control"
+									type="date" style="padding-left: 0%;"
+									ng-change="vm.getItemsList();">
+								<!-- ng-model="toDate"  -->
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row b_mi" style="width: 100%;">
+					<div class="col-sm-12">
+						<div class="col-sm-3 col-xs-6">
+							<span class="f-r control-label">Item Name:<span
+								style="color: red;">*</span>
+							</span>
+						</div>
+						<div class="col-sm-8 col-xs-6">
+							<select class="form-control" id="item" ng-model="selectItem"
+								ng-change="vm.generateReport();">
+								<option value="selectItem">Select Item</option>
+								<!-- ng-hide="hideSelectRawMaterial" -->
+								<option ng-repeat="opts in vm.itemsList track by $index"
+									value="{{opts}}">{{opts.name}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="row b_mi" style="width: 100%;">
+							<div class="col-sm-12" align="center">
+								<button class="btn_serach" ng-click="vm.getMaterialTable()"> Search </button>
+							</div>
+					</div> -->
+			</div>
+		</div>
+
+	</div>
+
+	<!-- 	<div class="row p_t"> -->
+	<div class="col-sm-12" style="width: 100%; margin: 0 auto;">
+		<div class="table-responsive table_material">
+			<table id="materialIssuedReport" class="table table1 table-bordered"
+				datatable="ng" style="width: 100%">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Item Code</th>
+						<th>Item Name</th>
+						<th>UOM</th>
+						<th>Lot No</th>
+						<th>Qty Issued</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="arr in vm.reportsList track by $index">
+						<td>{{$index + 1}}</td>
+						<td>{{arr.itemCode}}</td>
+						<td>{{arr.itemName}}</td>
+						<td>{{arr.uam}}</td>
+						<td>{{arr.lotNo}}</td>
+						<td>{{arr.issuedQty}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-sm-12" style="margin-bottom: 2%;">
+		<button class="btn btn-info" ng-show="vm.reportsList.length > 0"
+			style="width: 20%; float: right;" export-to-csv
+			div-id="materialIssuedReport" name="{{reportname}}">Export</button>
+	</div>
+	<!-- 	</div> -->
+</div>
+</div>

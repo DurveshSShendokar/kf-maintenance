@@ -1,0 +1,398 @@
+<style>
+	.container-fluid {
+		background-color: #e9ecef;
+	}
+
+	.page-title-div {
+		background-color: #e9ecef;
+	}
+
+
+	.dash-card {
+		position: relative;
+		background-color: #ffffff;
+		border-radius: 16px;
+		box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+		margin-bottom: 20px;
+		padding: 20px;
+
+		width: 300px;
+		transition: box-shadow 0.3s ease;
+		height: 140px;
+		flex: 0 0 calc(25% - 20px);
+}
+
+	.dash-card:hover {
+		box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
+
+		background-color: #008B8B;
+		color: #ffffff !important;
+		transform: scale(1.1);
+		transition: all 0.5s ease;
+	}
+
+	.dash-card .card-header {
+		border-radius: 16px;
+		font-size: 18px;
+		font-weight: 600;
+
+		padding: 0px 13px;
+
+	}
+
+	.dash-card .card-body {
+		padding: 0px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+
+	.dash-card .card-title {
+		color: #212529;
+		font-size: 20px;
+		font-weight: 600;
+		margin-bottom: 10px;
+	}
+
+	.dash-card:hover .card-title {
+		color: white;
+	}
+
+	.dash-card .card-text {
+
+		font-size: 1.6rem;
+		line-height: 1.6;
+
+	}
+
+
+	.h4 {
+		margin: 10% auto;
+	}
+
+
+	.card-bodyy {
+		padding: 20px;
+		background-color: #f8f9fa;
+		border-radius: 0 0 16px 16px;
+		box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+	}
+
+	.card-headerr {
+		font-size: 24px;
+
+		padding: 20px;
+		background-color: #f8f9fa;
+		color: black;
+		border-radius: 16px 16px 0 0;
+
+		box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.card-headerr:hover {
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+		background-color: #008B8B;
+		color: #ffffff !important;
+		transition: all 0.5s ease;
+	}
+
+	.total-users-card {
+		margin-right: 10px;
+
+	}
+
+	.total-machines-card {
+
+		margin-left: 10px;
+	}
+
+
+	.total-card {
+		margin-right: 10px;
+
+	}
+
+	.open-card {
+
+		margin-left: 10px;
+	}
+
+	.trial-card {
+		margin-right: 10px;
+
+	}
+
+	.closed-card {
+
+		margin-left: 10px;
+	}
+
+	.today-fetch-card {
+		margin-right: 10px;
+
+	}
+</style>
+<div class="container-fluid">
+	<div class="row page-title-div"  	ng-repeat="	registerGroup in vm.registerGroups"	>
+
+		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" >
+			<h2 class="title">{{registerGroup.groupName}} 			<i class="fa fa-chevron-down" aria-hidden="true" ng-click="show($index)" ng-show="!registerGroup.showView"></i> 			<i class="fa fa-chevron-up" aria-hidden="true" ng-click="hide($index)" ng-show="registerGroup.showView"></i></h2>
+		</div>
+		<div class="col-md-6" 	ng-show="registerGroup.showView" ng-repeat="register in 	registerGroup.list" 		ng-style="register.registerName=='Voltage L-N Avg'||register.registerName=='Frequency'|| register.registerName=='Current B' ? {'background-color': '		#017cc0'} : {'background-color': '		#eee'}">
+									<div class="form-group">
+										<label for="name13">{{register.registerName}}  :</label> 
+										<input type="text" class="form-control" ng-model="register.registerValue+' '+register.unit" placeholder="Enter Cause"	disabled>
+									</div>
+								</div>
+	
+
+
+	</div>
+</div>
+
+
+<div class="row">
+	
+</div>
+
+
+<div class="row">
+
+
+	<div class="col-md-6">
+		<div class="panel-body container-fluid">
+			<div class="card2">
+			
+				<h4 class="card-headerr">Day Wise Consupmtion</h4>
+				<div class="col-md-6">
+								<select id="machineFilter" ng-model="vm.dayWiseCountSize" ng-change="vm.getLastDaysConsupmtion()">
+									<option value="7">7</option>
+									<option value="15">15</option>
+									<option value="30">30</option>
+				
+								</select>
+							</div>
+				<div class=" card-bodyy">
+					<canvas class="chart chart-bar" chart-data="vm.dayWiseConsuptionData"
+						chart-labels="vm.dayWiseConsuptionLabels" chart-series="vm.chartSeries"
+						chart-options="vm.chartOptions" chart-colors="vm.chartColors"
+						style="display: block; width: 100%; height: 300px;">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6" >
+		<div class="panel-body container-fluid">
+			<div class="card2">
+			
+				<h4 class="card-headerr">Day Wise Consupmtion</h4>
+				<div class=" card-bodyy" style="				HEIGHT: 540PX;">
+					<table datatable="ng" id="example" class="table table-bordered">
+												<thead class="orange">
+													<tr>
+														<th>ID</th>
+														<th>Date</th>
+														<th>Value</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="daysConsumptionTable in vm.daysConsumptionTables">
+														<td>{{$index+1}}</td>
+														<td>{{daysConsumptionTable.date}}</td>
+														<td>{{daysConsumptionTable.value}} 		kWh</td>
+													
+													</tr>
+												</tbody>
+											</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!--<div class="row">
+
+
+	<div class="col-md-6">
+		<div class="panel-body container-fluid">
+			<div class="card2">
+				<div class="col-md-6">
+					<select id="machineFilter" ng-model="vm.dayWiseCountSize" ng-change="vm.getLastDaysConsupmtion()">
+						<option value="7">7</option>
+						<option value="15">15</option>
+						<option value="30">30</option>
+
+					</select>
+				</div>
+				<h4 class="card-headerr">Day Wise Cost</h4>
+				<div class=" card-bodyy">
+					<canvas class="chart chart-bar" chart-data="vm.dayWiseCostData"
+						chart-labels="vm.dayWiseCostLabels" chart-series="vm.chartSeries"
+						chart-options="vm.chartOptions" chart-colors="vm.chartColors"
+						style="display: block; width: 100%; height: 300px;">
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel-body container-fluid">
+			<div class="card2">
+				
+				<h4 class="card-headerr">Day Wise Cost</h4>
+				<div class=" card-bodyy" 				style="				HEIGHT: 540PX;">
+					<table datatable="ng" id="example" class="table table-bordered">
+												<thead class="orange">
+													<tr>
+														<th>ID</th>
+														<th>Date</th>
+														<th>Value</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="daysConsumptionTable in vm.daysCostTables">
+														<td>{{$index+1}}</td>
+														<td>{{daysConsumptionTable.date}}</td>
+														<td>{{daysConsumptionTable.value}} 														<i class="fa fa-inr" aria-hidden="true"></i></td>
+													
+													</tr>
+												</tbody>
+											</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>-->
+<div class="row">
+
+
+	<div class="col-md-6">
+		<div class="panel-body container-fluid">
+			<div class="panel-body container-fluid">
+													    <div class="card2">
+													     <div class="col-md-6">
+												        <select id="machineFilter" ng-model="vm.SelYear" ng-change="vm.yearWiseConsupmtion(vm.SelYear)">
+															<option value="2022">2022</option>
+															<option value="2023">2023</option>
+															<option value="2024">2024</option>
+												            <option value="2025">2025</option>
+												            <option value="2026">2026</option>
+															
+												        </select>
+												    </div>
+													      <h4 class="card-headerr">Month Wise 	Consupmtion</h4>
+													        <div class=" card-bodyy">
+																<canvas class="chart chart-bar"
+																            chart-data="vm.yearWiseConsuptionData"
+																            chart-labels="vm.yearWiseConsuptionLabels"
+																            chart-series="vm.chartSeries"
+																            chart-options="vm.chartOptions"
+																            chart-colors="vm.chartColors"
+																            style="display: block; width: 100%; height: 300px;">
+																    </canvas>
+													        </div>
+													    </div>
+													</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel-body container-fluid">
+			<div class="card2">
+				
+				<h4 class="card-headerr">Month Wise Consupmtion</h4>
+				
+				<div class=" card-bodyy" 				style="				HEIGHT: 540PX;">
+								<table datatable="ng" id="example" class="table table-bordered">
+															<thead class="orange">
+																<tr>
+																	<th>ID</th>
+																	<th>Date</th>
+																	<th>Value</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr ng-repeat="daysConsumptionTable in vm.yearsConsumptionTables">
+																	<td>{{$index+1}}</td>
+																	<td>{{daysConsumptionTable.date}}</td>
+																	<td>{{daysConsumptionTable.value}} 													kWh</td>
+																
+																</tr>
+															</tbody>
+														</table>
+							</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!--<div class="row">
+
+
+	<div class="col-md-6">
+		<div class="panel-body container-fluid">
+			<div class="panel-body container-fluid">
+													    <div class="card2">
+													     <div class="col-md-6">
+												        <select id="machineFilter" ng-model="vm.SelYear" ng-change="vm.yearWiseConsupmtion(vm.SelYear)">
+															<option value="2022">2022</option>
+															<option value="2023">2023</option>
+															<option value="2024">2024</option>
+												            <option value="2025">2025</option>
+												            <option value="2026">2026</option>
+															
+												        </select>
+												    </div>
+													      <h4 class="card-headerr">Month Wise 	Cost</h4>
+													        <div class=" card-bodyy">
+																<canvas class="chart chart-bar"
+																            chart-data="vm.yearWiseCostData"
+																            chart-labels="vm.yearWiseCostLabels"
+																            chart-series="vm.chartSeries"
+																            chart-options="vm.chartOptions"
+																            chart-colors="vm.chartColors"
+																            style="display: block; width: 100%; height: 300px;">
+																    </canvas>
+													        </div>
+													    </div>
+													</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel-body container-fluid">
+			<div class="card2">
+				
+				<h4 class="card-headerr">Month Wise Cost</h4>
+				<div class=" card-bodyy">
+					<table   class="table table-bordered">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Date</th>
+													<th>Value</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="daysConsumptionTable in vm.yearsCostTables">
+													<td>{{$index+1}}</td>
+													<td>{{daysConsumptionTable.month}}</td>
+													<td>{{daysConsumptionTable.value}} 													<i class="fa fa-inr" aria-hidden="true"></i></td>
+					
+												</tr>
+											</tbody>
+										</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>-->
+<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

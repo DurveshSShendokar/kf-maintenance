@@ -1,0 +1,237 @@
+<style>
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+
+	.orange th {
+		color: #fff;
+	}
+
+	navbar {
+		background-color: #008B8B;
+		padding: 10px 0;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+	}
+
+
+	.btn_serach {
+		background-color: #008B8B;
+		border: 1px solid #008B8B;
+		color: white;
+	}
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h2 class="title" style="text-align:center;">Register Group</h2>
+	</div>
+</div>
+<div class="container">
+	<div class="row top">
+		<div class="col-sm-12">
+
+			<br />
+			<br />
+
+
+
+
+
+			<div class="row" ng-show="addNewTab">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Module <span style="color:#c00;">*</span>:</label>
+
+
+						<select ng-model="group.module.id"
+							ng-options="module.id as module.companyName+'-'+module.moduleNo for 	module in vm.modules"
+							class="form-control" required ng-change="vm.loadRegisters(group.module.id)">
+							<option value="">Select Module :</option>
+						</select>
+
+						<span style="color: red;" ng-show="moduleErr"> Module Is Mandetory</span>
+					</div>
+				</div>
+
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Name <span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="group.groupName"
+							placeholder="Enter Group Name" ng-required="true">
+						<span style="color: red;" ng-show="groupErr"> Name Is Mandetory</span>
+					</div>
+				</div>
+			</div>
+			<div class="row" ng-show="addNewTab">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">No Of Register<span style="color:#c00;">*</span>:</label>
+						<input type="number" class="form-control" ng-model="group.noOfRegister"
+							ng-change="updateRow(group.noOfRegister)" placeholder="Enter Register No"
+							ng-required="true">
+						<span style="color: red;" ng-show="noRegErr"> No Of Register Is Mandetory</span>
+						<span style="color: red;" ng-show="listErr"> One Row Is Mandetory</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" ng-show="addNewTab">
+				<div class="col-md-12">
+
+					<table id="example" class="table table-bordered ">
+						<thead class="orange">
+							<tr>
+								<th>Sr No</th>
+
+								<th>Register Name </th>
+								<th>Register No</th>
+
+
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<tr ng-repeat="	groupItem in vm.groupItems">
+
+								<td>{{$index+1}}</td>
+								<td>
+									<span ng-if="groupItem.editFrm"> <input type="text" class="form-control"
+											ng-model="groupItem.register.registerName"> <i ng-if="!viewT"
+											class="fa fa-refresh" ng-click="update($index)"
+											aria-hidden="true"></i></span>
+									<span ng-if="!groupItem.editFrm"> <select ng-model="groupItem.register"
+											ng-options="register as register.registerName for register in vm.registers"
+											class="form-control" required>
+											<option value="">Select Register :</option>
+										</select></span>
+
+								</td>
+								<td> <input type="text" class="form-control" ng-model="groupItem.register.registerNo">
+								</td>
+
+
+								<td class="text-nowrap">
+
+									<button type="button" class="btn btn-danger" title="Delete"
+										ng-click="vm.remove($index)">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</button>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+
+
+
+
+
+				</div>
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success" ng-click="vm.ok(group)">Submit</button>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<br />
+<br />
+<br />
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+
+			<div class="form-group">
+				<label for="name13">Per Page<span style="color:#c00;">*</span>:</label>
+				<input type="number" class="form-control" ng-model="vm.perPage">
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="col-md-2">
+				<button type="submit" class="btn_serach btn-sm" id="success" title="Add New"
+					style="background: #008B8B; border: 1px solid #103e57; color:white;" ng-click="vm.add()"><i
+						class="fa fa-plus-square" aria-hidden="true"></i></button>
+			</div>
+
+
+			<div class="col-md-2">
+				<button type="button" class="btn_serach btn-sm" id="success"
+					style="background: #008B8B; border: 1px solid #103e57; color:white;" ng-click="vm.export()"> <i
+						class="	fa fa-cloud-download" aria-hidden="true"></i></button>
+			</div>
+		</div>
+		<div class="col-md-2">
+
+			<div class="form-group">
+				<label for="name13">Search <span style="color:#c00;">*</span>:</label>
+				<input type="text" placeholder="Search" class="form-control" ng-model="vm.serachText"
+					ng-change="searchByPagination(vm.serachText)">
+			</div>
+		</div>
+	</div>
+	<div class="panel-body table-responsive">
+		<table id="example" class="table table-bordered ">
+			<thead class="orange">
+				<tr>
+					<th>Sr No</th>
+					<th>Module</th>
+					<th>Group Name </th>
+					<th>No Of Reg</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr dir-paginate="group in vm.groups | filter:q |itemsPerPage:vm.perPage" total-items="vm.total_count"
+					current-page="pagination.current">
+
+					<td>{{(vm.perPage*(vm.pageNo-1))+($index+1)}}</td>
+					<td>{{group.module.companyName}} - {{group.module.moduleNo}}</td>
+					<td>{{group.groupName}}</td>
+					<td> {{group.noOfRegister}} </td>
+
+
+
+					<td class="text-nowrap">
+						<button type="button" class="btn btn-info" title="Edit" ng-click="vm.edit(group)">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</button>
+						<button type="button" class="btn btn-info" title="View" ng-click="vm.view(group)">
+							<i class="fa fa-eye" aria-hidden="true"></i>
+						</button>
+						<button type="button" class="btn btn-danger" title="Delete"
+							ng-click="vm.deletMeterRegister(group)">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</button>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+	</div>
+</div>

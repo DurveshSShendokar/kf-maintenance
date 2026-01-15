@@ -1,0 +1,198 @@
+<div id="header"></div>
+    <link rel="stylesheet" href="css/styles.css"> 
+		<div class="container">
+			<div class="row top">
+				<div class="col-sm-12">
+				
+					<div class="all_center">
+						<div class="row">
+							<div class="col-sm-4">
+								<span class="txt f-r"> Select Machine : </span>
+							</div>
+							<div class="col-sm-6">
+								<select class="form-control select_option">
+									<option value="1"> </option>
+								</select>
+							</div>
+						</div>
+						<div class="row p-t-10">
+							<div class="col-sm-4">
+								 
+							</div>
+							<div class="col-sm-8">
+								<div class="row">
+									<div class="col-sm-3">
+										<div class="btn_predictive"> 
+											<input type="radio" name="radio" class="maintain_raio">
+											&nbsp; PREDICTIVE
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="btn_preventive"> 
+											<input type="radio" name="radio" class="maintain_raio">
+											&nbsp; PREVENTIVE
+										</div>
+									</div>
+									
+									<div class="col-sm-6">
+										<span class="sel_yr"> Select Year : </span>
+										<select class="sel_year">
+											<option value="1"> 2018 </option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="all_center p-t-10">
+						<div class="row">
+							<div class="col-sm-4">
+								<span class="txt f-r"> Select Frequency : </span>
+							</div>
+							<div class="col-sm-6">
+								<select class="form-control select_option">
+									<option value="1"> Weekly </option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="row p-t-10">
+							<div class="col-sm-12">
+								<div class="table-responsive table_maintain">          
+								  <table class="table">
+									<thead>
+									  <tr>
+										<th> All </th>
+										<th> Months </th>
+										<th> WK1 </th>
+										<th> WK2 </th>
+										<th> WK3 </th>
+										<th> WK4 </th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+										<td> <input type="checkbox" class="c_check" checked> </td>
+										<td class="bg_blue"> Jan </td>
+										<td> 10 </td>
+										<td> 18 </td>
+										<td> 24 </td>
+										<td> 31 </td>
+									  </tr>
+									  <tr>
+										<td> <input type="checkbox" class="c_check" checked> </td>
+										<td class="bg_orange"> Feb </td>
+										<td> 10 </td>
+										<td> 18 </td>
+										<td> 24 </td>
+										<td> 31 </td>
+									  </tr>
+									</tbody>
+								  </table>
+								</div>
+							</div>
+						 
+							<div class="col-sm-12 p-t-10">
+								<div class="table-responsive">          
+								  <table class="table table-bordered">
+									<thead>
+									  <tr>
+										<th> Jan </th>
+										<th> Feb </th>
+										<th> Mar </th>
+										<th> Apr </th>
+										<th> May </th>
+										<th> Jun </th>
+										<th> Jully </th>
+										<th> Aug </th>
+										<th> Sept </th>
+										<th> Oct </th>
+										<th> Nov </th>
+										<th> Dec </th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+										<td> 1 </td>
+										<td> 2 </td>
+										<td> 3 </td>
+										<td> 4 </td>
+										<td> 5 </td>
+										<td> 6 </td>
+										<td> 7 </td>
+										<td> 8 </td>
+										<td> 9 </td>
+										<td> 10 </td>
+										<td> 11 </td>
+										<td> 12 </td>
+									  </tr>
+									  <tr>
+										<td> 1 </td>
+										<td> 2 </td>
+										<td> 3 </td>
+										<td> 4 </td>
+										<td> 5 </td>
+										<td> 6 </td>
+										<td> 7 </td>
+										<td> 8 </td>
+										<td> 9 </td>
+										<td> 10 </td>
+										<td> 11 </td>
+										<td> 12 </td>
+									  </tr>
+									</tbody>
+								  </table>
+								</div>
+							</div>
+							<div class="col-sm-12 p-t-10">
+								<div class="table-responsive">          
+								  <table class="table table-bordered">
+									<thead>
+									  <tr>
+										<th> All </th>
+										<th> Quarters </th>
+										<th> 1st Month </th>
+										<th> 2nd Month </th>
+										<th> 3rd Month </th>
+									  </tr>
+									</thead>
+									<tbody>
+									  <tr>
+										<td> 1 </td>
+										<td> 2 </td>
+										<td> 3 </td>
+										<td> 4 </td>
+										<td> 5 </td>
+									  </tr>
+									  <tr>
+										<td> 1 </td>
+										<td> 2 </td>
+										<td> 3 </td>
+										<td> 4 </td>
+										<td> 5 </td>
+									  </tr>
+									</tbody>
+								  </table>
+								</div>
+							</div>
+						</div>
+						<div class="row m-b-20">
+							<div class="col-sm-12"> 
+							<div class="f-r">
+								<button class="btn_green"> Save </button>
+							</div>						
+							</div>						
+						</div> 
+					</div>
+
+				</div>
+			</div>
+		</div>
+<div id="footer"></div>
+<script src="js/jquery-1.10.2.js"></script>
+<script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+</script> 		 

@@ -1,0 +1,122 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange { background-color: #008B8B; }
+.orange th { color: #fff; }
+.navbar {
+    background-color: #008B8B;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.btn_search {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+.form-control {
+    width: 100%;
+}
+.table-bordered {
+    width: 70%;
+    margin: 0 auto; 
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+</style>
+
+<div class="container">
+    <div class="row page-title-div">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2 class="title" style="text-align: center;">Spare Utilization Report</h2>
+        </div>
+       
+        <div class="col-md-2 col-md-offset-10" center-button" >
+            <button type="button" class="btn_search" ng-click="vm.export()">Export</button>
+        </div>
+        
+    </div>
+    <br>
+
+    <div class="row">     
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="filterType">Filter By <span style="color:#c00;">*</span>:</label>
+                <select ng-model="vm.filterType" class="form-control" required ng-change="vm.handleFilterChange()">
+                    <option value="">Select Filter</option>
+                    <option value="all">All</option>
+                    <option value="spare">Spare Name</option>
+                    
+                </select>
+            </div>
+        </div>
+
+      
+        <div class="col-md-6" ng-if="vm.filterType === 'spare'">
+            <div class="form-group">
+                <label for="spareSelect">Spare <span style="color:#c00;">*</span>:</label>
+                <select ng-model="SpareRepo.spare.spare_id" ng-options="spare.spare_id as spare.spare_name for spare in vm.spare" class="form-control" required ng-change="vm.generateSpareUtilReport(SpareRepo.spare.spare_id)">
+                    <option value="">Select Spare</option>
+                </select>
+            </div>
+        </div>
+        
+       
+         <!-- Dropdown for Ticket Selection 
+    <div class="col-md-6" ng-if="vm.filterType === 'ticket'">
+    <div class="form-group">
+        <label for="ticketSelect">Ticket Number <span style="color:#c00;">*</span>:</label>
+        <select ng-model="vm.selectedTicket" ng-options="ticket for ticket in vm.tickets" class="form-control" required ng-change="vm.generateCompUtilReport(ticketNo)">
+            <option value="">Select Ticket</option>
+        </select>
+    </div>
+</div>-->
+
+        
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+            <tr>
+                <th>Sr No</th>
+                <th>Spare Name</th>
+                <th>Ticket No.</th>
+                <th>Asset Name</th>
+                <th>Asset Equipment Id</th>
+                 <th>Asset Owner</th>
+                  <th>Complaint Date</th>
+                  <th>Spare Utilized Date</th>
+                   <th>Utilized Quantity</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-if="vm.SpareUtilRepo.length === 0">
+                <td colspan="12" class="text-center">No data available.</td>
+            </tr>
+             <tr ng-repeat="spare in vm.SpareUtilRepo">
+                <td>{{$index + 1}}</td>
+                <td>{{spare.spareConsumption.spare.spare_name}}</td>
+                <td>{{spare.spareConsumption.complaint.ticketNo || 'N/A'}}</td>
+                <td>{{spare.spareConsumption.complaint.assetInventory.model}}</td>
+                <td>{{spare.spareConsumption.complaint.assetInventory.equipmentId}}</td>
+                
+                <td ng-if="spare.assetAllocation.length > 0">
+                    {{spare.assetAllocation[0].employee.firstName}} {{spare.assetAllocation[0].employee.lastName}}
+                </td>
+                <td ng-if="spare.assetAllocation.length === 0">N/A</td>
+                <td>{{spare.spareConsumption.complaint.complaintDate | date:'dd-MM-yyyy'}}</td>
+                <td>{{spare.spareConsumption.consuptionDate | date:'dd-MM-yyyy'}}</td>
+                <td>{{spare.utilizedQuantity}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

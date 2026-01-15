@@ -1,0 +1,371 @@
+<style>
+	.table-bordered tr th,
+	.table-bordered tr td,
+	.table-bordered tr {
+		border: 1px solid #ccc !important;
+	}
+
+	.orange {
+		background-color: #008B8B;
+	}
+	
+	.oranage{
+	
+	background-color: #008B8B;
+	}
+	
+	.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+	.orange th {
+		color: #008B8B;
+	}
+
+	navbar {
+		background-color: #008B8B;
+		padding: 10px 0;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+	}
+
+	.btn_serach {
+		background-color: #008B8B;
+		border: 1px solid #008B8B;
+		color: white;
+	}
+	.red-button {
+    background-color: red;
+    color: white;
+    border: none;
+}
+	
+</style>
+		<div class="container-fluid" style="padding-top:5px;">
+			
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h2 class="title" style="text-align:center;">Ticket Updation</h2>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row top">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-md-8"></div>
+		
+					</div>
+					
+			
+ <div ng-show="addDocumentTab">	
+	<div class="container">
+        <div class="panel-body table-responsive">
+         <div ng-if="vm.noDocumentsFound" class="alert alert-warning" role="alert">
+            No documents found for this asset.
+        </div>
+ 			<table datatable="ng" id="example" class="table table-bordered" ng-if="!vm.noDocumentsFound">       
+		          <thead class="orange">
+		                    <tr>
+		                        <th>SrNo</th>                      
+		                        <th>Document Name</th>
+		                        
+		                        <th>Actions</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+                    <tr ng-repeat="document in vm.loadDocuments">
+                        <td>{{$index + 1}}</td>
+                        <td>{{document.userManualName}}</td>    
+                        <td>							
+                           <button class="btn btn-primary btn-sm" ng-click="vm.openDocument(document.assetInventory.asset_inventory_id)">
+							    <i class="fa fa-eye"></i> <!-- Eye icon -->
+							</button>
+
+							<button class="btn btn-secondary btn-sm" ng-click="vm.downloadUserManual(document.Complaint)">
+							    <i class="fa fa-download"></i> <!-- Trash icon -->
+							</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>  
+			
+			
+			
+			
+			
+	<div class="row form-border" ng-show="addNewTab">
+
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Complaint <span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="Complaint.assetInventory.machine"
+							placeholder="Enter Complaint" ng-required="true" ng-disabled="true">
+					</div>
+				</div>
+
+			<div class="col-md-6">
+				    <div class="form-group">
+				        <label for="name13">Equipment ID <span style="color:#c00;">*</span>:</label>
+				        <div class="input-group">
+				            <input type="text" class="form-control" 
+				                   ng-model="Complaint.assetInventory.equipmentId" 
+				                   placeholder="Enter Complaint" 
+				                   ng-required="true" 
+				                   ng-disabled="true">
+				            <span class="input-group-btn">
+				                <!-- <button class="btn btn-default" title="Download Document" ng-click="vm.downloadUserManual()">
+				                    <i class="fa fa-download" aria-hidden="true"></i>
+				                </button> -->
+				                <button class="btn btn-default" title="Documents" ng-click="vm.ShowAddDocumentTab(Complaint.assetInventory)">
+				                    <i class="fa fa-eye" aria-hidden="true"></i>
+				                </button>
+				            </span>
+				        </div>
+				    </div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Ticket No <span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="Complaint.ticketNo"
+							placeholder="Enter Description" ng-required="true" ng-disabled="true">
+					</div>
+				</div>
+
+
+				<div class="col-md-6">
+									<div class="form-group">
+										<label for="name13">										Priority<span style="color:#c00;">*</span>:</label>
+										<input type="text" class="form-control" ng-model="Complaint.priority"
+											placeholder="Enter Description" ng-required="true" ng-disabled="true">
+									</div>
+								</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Cause <span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="Complaint.cause" placeholder="Enter Cause"
+							ng-required="true">
+					</div>
+				</div>
+
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Root Cause <span style="color:#c00;">*</span>:</label>
+						<textarea class="form-control" ng-model="Complaint.rootCause" placeholder="Enter Conclusion"
+							ng-required="true"></textarea>
+					</div>
+				</div>
+
+
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Description <span style="color:#c00;">*</span>:</label>
+						<input type="text" class="form-control" ng-model="Complaint.description"
+							placeholder="Enter Description" ng-required="true">
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Conclusion <span style="color:#c00;">*</span>:</label>
+						<textarea class="form-control" ng-model="Complaint.conclusion" placeholder="Enter Conclusion"
+							ng-required="true"></textarea>
+					</div>
+				</div>
+
+
+
+
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="name13">Select status<span style="color:#c00;">*</span>:</label>
+						<select class="form-control" ng-model="Complaint.status" ng-required="true"  ng-disabled="Complaint.status == 4">
+							<option value="1">Open</option>
+							<option value="2">Allocate</option>
+							<option value="3">In-Process</option>
+							<option value="4">Closed</option>
+						</select>
+					</div>
+				</div>
+				
+				
+				<div class="col-md-6">
+					    <div class="form-group">
+					        <label for="name13">Select Spare<span style="color:#c00;">*</span>:</label>
+					        <select class="form-control" 
+					                ng-model="vm.selectedSpares" 
+					                ng-required="true"
+					                  ng-change="vm.updateSpareUseds(vm.selectedSpares)" 
+					                ng-options="spare as spare.spare_name for spare in vm.AllSpares track by spare.spare.spare_id" 
+					                multiple  ng-disabled="Complaint.status == 4"
+					                style="width: 200%; max-width: 300px; height: 70px;">
+					        </select>
+					    </div>
+					</div>
+
+
+
+				<div class="row">
+				    <!-- New Spare Section -->
+				    <div class="col-sm-6">
+				        <div class="form-group">
+				            <label class="control-label">New Spare :</label>
+				            <table class="table table-responsive table-bordered" id="spaceuse">
+				                <thead class="oranage" style="width:255px;">
+				                    <tr>
+				                        <th>Name</th>
+				                        <th>QTY</th>
+				                        <th>Remaining Spare</th>
+				                    </tr>
+				                </thead>
+				                <tbody style="width:255px;">
+				                    <tr ng-repeat="spareUsed in vm.selectedSpares track by $index">
+				                        <td>{{spareUsed.spare_name}}</td>
+				                        <td><input type="number" ng-model="spareUsed.quantity" placeholder="Enter quantity"></td>
+				                        <td>{{spareUsed.avialableQuantity}}</td> 
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				    </div>
+				
+				    <!-- Spare Utilized Section -->
+				    <div class="col-sm-6">
+				        <div class="form-group">
+				            <label class="control-label">Spare Utilized :</label>
+				            <table class="table table-responsive table-bordered" id="spaceuse">
+				                <thead class="oranage" style="width:255px;">
+				                    <tr>
+				                        <th>Name</th>
+				                        <th>QTY</th>
+				                    </tr>
+				                </thead>
+				                <tbody style="width:155px;">
+				                    <tr ng-repeat="spare in vm.utilizedSpares">
+				                        <td>{{spare.spare.spare_name}}</td>
+				                       <td>{{spare.quantity}}</td> 
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				    </div>
+				</div>
+
+				
+				
+			
+
+				<div class="col-md-3">
+					<div align="right" style="margin-top:5%;">
+						<button type="submit" class="btn_serach" id="success"
+							ng-click="vm.ok(Complaint, newStatus)">Submit</button>
+					</div>
+						</div>
+						<div class="col-md-3">
+							<div align="right" style="margin-top:5%;">
+								<button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		
+		
+<script type="text/ng-template" id="documentModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">View Document</h3>
+    </div>
+    <div class="modal-body">
+        <iframe ng-src="{{documentUrl}}" style="width: 100%; height: 600px;" frameborder="0"></iframe>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="zoomOut()">Zoom Out</button>
+        <button class="btn btn-default" ng-click="zoomIn()">Zoom In</button>
+        <button class="btn btn-danger" ng-click="close()">Close</button>
+    </div>
+</script>
+		
+
+<div class="container">
+	<div class="panel-body table-responsive">
+		<table datatable="ng" id="example" class="table table-bordered ">
+			<thead class="orange">
+				<tr>
+					<th>Sr No</th>
+					<th>Ticket No</th>
+					<th>Asset</th>
+					<th>Cause</th>
+					<th>Description</th>
+					<th>Status</th>
+					<th>Priority</th>
+					<th>Allocate Date</th>
+
+					<th>Allocate To</th>
+
+					<th>Raised By</th>
+					<th>Root Clause</th>
+					<th>Conclusion</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="tickets in vm.complaints">
+					<td>{{$index+1}}</td>
+					<td>{{tickets.ticketNo}}</td>
+					<td>{{tickets.assetInventory.machine}} {{tickets.assetInventory.equipmentId}}</td>
+					<td>{{tickets.cause}}</td>
+					<td>{{tickets.description}}</td>
+
+					<td>
+						<span ng-switch="tickets.status">
+							<span ng-switch-when="1">Open</span>
+							<span ng-switch-when="2">Allocate</span>
+							<span ng-switch-when="3">In-Process</span>
+							<span ng-switch-when="4">Closed</span>
+						</span>
+					</td>
+					<td> {{tickets.priority}} </td>
+					<td> {{tickets.allocateDate|date:'dd-MM-yyyy'}} </td>
+
+					<td> {{tickets.allocateTo.firstName}} {{tickets.allocateTo.lastName}} </td>
+
+					<td> {{tickets.raisedBy.firstName}} {{tickets.raisedBy.lastName}} </td>
+
+
+					<td> {{tickets.rootCause}} </td>
+					<td> {{tickets.conclusion}} </td>
+					<td class="text-nowrap">
+					
+						<button type="button" 
+						        class="btn btn-info" 
+						        title="Update"
+						        ng-class="{'red-button': tickets.status === 4}" 
+						        ng-disabled="tickets.status === 4"
+						        ng-click="vm.add(tickets)">
+						    Update
+						</button>
+						
+						
+			
+						
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

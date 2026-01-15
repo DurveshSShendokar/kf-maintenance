@@ -1,0 +1,407 @@
+<style>
+
+.container-fluid {
+     background-color: #e9ecef; 
+}
+
+.page-title-div{
+    background-color: #e9ecef;
+}
+
+
+.dash-card {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 16px;
+	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    
+    width: 300px;
+    transition: box-shadow 0.3s ease;
+    height: 140px;
+    flex: 0 0 calc(25% - 20px);
+   
+
+}
+.dash-card:hover {
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transform: scale(1.1);
+	transition: all 0.5s ease;
+ }
+
+.dash-card .card-header {
+	border-radius: 16px;
+    font-size: 18px;
+    font-weight: 600;
+	
+    padding: 0px 13px;
+
+}
+
+.dash-card .card-body {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dash-card .card-title {
+    color: #212529;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.dash-card:hover .card-title {
+  color: white;
+}
+
+.dash-card .card-text {
+    
+    font-size: 1.6rem;
+    line-height: 1.6;
+    
+}
+
+
+.h4
+ {
+ margin: 10% auto;
+ }
+
+
+.card-bodyy {
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 0 0 16px 16px; 
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09)
+	 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.card-headerr {
+    font-size: 24px;
+   
+    padding: 20px; 
+    background-color: #f8f9fa;
+    color: black; 
+    border-radius: 16px 16px 0 0; 
+    
+       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.card-headerr:hover
+{
+ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+	
+	background-color: #008B8B;
+	color: #ffffff !important;
+	transition: all 0.5s ease;
+}
+
+.total-users-card{
+    margin-right: 10px; 
+    
+}
+
+.total-machines-card {
+   
+    margin-left: 10px; 
+}
+
+
+.total-card{
+    margin-right: 10px; 
+    
+}
+
+.open-card {
+   
+    margin-left: 10px;
+}
+
+.trial-card{
+    margin-right: 10px; 
+    
+}
+
+.closed-card {
+   
+    margin-left: 10px; 
+}
+
+.today-fetch-card{
+    margin-right: 10px; 
+    
+}
+
+
+
+</style>
+<div class="panel panel-success  mt-5" style="border-color: #ffffff">
+	<div class="row page-title-div" style="	text-align:center">
+			<div class="col-md-4" ng-click="goToPPMDashboard()" ng-class="mediaActive ? 'tab-active' : 'tab-inactive'">
+				<h2 class="title">PPM</h2>
+			</div>
+			<div class="col-md-4" ng-click="goToBreakDownDashboard()" ng-class="stockActive ? 'tab-active' : 'tab-inactive'">
+				<h2 class="title">BreakDown</h2>
+			</div>
+			<div class="col-md-4" ng-click="goToConsumptionDashboard()"
+				ng-class="chemicalActive ? 'tab-active' : 'tab-inactive'">
+				<h2 class="title">Consumption</h2>
+			</div>
+</div>
+
+</div>
+
+	<div class="container-fluid">
+    <div class="row page-title-div">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <h2 class="title">Maintenace</h2>
+        </div>
+
+        <div class="col-md-3"  ng-click="handleUsersCardClick('totalUsers')" ng-show="vm.user.department.departmentName=='Maintenance' && vm.user.role.roleName=='Admin'">
+            <div class="card mb-sm-1 dash-card total-users-card">
+                <div class="card-header">Total Users</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{vm.TotalCount.totalUsers}}</h5>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3" 	ng-click="handleMachinesCardClick('totalMachines')" ng-show="vm.user.department.departmentName=='Maintenance' && vm.user.role.roleName=='Admin'">
+            <div class="card mb-sm-1 dash-card total-machines-card">
+                <div class="card-header">Total No of Machines</div>
+                <div class="card-body">
+                    <h5 class="card-text card-title">{{ vm.TotalCount.totalMachines }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+		<div class="container-fluid" ng-show="vm.user.department.departmentName=='Maintenance' && vm.user.role.roleName=='Admin'">
+		
+				  <div class="row">
+		        <div class="col-md-12">
+		            <h3>Breakdown</h3>
+		        </div>
+		    </div>
+				
+		    <div class="row">
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card total-card" ng-click="handleBreakdownCardClick('totalBreakdown')">
+		                <div class="card-header">Total</div>
+		                <div class="card-body">
+		                     <h5 class="card-text card-title">{{ vm.BreakdownCount.total}}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card open-card" ng-click="handleOpenBreakdownCardClick('openBreakdown')">
+		                <div class="card-header">Open</div>
+		                <div class="card-body">
+		                     <h5 class="card-text card-title">{{ vm.BreakdownCount.open}}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card trial-card" ng-click="handleTrialBreakdownCardClick('trial')">
+		                <div class="card-header">Trial</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.BreakdownCount.trail}}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card closed-card" ng-click="handleClosedBreakdownCardClick('closedBreakdown')">
+		                <div class="card-header">Closed </div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.BreakdownCount.closed}}</h5>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+
+
+	<div class="container-fluid" 		ng-show="vm.user.department.departmentName=='Maintenance' && vm.user.role.roleName=='Admin'">
+	
+	  <div class="row">
+		        <div class="col-md-12">
+		            <h3>Maintenance</h3>
+		        </div>
+		    </div>
+	
+		    <div class="row">
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card total-card" ng-click="handleMaintainceCardClick('totalMaintaince')">
+		                <div class="card-header">Total</div>
+		                <div class="card-body">
+		                   <h5 class="card-text card-title">{{ vm.MaintainceCount.Total_Maintenance.totalMaintCount }}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card open-card" ng-click="totalopenMaintainceCardClick('totalopenMaintaince')">
+		                <div class="card-header">Open</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MaintainceCount.Total_Maintenance.activeMaintCount }}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        		        
+		        
+		        <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card today-fetch-card" ng-click="TodayMaintainceCardClick('TodayMaintaince')">
+		                <div class="card-header">Today Sheduale</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MaintainceCount.Total_Maintenance.todayCount }}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		        
+		         <div class="col-md-3">
+		            <div class="card mb-sm-1 dash-card closed-card" ng-click="totalclosedMaintainceCardClick('totalclosedMaintaince')">
+		                <div class="card-header">Closed</div>
+		                <div class="card-body">
+		                    <h5 class="card-text card-title">{{ vm.MaintainceCount.Total_Maintenance.inactiveMaintCount }}</h5>
+		                </div>
+		            </div>
+		        </div>
+		        
+		    </div>
+		</div>
+				
+				
+		<div class="row" 		ng-show="vm.user.department.departmentName=='Maintenance' && vm.user.role.roleName=='Admin'">		
+				
+			<div class="col-md-6">
+				
+				<div class="panel-body container-fluid">
+				    <div class="card2">
+				     <div class="col-md-6">
+			        <select id="machineFilter" ng-model="vm.selectedMachineCount" ng-change="vm.updateMachineData()">
+			            <option value="5">5</option>
+			            <option value="10">10</option>
+			            <option value="20">20</option>
+			        </select>
+			    </div>
+				      <h4 class="card-headerr">Maintenance Counts By Machine</h4>
+				        <div class=" card-bodyy">
+				            <canvas class="chart chart-bar"
+				                    chart-data="vm.chartData"
+				                    chart-labels="vm.chartLabels"
+				                    chart-series="['Open', 'Closed']"
+				                    chart-options="vm.chartOptions"
+				                    chart-colors="vm.chartColors"
+				                    style="display: block; width: 100%; height: 600px;">
+				           </canvas>        
+				        </div>
+				    </div>
+				</div>
+
+			
+			</div>
+			<div class="col-md-6">
+				<div class="panel-body container-fluid">
+				    <div class="card2">
+				     <div class="col-md-6">
+				        <select id="machineFilter" ng-model="vm.selectedMachineCountBreakdown" ng-change="vm.updateMachineData2()">
+				            <option value="5">5</option>
+				            <option value="10">10</option>
+				            <option value="20">20</option>
+				        </select>
+				    </div>
+				      <h4 class="card-headerr">Breakdown Counts By Machine</h4>
+				        <div class=" card-bodyy">
+				            <canvas class="chart chart-bar"
+				                    chart-data="vm.chartData1"
+				                    chart-labels="vm.chartLabels1"
+				                    chart-series="['Open', 'Closed', 'Trial']"
+				                    chart-options="vm.chartOptions1"
+				                    chart-colors="vm.chartColors1"
+				                    style="display: block; width: 100%; height: 600px;">
+				           </canvas>        
+				        </div>
+				    </div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="row" 		ng-show="vm.user.department.departmentName=='Maintenance' && vm.user.role.roleName=='Admin'">
+			<div class="col-md-6">						
+				<div class="panel-body container-fluid">
+				    <div class="card2">
+				    <div class="col-md-6">
+					        <select id="machineOwnerFilter" ng-model="vm.selectedMachineOwnerCount" ng-change="vm.updateMachineData3()">
+					            <option value="5">5</option>
+					            <option value="10">10</option>
+					            <option value="20">20</option>
+					        </select>
+					    </div>
+				        <h4 class="card-headerr">Breakdown Counts By Machine Owner</h4>
+				        <div class=" card-bodyy">
+				            <canvas class="chart chart-bar"
+				                    chart-data="vm.chartData2"
+				                    chart-labels="vm.chartLabels2"
+				                    chart-series="['Open', 'Closed', 'Trial']"
+				                    chart-options="vm.chartOptions2"
+				                    chart-colors="vm.chartColors2"
+				                    style="display: block; width: 100%; height: 600px;">
+				           </canvas>        
+				        </div>
+				    </div>
+				</div>
+		</div>
+		<div class="col-md-6">	
+				
+				
+					<div class="panel-body container-fluid">
+				    <div class="card2">
+				     <div class="col-md-6">
+				        <select id="machineOwnerFilter" ng-model="vm.selectedMachineOwnerCountMaintenance" ng-change="vm.updateMachineData4()">
+				            <option value="5">5</option>
+				            <option value="10">10</option>
+				            <option value="20">20</option>
+				        </select>
+				    </div>
+				        <h4 class="card-headerr">Maintenance Counts By Machine Owner</h4>
+				        <div class=" card-bodyy">
+				            <canvas class="chart chart-bar"
+				                    chart-data="vm.chartData"
+				                    chart-labels="vm.chartLabels"
+				                    chart-series="['Open', 'Closed']"
+				                    chart-options="vm.chartOptions"
+				                    chart-colors="vm.chartColors3"
+				                    style="display: block; width: 100%; height: 600px;">
+				           </canvas>        
+				        </div>
+				    </div>
+				</div>
+				</div>
+			</div>
+				 
+
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+	 
+	 
+	
+	
+	

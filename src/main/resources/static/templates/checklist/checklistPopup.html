@@ -1,0 +1,31 @@
+<!-- <div ng-repeat="arr in items.response" ng-if="items.str == 'exist'">
+	<div>{{arr}}</div>
+</div>
+<div ng-if="items.str == 'something'">
+	<div>Imported successfully</div>
+</div> -->
+
+
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">IMPORT</h3>
+</div>
+<div class="modal-body" style="text-align-last: center;" ng-if="vm.items && vm.items.qrList && vm.items.qrList.length > 0">
+	<span>Following checklist already exist</span>
+	<table  style="margin-top: 5%;">
+		<tr ng-repeat="arr in vm.items.qrList track by $index" style="border-style: groove;border-width: thin;"> 
+			<td>{{arr}}</td>
+		</tr>
+	</table>
+	<!-- <div >
+		<span>  </span>
+	</div> -->
+</div>
+
+<div class="modal-body" style="text-align-last: center;" ng-if="!vm.items || !vm.items.qrList || vm.items.qrList.length == 0">	 <!--  -->
+	<span>Checklist added successfully</span>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="vm.cancel();">
+		<i class="fa fa-times" aria-hidden="true"></i> OK
+	</button>
+</div>

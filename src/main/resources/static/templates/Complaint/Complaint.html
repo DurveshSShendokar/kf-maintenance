@@ -1,0 +1,195 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ .navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+    padding: 10px 10px; 
+    font-size: 12px; 
+    border-radius: 4px; 
+    width: 100px; 
+    text-align: center; 
+}
+.form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+    
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Raise Ticket</h2>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row top">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn_serach btn-sm" id="success" style="background: #008B8B; border: 1px solid #103e57; color:white;" ng-click="vm.addNew()">Add</button>
+                </div>
+                
+            </div>
+            <div class="row form-border" ng-show="addNewTab">
+            
+            
+            			
+			                
+			                
+			                <div class="col-md-6">
+							    <div class="form-group">
+							        <label for="exampleInputPassword13">Asset Name <span style="color:#c00;">*</span> :</label>
+							        <select ng-model="Complaint.assetInventory.asset_inventory_id" ng-options="assetInventory.asset_inventory_id as assetInventory.comapnyName+' - '+assetInventory.equipmentId for  assetInventory in vm.assets " class="form-control" required>
+							            <option value="">Assets Name </option>
+							        </select>
+							    </div>
+							</div>
+																											
+						
+						
+						<div class="col-md-6">
+							    <div class="form-group">
+							        <label for="name13">Priority <span style="color:#c00;">*</span>:</label> 
+							        <select class="form-control" ng-model="Complaint.priority" ng-required="true">
+							            <option value="">Select Priority</option>
+							            <option value="low">Low</option>
+							            <option value="medium">Medium</option>
+							            <option value="high">High</option>
+							        </select>
+							    </div>
+							</div>
+
+						
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Cause  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="Complaint.cause" placeholder="Enter Cause"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="name13">Description  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="Complaint.description" placeholder="Enter Description"	ng-required="true">
+							</div>
+						</div>
+						
+						
+						
+						
+						
+               		
+						
+						
+						
+
+              
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.ok(Complaint)">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+							<tr>
+								<th>Sr No</th>
+								<th>Ticket No</th>
+								<th>Asset</th>
+								<th>Equipment Id</th>
+								<th>Priority</th>
+								<th>Cause</th>
+								<th>Description</th>
+								<th>Complaint Date</th>
+								<th>Allocate Date</th>
+								
+								<th>Allocate To</th>
+								
+								<th>Raised By</th>
+								<th>Root Clause</th>
+								<th>Conclusion</th>
+								<th>Status</th>
+								
+								
+							   
+								
+							</tr>
+						</thead>
+            <tbody>
+							<tr ng-repeat="complaints in  vm.complaints">
+								<td>{{$index+1}}</td>
+									<td> {{complaints.ticketNo}} </td>
+								<td>{{complaints.assetInventory.machine}}</td>
+								<td>{{complaints.assetInventory.equipmentId}}</td>
+								<td> {{complaints.priority}} </td>
+								<td> {{complaints.cause}} </td>
+								<td> {{complaints.description}} </td>
+								<td> {{complaints.complaintDate|date:'dd-MM-yyyy'}} </td>
+								<td> {{complaints.allocateDate|date:'dd-MM-yyyy'}} </td>
+								
+								<td> {{complaints.allocateTo.firstName}} {{complaints.allocateTo.lastName}} </td>
+								
+								<td> {{complaints.raisedBy.firstName}} {{complaints.raisedBy.lastName}} </td>
+								
+								
+								<td> {{complaints.rootCause}} </td>
+								<td> {{complaints.conclusion}} </td>
+								
+							<!--	<td> {{complaints.status}} </td> -->
+								 <td>
+			                        <span ng-switch="complaints.status">
+			                            <span ng-switch-when="1">Open</span>
+			                            <span ng-switch-when="2">Allocate</span>
+			                            <span ng-switch-when="3">In-Process</span>
+			                            <span ng-switch-when="4">Closed</span>
+			                        </span>
+			                    </td>
+								
+							<!--
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info" title="Edit"	ng-click="vm.add(labs)">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+									</button>
+									<button type="button" class="btn btn-danger" title="Delete" ng-click="vm.delet(labs)">
+									    <i class="fa fa-trash" aria-hidden="true"></i> 
+									</button>
+									
+								</td>
+								-->
+								
+							</tr>
+						</tbody>
+        </table>
+    </div>
+</div>

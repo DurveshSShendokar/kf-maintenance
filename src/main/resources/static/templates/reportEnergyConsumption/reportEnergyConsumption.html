@@ -1,0 +1,211 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Scrap Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="fonts/fa/css/font-awesome.min.css">
+  <linl rel="stylesheet" href="css/dataTable.css"> -->
+
+<link href="css/style.css" rel="stylesheet">
+<style type="text/css">
+	.btn-oranage {
+		background-color: #008B8B;
+		color: #fff;
+	}
+
+	.oranage {
+		background-color: #008B8B
+	}
+
+	.margin-bt {
+		margin: 1% 0;
+	}
+
+	.header-name span {
+		font-size: 30px;
+	}
+
+	#scraplist td,
+	#scraplist th {
+		text-align: center;
+	}
+
+	.edit {
+		color: #007fbb;
+		font-size: 20px;
+	}
+
+	.header-name {
+		text-align: center;
+		margin-top: 3%;
+		margin-bottom: -1%;
+	}
+
+	.header-name {
+		text-align: center;
+		margin: 6% 0;
+	}
+</style>
+<!-- </head>
+<body> -->
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 header-name">
+			<h1>
+				<span>Energy Consumption Report </span>
+			</h1>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="exampleInputPassword13">Select
+					Type <span style="color:#c00;">*</span> :</label> <select ng-model="report.type"
+					class="form-control" required>
+					<option value="">Select Type</option>
+					<option value="All">All</option>
+					<option value="Meter">Meter Wise</option>
+				</select>
+				<span style="color: red;" ng-show="typeErr">Type Is Mandetory</span>
+			</div>
+		</div>
+		<div class="col-md-6" ng-if="report.type=='Meter'">
+			<div class="form-group">
+				<label for="exampleInputPassword13">Meter <span style="color:#c00;">*</span> :</label>
+				<select ng-model="report.module"
+					ng-options="meter as meter.module.moduleNo+' '+meter.energyMeterNo for meter in vm.meters"
+					class="form-control" required>
+					<option value="">Select Meter :</option>
+				</select>
+				<span style="color: red;" ng-show="moduleErr"> Meter Is Mandetory</span>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="col-sm-3">
+				<label class="control-label">Start Date <span style="color: red">*</span> :
+				</label>
+			</div>
+			<div class="col-sm-9">
+				<input type="date" style="width: 100%;" ng-model="report.startDate">
+				<span style="color: red;" ng-show="startDateErr">Start Date Is Mandetory</span>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="col-sm-3">
+				<label class="control-label">End Date <span style="color: red">*</span> :
+				</label>
+			</div>
+			<div class="col-sm-9">
+				<input type="date" style="width: 100%;" ng-model="report.endDate">
+				<span style="color: red;" ng-show="endDateErr"> End Date Is Mandetory</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 29px;margin-bottom: 30px;">
+		<div class="col-md-2">
+			<button type="submit" class="btn_serach btn-sm" id="success"
+				style="background: #008B8B; border: 1px solid #103e57;" ng-click="vm.getData(report)">Get
+				Report</button>
+		</div>
+		<!--<div class="col-md-2">
+										<button type="submit" class="btn_serach btn-sm" id="success" style="background: #008B8B; border: 1px solid #103e57;"
+											ng-click="vm.cancel()">Upload</button>
+								</div>-->
+
+	</div>
+	<!-- 	</div> -->
+</div>
+
+<div class="row">
+
+	<div class="col-md-3">
+		<div class="card mb-sm-1 dash-card today-fetch-card">
+			<div class="card-header">Total Energy Consumption <br>(KWH)
+				<hr>
+			</div>
+			<div class="card-body">
+				<h5 class="card-text card-title">{{vm.reports.totalEnergy}}</h5>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="card mb-sm-1 dash-card today-fetch-card">
+			<div class="card-header">Total Energy Apparent <br>KVAH</div>
+			<div class="card-body">
+				<h5 class="card-text card-title">{{vm.reports.totalApparent}}</h5>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="card mb-sm-1 dash-card today-fetch-card">
+			<div class="card-header"> Total Energy Reactive <br>KVARH</div>
+			<div class="card-body">
+				<h5 class="card-text card-title">				{{vm.reports.totalReactive}}</h5>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="card mb-sm-1 dash-card today-fetch-card">
+			<div class="card-header"> Max Demand MD</div>
+			<div class="card-body">
+				<h5 class="card-text card-title">				{{vm.reports.totalDemand}}</h5>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-2">
+		<div class="card mb-sm-1 dash-card today-fetch-card">
+			<div class="card-header">Avartage PF</div>
+			<div class="card-body">
+				<h5 class="card-text card-title">				{{vm.reports.totalPoweFactor}}</h5>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+
+
+</div>
+<div class="container">
+	<table id="scrap_department_report" datatable="ng" class="table table-bordered" style="width: 100%">
+		<thead>
+			<tr class="oranage">
+				<th>Sr No.</th>
+				
+				<th>Date</th>
+				<th>Energy Consumption  				KWH</th>
+				<th>Energy Apparent 				KVAH</th>
+				<th>Energy Reactive 				KVARH</th>
+				<th>Max Demand  MD </th>
+								<th>Power Factor PF</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="arr in vm.reports.dtos track by $index">
+				<td>{{$index + 1}}</td>
+				<td>{{arr.date}}</td>
+				<td>{{arr.energy}}</td>
+				<td>{{arr.apparent}}</td>
+
+				<td>{{arr.reactive}}</td>
+				<td>{{arr.demand}}</td>
+				<td>{{arr.poerFactor}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- <div class="col-sm-12" style="margin-bottom: 2%;">
+	<button class="btn btn-info" ng-show="vm.report.length > 0"
+		style="width: 20%; float: right;" export-to-csv
+		div-id="scrap_department_report" name="scrap_department_report">
+		Export</button>
+</div> -->

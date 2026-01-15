@@ -1,0 +1,113 @@
+body { 
+ background: url('img/bg.jpg') no-repeat center center fixed; 
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ overflow-x: hidden;
+ overflow-y: scroll;
+}
+
+ 
+ 
+.loginbox{  
+    color: black;    
+	margin-top:2%;
+	padding-left:1%;
+	padding-right:1%;
+	padding-bottom:8%;
+	padding-top:8%;
+/*     box-shadow: 0 8px 50px -2px #000; */
+/*     border-radius:5px; */
+    background: rgba(14, 8, 7,0.8); 
+
+}
+.logo{
+    width: 130px; 
+    height: 55px;
+	font-size:40px;
+	color:#fff;
+    margin-left: 10%;
+}
+
+ 
+.loginbox_content{
+    padding:5% 11% 5% 11%;
+
+}
+
+
+
+ 
+
+.button {
+    background-color: #da2923; /* Green */
+    border: none;
+    color: #fff;
+	font-weight:bold;
+    padding: 10px;
+	width:100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+	/* border-radius: 25px; */
+}
+.button:hover {
+	  background-color: red; 
+	  color:black;
+}
+ 
+.itype
+{
+    background: transparent;
+	border:none;
+	width:100%;
+	font-size:20px;
+    border-bottom: 2px solid #fff;
+	color:#fff;
+	padding:3%;
+}
+.itype:focus { outline: none; } 
+
+.mainlogo{
+	background:#fff;
+	margin-top:60px;	
+	margin-left:40px;	
+	padding:8%;
+	width:70%;
+	
+ } 
+ 
+.input_field{
+	margin-top:25px; 
+ }
+ 
+ .btn1{
+	margin-top:10%; 
+ }
+ 
+.title{
+	 color:#fff;
+	 margin-left:20%;
+	 font-size:25px;
+	 font-weight:bold;
+ }
+ 
+ .loginbox2{  
+    color: #dab7b5;  
+	margin-top:13%;
+    background: rgba(218, 41, 35,0.5)
+
+}
+
+.footer {
+    position: fixed;
+	padding:1%;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #da2923;
+    color: white;
+    text-align: center;
+}

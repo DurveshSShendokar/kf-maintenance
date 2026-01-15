@@ -1,0 +1,113 @@
+<div id="header"></div>
+  <link rel="stylesheet" href="css/styles.css">
+		<div class="container">
+
+		
+		<div class="row top">
+			<div class="col-sm-2 col-xs-12" align="center">
+			</div>
+			<div class="col-sm-8 col-xs-12" align="center">
+				<div class="row">
+				<div class="col-sm-2 col-xs-2">
+					<img src="img/icon/qrcode.png" />
+				</div>
+				<div class="col-sm-10 col-xs-10">
+					<h2> Generate Production QR Code </h2>
+				</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-xs-12">
+				<div class="generate_qr">
+					<div class="row">
+						<div class="col-sm-12 col-xs-12">
+							<div class="table-responsive">          
+							  <table class="table">
+								<tbody>
+								  <tr>
+									<td> Opeation Name: </td>
+									<td> <input type="text" class=" form-control"> </td>
+									<td> Date : </td>
+									<td> <input type="text" class=" form-control"> </td>
+								  </tr>
+								  <tr>
+									<td> Machine No: </td>
+									<td> <input type="text" class=" form-control"> </td>
+									<td> Mold No: </td>
+									<td> <input type="text" class=" form-control" > </td>
+								  </tr>
+								  <tr>
+									<td> Shift: </td>
+									<td> 
+										<select class=" form-control">
+										  <option value="volvo"> </option>
+										  <option value="saab">Saab</option>
+										  <option value="mercedes">Mercedes</option>
+										  <option value="audi">Audi</option>
+										</select>
+									</td>
+									<td> Item Description: </td>
+									<td> 
+										<select class=" form-control">
+										  <option value="volvo"> </option>
+										  <option value="saab">Saab</option>
+										  <option value="mercedes">Mercedes</option>
+										  <option value="audi">Audi</option>
+										</select>
+									</td>
+								  </tr>
+								  <tr>
+									<td>  </td>
+									<td>  </td>
+									<td>  </td>
+									<td> <button class="generate_b_code"> Generate Barcode </button> </td>
+								  </tr>
+								</tbody>
+							  </table>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row p_b p-t-10">
+						<div class="col-sm-12 col-xs-12">	
+							<div class="table-responsive tbl_barcode">          
+							  <table class="table">
+								<thead>
+								  <tr>
+									<th> Time </th>
+									<th> QR Code  </th>
+									<th> Qty </th>
+									<th> Select All &nbsp; <input type="checkbox" > </th>
+									<th> Print </th>
+									<th> Reprint </th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr>
+									<td> 9 to 10 am </td>
+									<td> 
+										QR Code
+									</td>
+									<td> 12 </td>
+									<td> <input type="checkbox" class="c_check" checked> </td>
+									<td> <button class="btn btn-success"> Print </button> </td>
+									<td> <button class="btn btn-primary"> Reprint </button> </td>
+								  </tr>
+								</tbody>
+							  </table>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		 
+</div>
+<div id="footer"></div>
+<script src="js/jquery-1.10.2.js"></script>
+<script> 
+    $(function(){
+      $("#header").load("header.html"); 
+      $("#footer").load("footer.html"); 
+    });
+</script> 		 

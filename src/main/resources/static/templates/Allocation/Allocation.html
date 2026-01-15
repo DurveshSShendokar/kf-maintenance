@@ -1,0 +1,116 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+   .form-border {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+   
+        
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+   
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Ticket Allocation</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row top">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                   
+                </div>
+            </div>
+            <div class="row form-border" ng-show="addNewTab">
+            
+            
+            		<div class="col-md-6">
+							<div class="form-group">
+
+								<label for="name13">Complaint  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="Complaint.assetInventory.machine+' - '+Complaint.assetInventory.equipmentId" placeholder="Enter Complaint"	ng-required="true" ng-disabled="true">
+
+								<label for="name13">Complaint Ticket No.  <span style="color:#c00;">*</span>:</label> 
+								<input type="text" class="form-control" ng-model="Complaint.ticketNo" placeholder="Enter Complaint"	ng-required="true" ng-disabled="true">
+
+							</div>
+						</div>
+						
+										<div class="col-md-6">
+										    <div class="form-group">
+										        <label for="exampleInputPassword13">User Detials <span style="color:#c00;">*</span> :</label>
+										        <select ng-model="Complaint.allocateTo" ng-options="user  as user.firstName + ' ' + user.lastName for 	user in vm.users" class="form-control" required>
+										            <option value="">Select User Detials</option>
+										        </select>
+										    </div>
+										</div>
+						
+					
+              
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.ok(Complaint)">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div align="right" style="margin-top:5%;">
+                        <button type="submit" class="btn_serach" id="success" ng-click="vm.cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+							<tr>
+								<th>Sr No</th>
+								<th>Ticket No</th>
+								<th>Complaint</th>
+								<th>Cause</th>
+								<th>Allocate To</th>
+							   
+								<th>Action</th>
+							</tr>
+						</thead>
+            <tbody>
+							<tr ng-repeat="allocation in vm.complaints">
+								<td>{{$index+1}}</td>
+								<td>{{allocation.ticketNo}}</td>
+								<td>{{allocation.assetInventory.machine}} - {{allocation.assetInventory.equipmentId}}</td>
+								<td>{{allocation.cause}}</td>
+								<td>{{allocation.allocateTo.firstName}} {{allocation.allocateTo.lastName}}</td>
+								
+								<td class="text-nowrap">
+									<button type="button" class="btn btn-info" title="Assign" 
+										ng-click="vm.add(allocation)">										
+										Assign
+									</button>
+								</td>
+							</tr>
+						</tbody>
+        </table>
+    </div>
+</div>

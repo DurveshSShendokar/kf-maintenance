@@ -1,0 +1,119 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+
+.orange{ background-color: #008b8b;}
+
+.orange{ background-color: #008B8B;}
+
+.orange th{color:#fff;}
+
+ navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .btnn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+        background: #008B8B;
+    border: 1px solid #008B
+}
+
+       
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+   
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Closed Breakdown</h2>
+    </div>
+</div>
+		
+<div class="row">
+
+	<div class="col-md-6">
+	</div>
+	
+	<div class="col-md-2">
+		</div>
+	<div class="col-md-3">
+		<button type="submit" class="btnn_serach" id="success" style="background: #008B8B; border: 1px solid #103e57; color:white;"															
+			ng-click="export()"> Export</i></button>
+
+		<button id="btnExport" ng-json-export-excel data="vm.closedBreakdown" report-fields="vm.labels"
+			style="display:none" filename="'Closed Breakdown'"></button>
+
+	</div>
+</div>
+		<div class="container">				
+						<div class="panel-body table-responsive">
+					<table datatable="ng" id="example" class="table table-bordered "							style="background-color:#008B8B;">
+						<thead class="orange">
+							<tr>
+								<th>Sr.No</th>
+						<td>BD No</td> 
+							<td>Machine Name</td>
+						<td>Description of Breakdown</td>
+						<td>Status</td>
+						<td>Corrective Action</td>
+						<!-- <th>Engg Findings</th> -->
+						
+						<td>Ticket Create Time</td>
+						<td>Ticket Closed Time</td>
+						<td>TTR (Hrs)</td>
+						<td>TBF(days)</td>
+						<td>Total Breakdowns(Hrs)</td>
+					
+								
+								
+								
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="arr in vm.closedBreakdown">
+								<td>{{$index+1}}</td>
+								
+								<td>{{arr.bd_slip}}</td> 
+								
+						<td>{{arr.machine.machine_name}}({{arr.machine.eqid}})</td>
+						
+						<td>{{arr.observation}}</td>
+						
+						<td><span ng-if="arr.status==1">Open</span><span ng-if="arr.status==2">Waiting for Trial</span> <span ng-if="arr.status==3">Closed</span><span ng-if="arr.status==4">Closed with Deviation</span></td>
+						
+						<td>{{arr.addedBy.firstName}} {{arr.addedBy.lastName}}</td>
+						
+						<!-- 					<td>{{arr.enggfindings}}</td> -->
+						
+						 <td>{{arr.ticket_raised_time|date:'MM/dd/yyyy h:mm a'}}</td> 
+						 
+						  <td>{{arr.ticket_closed_time|date:'MM/dd/yyyy h:mm a'}}</td> 
+						<td>						  {{arr.ttr}}     </td>
+						<td>{{arr.diff_days}}</td>
+						<td>{{arr.total_trial_hr|number : 2}}</td>
+			                      
+												
+								
+								
+								
+								
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+	</div>				
+ 	
+ 
+ 
+ 
+	<script src="templates/views/js/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>

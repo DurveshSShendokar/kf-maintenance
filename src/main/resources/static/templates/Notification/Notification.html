@@ -1,0 +1,75 @@
+<style>
+.table-bordered tr th, .table-bordered tr td, .table-bordered tr{border: 1px solid #ccc !important;}
+.orange{ background-color: #008B8B;}
+.orange th{color:#fff;}
+
+ .navbar {
+            background-color: #008B8B;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+        }
+.btn_serach {
+    background-color: #008B8B;
+    border: 1px solid #008B8B;
+    color: white;
+}
+
+</style>
+<div class="container-fluid" style="padding-top:5px;">
+ 
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h2 class="title" style="text-align:center;">Notification </h2>
+    </div>
+</div>
+<div class="row justify-content-center" style="display: flex; justify-content: center;" ng-show="addNewTab">
+    <div class="col-md-7">
+        <div class="form-group" 
+             style="border: 2px solid #ccc; padding: 15px; border-radius: 10px; position: relative; background-color: #f9f9f9;">
+             
+            <!-- Cancel Icon (Top-Right) -->
+            <span ng-click="vm.cancel()" 
+                  style="position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 18px; color: red;">
+                <i class="fa fa-times"></i>
+            </span>
+
+            <!-- Notification Message -->
+            <label style="display: block; font-size: 16px;">
+                {{notification.message}}
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="panel-body table-responsive">
+        <table datatable="ng" id="example" class="table table-bordered ">
+           <thead class="orange">
+							<tr>
+							<th>Sr.No</th>
+				                <th>Title</th>
+				                <th>Message</th>
+				             
+				                <th>Raised Date</th>
+				           
+							   
+								<th>Action</th>
+							</tr>
+						</thead>
+            <tbody>
+							  <tr ng-repeat="notification in vm.notification">
+							  <td>{{$index+1}}</td>
+				                <td>{{notification.title}}</td>
+				                <td>{{notification.message 	| limitTo: 53 }}</td>
+				             
+				                <td>{{notification.raisedTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				                  <td>
+                            <button class="btn btn-primary btn_serach" 
+                                    ng-click="vm.view(notification)">View</button>
+                        </td>
+				            </tr>
+						</tbody>
+        </table>
+    </div>
+</div>

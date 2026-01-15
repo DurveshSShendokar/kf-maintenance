@@ -1,0 +1,130 @@
+<!-- <script type="text/javascript"
+	src="templates/ftr/kendo/highcharts.js"></script> -->
+<style>
+.white {
+	background-color: #fff;
+}
+
+.btn_serach {
+    background-color: #008B8B;
+    color: #fff;
+    width: 47%;
+    /* Add any additional styling properties here */
+}
+
+
+.act-add {
+	color: rgb(111, 170, 188);
+	text-align: center;
+	font-size: 15px;
+}
+
+.act-edit {
+	color: rgb(152, 108, 153);
+	text-align: center;
+	font-size: 15px;
+}
+
+.act-add .fa, .act-edit .fa {
+	font-size: 20px;
+}
+
+.width-80 .row {
+	margin: 1% 0;
+}
+
+.width-80 .row .control-label {
+	text-align: right;
+	font-weight: 600;
+}
+
+.width-80 {
+	width: 100%;
+	margin: 0 auto;
+}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 header-name">
+			<img src="img/breakdown.png"><span>MTTR Report</span>
+		</div>
+	</div>
+	<div class="col-sm-1"></div>
+	<div class="width-80 col-sm-10" style="margin-left:8%;">
+		<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Equipment Type <span style="color:#c00;">*</span>  :</label>
+			</div>
+			<div class="col-sm-6">
+				<select ng-model="type" class="form-control" required>
+					<option value="">Select Type</option>
+					<option value="1">Machine</option>
+					<option value="2">Auxiliary</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Equipment Group <span style="color:#c00;">*</span>  :</label>
+			</div>
+			<div class="col-sm-6">
+				<select class="form-control" ng-model="selectMachine" ng-change="vm.changeMachine();">	<!-- ng-change="vm.changeMachine(selectedMachine);" -->
+					<option value="selectMachine"> Select machine </option>
+					<option  ng-repeat="opts in vm.machines" value="{{opts}}"> {{opts}} </option>
+				</select>
+			</div>
+		</div>
+		<!--<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Equipment Category Group <span style="color:#c00;">*</span> :</label>
+			</div>
+			<div class="col-sm-6">
+				<select class="form-control" ng-model="category" ng-change="vm.changeCategory();">
+					<option value="category"> Select category </option>
+					<option ng-repeat="opts in vm.categories" value="{{opts}}"> {{opts.cat_name}} </option>
+				</select>
+			</div>
+		</div>
+		 <div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Report Type  :</label>
+			</div>
+			<div class="col-sm-6">
+				<select class="form-control" ng-model="reportType">
+					<option value="monthly">Monthly</option>
+					<option value="quarterly">Quarterly</option>
+				</select>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-sm-3">
+				<label class="control-label">Duration <span style="color:#c00;">*</span> :</label>
+			</div>
+			<div class="col-sm-6">
+				<select class="form-control" ng-model="reportDuration" >
+					<option value="monthly">Monthly</option>
+					<option value="quarterly">Quarterly</option>
+				</select>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-sm-7"></div>
+			<div class="col-sm-4">
+				<button class="btn_serach" style="width:47%" ng-click="vm.getReportGenerationDetails();">Submit
+					</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div id="container" ng-if="showGraph" report-Chart type="column" title-text="" sub-Title-Text="" categories="categories" y-Axis-Text="Hours" series="series" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<!-- 		<div id="container4"></div> -->
+	</div>
+</div>
+
+
+
+
+
