@@ -61,13 +61,9 @@ pipeline {
         stage('SonarQube Quality Gate') {
             steps {
                 echo '⏳ Waiting for SonarQube Quality Gate...'
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
+                waitForQualityGate abortPipeline: true
             }
         }
-
-
         stage('Package Artifact') {
             steps {
                 echo '📦 Packaging application JAR...'
