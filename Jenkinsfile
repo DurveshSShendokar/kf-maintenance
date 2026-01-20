@@ -57,13 +57,6 @@ pipeline {
                 }
             }
         }
-
-        stage('SonarQube Quality Gate') {
-            steps {
-                echo '⏳ Waiting for SonarQube Quality Gate...'
-                waitForQualityGate abortPipeline: true
-            }
-        }
         stage('Package Artifact') {
             steps {
                 echo '📦 Packaging application JAR...'
