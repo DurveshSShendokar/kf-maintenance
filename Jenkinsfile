@@ -22,6 +22,7 @@ pipeline {
         // URLs
         DAST_URL = "http://127.0.0.1:${INTERNAL_PORT}"
         PROD_URL = "http://127.0.0.1:${PROD_PORT}"
+        DB_HOST = '4.213.97.72'
     }
 
     stages {
@@ -117,17 +118,16 @@ pipeline {
                     docker rm ${PROD_CONTAINER} || true
 
                     docker run -d \
-                      --name kf-backend-prod \
+                      --name ${PROD_CONTAINER} \
                       -p 8081:8081 \
                       --restart unless-stopped \
                       -e SPRING_PROFILES_ACTIVE=prod \
-                      -e DB_URL=jdbc:mysql://<DB_HOST>:3306/db_kf_maintenance \
-                      -e DB_USERNAME=appuser \
-                      -e DB_PASSWORD=******** \
-                      -e MAIL_USERNAME=******** \
-                      -e MAIL_PASSWORD=******** \
-                      kf-maintenance-backend:latest
-
+                      -e DB_URL=jdbc:mysql://${DB_HOST}:3306/db_kf_maintenance \
+                      -e DB_USERNAME=${DB_CREDS_USR} \
+                      -e DB_PASSWORD=${DB_CREDS_PSW} \
+                      -e MAIL_USERNAME=${MAIL_CREDS_USR} \
+                      -e MAIL_PASSWORD=${MAIL_CREDS_PSW} \
+                      ${IMAGE_NAME}:latest
                 '''
             }
         }
