@@ -40,10 +40,11 @@ pipeline {
                 withSonarQubeEnv('sonarqube') {
                     sh """
                     ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.projectKey=kf-maintenance-backend \
-                    -Dsonar.projectName=kf-maintenance-backend \
-                    -Dsonar.sources=src/main/java \
-                    -Dsonar.java.binaries=target
+                      -Dsonar.projectKey=kf-maintenance-backend \
+                      -Dsonar.projectName=kf-maintenance-backend \
+                      -Dsonar.projectVersion=${BUILD_NUMBER} \
+                      -Dsonar.sources=src/main/java \
+                      -Dsonar.java.binaries=target
                     """
                 }
             }
@@ -60,15 +61,23 @@ pipeline {
         stage('Start App for DAST') {
             steps {
                 sh '''
+                  docker stop ${DAST_CONTAINER} || true
+                  docker rm ${DAST_CONTAINER} || true
+
                   docker run -d --rm \
                     --name ${DAST_CONTAINER} \
                     -p ${INTERNAL_PORT}:8081 \
-                    -e DB_URL=jdbc:h2:mem:testdb \
-                    -e DB_USERNAME=sa \
-                    -e DB_PASSWORD= \
+                    -e SPRING_PROFILES_ACTIVE=ci \
                     ${IMAGE_NAME}:latest
 
-                  sleep 15
+                  echo "Waiting for application to start..."
+                  for i in {1..10}; do
+                    if curl -s http://127.0.0.1:${INTERNAL_PORT} >/dev/null; then
+                      echo "Application is up"
+                      break
+                    fi
+                    sleep 5
+                  done
                 '''
             }
         }
@@ -77,6 +86,7 @@ pipeline {
             steps {
                 sh '''
                   docker run --rm --network=host \
+                    -u 0 \
                     -v "$(pwd)":/zap/wrk \
                     ghcr.io/zaproxy/zaproxy:stable \
                     zap-baseline.py \
@@ -98,9 +108,7 @@ pipeline {
                     --name ${PROD_CONTAINER} \
                     -p ${PROD_PORT}:8081 \
                     --restart unless-stopped \
-                    -e DB_URL=jdbc:mysql://db:3306/db_kf_maintenance \
-                    -e DB_USERNAME=appuser \
-                    -e DB_PASSWORD=******** \
+                    -e SPRING_PROFILES_ACTIVE=prod \
                     ${IMAGE_NAME}:latest
                 '''
             }
