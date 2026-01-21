@@ -117,10 +117,17 @@ pipeline {
                     docker rm ${PROD_CONTAINER} || true
 
                     docker run -d \
-                      --name ${PROD_CONTAINER} \
-                      -p ${PROD_PORT}:8081 \
+                      --name kf-backend-prod \
+                      -p 8081:8081 \
                       --restart unless-stopped \
-                      ${IMAGE_NAME}:latest
+                      -e SPRING_PROFILES_ACTIVE=prod \
+                      -e DB_URL=jdbc:mysql://<DB_HOST>:3306/db_kf_maintenance \
+                      -e DB_USERNAME=appuser \
+                      -e DB_PASSWORD=******** \
+                      -e MAIL_USERNAME=******** \
+                      -e MAIL_PASSWORD=******** \
+                      kf-maintenance-backend:latest
+
                 '''
             }
         }
