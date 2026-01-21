@@ -8,6 +8,15 @@ pipeline {
 
     environment {
         SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
+
+        IMAGE_NAME     = 'kf-maintenance-backend'
+        DAST_CONTAINER = 'kf-backend-dast'
+        PROD_CONTAINER = 'kf-backend-prod'
+
+        DAST_PORT = '2000'
+        PROD_PORT = '8081'
+
+        APP_DAST_URL = "http://127.0.0.1:${DAST_PORT}"
     }
 
     stages {
@@ -18,6 +27,7 @@ pipeline {
                 checkout scm
             }
         }
+
         stage('Maven Clean & Compile') {
             steps {
                 echo '🧹 Cleaning and compiling project...'
@@ -31,12 +41,12 @@ pipeline {
 
         stage('Run Unit Tests (No DB)') {
             steps {
-                echo '🧪 Running unit tests (DB skipped)...'
+                echo '🧪 Running unit tests (H2 in-memory)...'
                 sh '''
                     mvn test \
                     -Dspring.profiles.active=ci \
-                    -Dspring.jpa.hibernate.ddl-auto=none \
-                    -Dspring.datasource.url=jdbc:h2:mem:testdb
+                    -Dspring.datasource.url=jdbc:h2:mem:testdb \
+                    -Dspring.jpa.hibernate.ddl-auto=none
                 '''
             }
         }
@@ -57,11 +67,113 @@ pipeline {
                 }
             }
         }
+
+        stage('SonarQube Quality Gate') {
+            steps {
+                echo '⏳ Waiting for SonarQube Quality Gate...'
+                timeout(time: 15, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: false
+                }
+            }
+        }
+
         stage('Package Artifact') {
             steps {
-                echo '📦 Packaging application JAR...'
+                echo '📦 Packaging executable JAR...'
+                sh 'mvn package -DskipTests'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo '🐳 Building Docker image...'
                 sh '''
-                    mvn package -DskipTests
+                    docker build -t ${IMAGE_NAME}:latest .
+                '''
+            }
+        }
+
+        stage('Start App for DAST (Internal)') {
+            steps {
+                echo '🚀 Starting temporary container for DAST...'
+                sh '''
+                    docker stop ${DAST_CONTAINER} || true
+                    docker rm ${DAST_CONTAINER} || true
+
+                    docker run -d \
+                      --name ${DAST_CONTAINER} \
+                      -p ${DAST_PORT}:8081 \
+                      ${IMAGE_NAME}:latest
+
+                    for i in {1..15}; do
+                        if curl -s ${APP_DAST_URL}/actuator/health | grep UP; then
+                            echo "✅ Application ready for DAST"
+                            exit 0
+                        fi
+                        echo "⏳ Waiting for application..."
+                        sleep 5
+                    done
+
+                    echo "❌ Application failed to start"
+                    exit 1
+                '''
+            }
+        }
+
+        stage('OWASP ZAP DAST') {
+            steps {
+                echo '🛡️ Running OWASP ZAP DAST scan...'
+                sh '''
+                    docker run --rm --network=host \
+                      -v "$(pwd)":/zap/wrk \
+                      ghcr.io/zaproxy/zaproxy:stable \
+                      zap-baseline.py \
+                      -t ${APP_DAST_URL} \
+                      -r zap-report.html \
+                      -x zap-report.xml \
+                      -I
+                '''
+            }
+        }
+
+        stage('ZAP Quality Gate') {
+            steps {
+                echo '🚦 Evaluating ZAP results...'
+                sh '''
+                    HIGH=$(grep -c "<riskcode>3</riskcode>" zap-report.xml || true)
+
+                    if [ "$HIGH" -gt 0 ]; then
+                        echo "❌ High-risk vulnerabilities found"
+                        exit 1
+                    fi
+
+                    echo "✅ ZAP Quality Gate passed"
+                '''
+            }
+        }
+
+        stage('Deploy to Production (8081)') {
+            steps {
+                echo '🚀 Deploying backend to production...'
+                sh '''
+                    docker stop ${PROD_CONTAINER} || true
+                    docker rm ${PROD_CONTAINER} || true
+
+                    docker run -d \
+                      --name ${PROD_CONTAINER} \
+                      -p ${PROD_PORT}:8081 \
+                      --restart unless-stopped \
+                      ${IMAGE_NAME}:latest
+                '''
+            }
+        }
+
+        stage('Post-Deploy Health Check') {
+            steps {
+                echo '🩺 Verifying production health...'
+                sh '''
+                    sleep 5
+                    curl -f http://127.0.0.1:${PROD_PORT}/actuator/health
                 '''
             }
         }
@@ -69,29 +181,21 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: false
+            echo '🧹 Cleaning up DAST container...'
+            sh '''
+                docker stop ${DAST_CONTAINER} || true
+                docker rm ${DAST_CONTAINER} || true
+            '''
 
-            emailext(
-                to: 'durveshsshendokar@gmail.com',
-                subject: "Backend CI Pipeline: ${currentBuild.currentResult} | ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                mimeType: 'text/html',
-                body: """
-                <h2>Backend CI Pipeline Report</h2>
-                <p><b>Status:</b> ${currentBuild.currentResult}</p>
-                <p><b>Job:</b> ${env.JOB_NAME}</p>
-                <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
-                <p><a href="${env.BUILD_URL}">View Build</a></p>
-                <p><a href="http://SONAR_URL/dashboard?id=kf-maintenance">SonarQube Dashboard</a></p>
-                """
-            )
+            archiveArtifacts artifacts: 'target/*.jar,zap-report.html,zap-report.xml', allowEmptyArchive: true
         }
 
         success {
-            echo '✅ Backend CI pipeline completed successfully'
+            echo '✅ Backend CI/CD pipeline completed successfully'
         }
 
         failure {
-            echo '❌ Backend CI pipeline failed'
+            echo '❌ Backend CI/CD pipeline failed'
         }
     }
 }
