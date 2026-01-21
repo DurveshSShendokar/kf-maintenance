@@ -141,6 +141,63 @@ pipeline {
         always {
             echo '🧹 Cleaning up DAST container...'
             sh 'docker stop ${DAST_CONTAINER} || true'
+            emailext(
+                to: 'durveshsshendokar@gmail.com',
+                from: 'durveshsshendokar@gmail.com',
+                subject: "DevSecOps Pipeline Result: ${currentBuild.currentResult} | ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                mimeType: 'text/html',
+                body: """
+                <html>
+                <body style="font-family: Arial, sans-serif;">
+            
+                <h2 style="color:#2F80ED;">DevSecOps Pipeline Report</h2>
+            
+                <table cellpadding="6" cellspacing="0" border="0">
+                    <tr><td><b>Job</b></td><td>${env.JOB_NAME}</td></tr>
+                    <tr><td><b>Build Number</b></td><td>#${env.BUILD_NUMBER}</td></tr>
+                    <tr><td><b>Status</b></td><td><b>${currentBuild.currentResult}</b></td></tr>
+                    <tr><td><b>Triggered By</b></td><td>GitHub Push</td></tr>
+                </table>
+            
+                <br/>
+            
+                <p>
+                    🔗 <b>Jenkins Build:</b><br/>
+                    <a href="${env.BUILD_URL}">${env.BUILD_URL}</a>
+                </p>
+            
+                <hr/>
+            
+                <h3>📊 Security & Code Quality Reports</h3>
+                <ul>
+                    <li>
+                        <b>SonarQube Dashboard</b> →
+                        <a href="http://4.213.97.72:9000/dashboard?id=kf-maintenance-backend">
+                            View Report
+                        </a>
+                    </li>
+            
+                    <li>
+                        <b>OWASP ZAP DAST Report</b> →
+                        <a href="${env.BUILD_URL}artifact/zap-report.html">
+                            View Report
+                        </a>
+                    </li>
+                </ul>
+            
+                <p style="color:gray; font-size:12px;">
+                    ⚠️ Security reports are stored as Jenkins artifacts to avoid email size limits.
+                </p>
+            
+                <br/>
+                <p style="color:#555;">
+                    — Jenkins DevSecOps Pipeline
+                </p>
+            
+                </body>
+                </html>
+                """
+            )
 
             archiveArtifacts artifacts: '''
                 zap-report.html,
