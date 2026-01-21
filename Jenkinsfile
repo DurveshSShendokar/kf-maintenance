@@ -130,11 +130,14 @@ pipeline {
                 echo '🩺 Waiting for application to become healthy...'
                 sh '''
                 for i in {1..12}; do
-                    STATUS=$(curl -s http://127.0.0.1:8081/actuator/health | grep -o '"status":"UP"' || true)
-                    if [ "$STATUS" != "" ]; then
+                    RESPONSE=$(curl -s http://127.0.0.1:8081/actuator/health || true)
+                    echo "Health response: $RESPONSE"
+        
+                    if echo "$RESPONSE" | grep -q '"status":"UP"'; then
                         echo "✅ Application is healthy"
                         exit 0
                     fi
+        
                     echo "⏳ App not ready yet... retrying ($i/12)"
                     sleep 5
                 done
