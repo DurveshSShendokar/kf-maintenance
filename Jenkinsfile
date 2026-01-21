@@ -22,7 +22,6 @@ pipeline {
         // URLs
         DAST_URL = "http://127.0.0.1:${INTERNAL_PORT}"
         PROD_URL = "http://127.0.0.1:${PROD_PORT}"
-        DB_HOST = '4.213.97.72'
     }
 
     stages {
@@ -112,21 +111,16 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                echo '🚀 Deploying to production...'
+                echo '🚀 Deploying backend using CI profile (H2 DB)...'
                 sh '''
                     docker stop ${PROD_CONTAINER} || true
                     docker rm ${PROD_CONTAINER} || true
-
+        
                     docker run -d \
                       --name ${PROD_CONTAINER} \
                       -p 8081:8081 \
                       --restart unless-stopped \
-                      -e SPRING_PROFILES_ACTIVE=prod \
-                      -e DB_URL=jdbc:mysql://${DB_HOST}:3306/db_kf_maintenance \
-                      -e DB_USERNAME=${DB_CREDS_USR} \
-                      -e DB_PASSWORD=${DB_CREDS_PSW} \
-                      -e MAIL_USERNAME=${MAIL_CREDS_USR} \
-                      -e MAIL_PASSWORD=${MAIL_CREDS_PSW} \
+                      -e SPRING_PROFILES_ACTIVE=ci \
                       ${IMAGE_NAME}:latest
                 '''
             }
