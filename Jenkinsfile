@@ -127,11 +127,20 @@ pipeline {
 
         stage('Post-Deploy Health Check') {
             steps {
-                echo '🩺 Running production health check...'
+                echo '🩺 Waiting for application to become healthy...'
                 sh '''
-                    sleep 10
-                    curl -f ${PROD_URL}/actuator/health || exit 1
-                    echo "✅ Production application is healthy"
+                for i in {1..12}; do
+                    STATUS=$(curl -s http://127.0.0.1:8081/actuator/health | grep -o '"status":"UP"' || true)
+                    if [ "$STATUS" != "" ]; then
+                        echo "✅ Application is healthy"
+                        exit 0
+                    fi
+                    echo "⏳ App not ready yet... retrying ($i/12)"
+                    sleep 5
+                done
+        
+                echo "❌ Application failed to become healthy"
+                exit 1
                 '''
             }
         }
