@@ -128,7 +128,7 @@ pipeline {
                           -p 8081:8081 \
                           --restart unless-stopped \
                           -e SPRING_PROFILES_ACTIVE=prod \
-                          -e DB_URL=jdbc:mysql://localhost:3306/db_kf_maintenance?allowPublicKeyRetrieval=true&useSSL=false \
+                          -e "DB_URL=jdbc:mysql://localhost:3306/db_kf_maintenance?allowPublicKeyRetrieval=true&useSSL=false" \
                           -e DB_USERNAME=${DB_USERNAME} \
                           -e DB_PASSWORD=${DB_PASSWORD} \
                           -e MAIL_USERNAME=${MAIL_USERNAME} \
