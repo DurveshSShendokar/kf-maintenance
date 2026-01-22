@@ -114,10 +114,16 @@ pipeline {
                 echo '🚀 Deploying backend using MySQL (Production)...'
         
                 withCredentials([
-                    string(credentialsId: 'MYSQL_USERNAME', variable: 'DB_CREDS_USR'),
-                    string(credentialsId: 'MYSQL_PASSWORD', variable: 'DB_CREDS_PSW'),
-                    string(credentialsId: 'MAIL_USERNAME', variable: 'MAIL_CREDS_USR'),
-                    string(credentialsId: 'GMAIL_APP_PASSWORD', variable: 'MAIL_CREDS_PSW')
+                    usernamePassword(
+                        credentialsId: 'appuser',
+                        usernameVariable: 'DB_USERNAME',
+                        passwordVariable: 'DB_PASSWORD'
+                    ),
+                    usernamePassword(
+                        credentialsId: 'MAIL_USERNAME',
+                        usernameVariable: 'MAIL_USERNAME',
+                        passwordVariable: 'MAIL_PASSWORD'
+                    )
                 ]) {
                     sh '''
                         docker stop ${PROD_CONTAINER} || true
@@ -128,17 +134,17 @@ pipeline {
                           -p 8081:8081 \
                           --restart unless-stopped \
                           -e SPRING_PROFILES_ACTIVE=prod \
-                          -e DB_URL=jdbc:mysql://host.docker.internal:3306/db_kf_maintenance?allowPublicKeyRetrieval=true&useSSL=false \
-                          -e DB_USERNAME=${DB_CREDS_USR} \
-                          -e DB_PASSWORD=${DB_CREDS_PSW} \
-                          -e MAIL_USERNAME=${MAIL_CREDS_USR} \
-                          -e MAIL_PASSWORD=${MAIL_CREDS_PSW} \
+                          -e DB_URL=jdbc:mysql://localhost:3306/db_kf_maintenance?allowPublicKeyRetrieval=true&useSSL=false \
+                          -e DB_USERNAME=${DB_USERNAME} \
+                          -e DB_PASSWORD=${DB_PASSWORD} \
+                          -e MAIL_USERNAME=${MAIL_USERNAME} \
+                          -e MAIL_PASSWORD=${MAIL_PASSWORD} \
                           ${IMAGE_NAME}:latest
         
                         echo "📦 Container started, waiting 10 seconds..."
                         sleep 10
         
-                        echo "📜 Application logs:"
+                        echo "📜 Container logs:"
                         docker logs ${PROD_CONTAINER}
                     '''
                 }
