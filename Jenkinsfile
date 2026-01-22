@@ -110,21 +110,28 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            steps {
-                echo '🚀 Deploying backend using CI profile (H2 DB)...'
-                sh '''
-                    docker stop ${PROD_CONTAINER} || true
-                    docker rm ${PROD_CONTAINER} || true
-        
-                    docker run -d \
-                      --name ${PROD_CONTAINER} \
-                      -p 8081:8081 \
-                      --restart unless-stopped \
-                      -e SPRING_PROFILES_ACTIVE=ci \
-                      ${IMAGE_NAME}:latest
-                '''
-            }
-        }
+    steps {
+        echo '🚀 Deploying backend using CI profile (H2 DB)...'
+        sh '''
+            docker stop ${PROD_CONTAINER} || true
+            docker rm ${PROD_CONTAINER} || true
+
+            docker run -d \
+              --name ${PROD_CONTAINER} \
+              -p 8081:8081 \
+              --restart unless-stopped \
+              -e SPRING_PROFILES_ACTIVE=ci \
+              ${IMAGE_NAME}:latest
+
+            echo "📦 Container started, waiting 5 seconds..."
+            sleep 5
+
+            echo "📜 Printing container logs:"
+            docker logs ${PROD_CONTAINER}
+        '''
+    }
+}
+
 
         stage('Post-Deploy Health Check') {
             steps {
