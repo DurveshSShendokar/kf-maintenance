@@ -110,28 +110,40 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-    steps {
-        echo '🚀 Deploying backend using CI profile (H2 DB)...'
-        sh '''
-            docker stop ${PROD_CONTAINER} || true
-            docker rm ${PROD_CONTAINER} || true
-
-            docker run -d \
-              --name ${PROD_CONTAINER} \
-              -p 8081:8081 \
-              --restart unless-stopped \
-              -e SPRING_PROFILES_ACTIVE=ci \
-              ${IMAGE_NAME}:latest
-
-            echo "📦 Container started, waiting 5 seconds..."
-            sleep 5
-
-            echo "📜 Printing container logs:"
-            docker logs ${PROD_CONTAINER}
-        '''
-    }
-}
-
+            steps {
+                echo '🚀 Deploying backend using MySQL (Production)...'
+        
+                withCredentials([
+                    string(credentialsId: 'MYSQL_USERNAME', variable: 'DB_CREDS_USR'),
+                    string(credentialsId: 'MYSQL_PASSWORD', variable: 'DB_CREDS_PSW'),
+                    string(credentialsId: 'MAIL_USERNAME', variable: 'MAIL_CREDS_USR'),
+                    string(credentialsId: 'GMAIL_APP_PASSWORD', variable: 'MAIL_CREDS_PSW')
+                ]) {
+                    sh '''
+                        docker stop ${PROD_CONTAINER} || true
+                        docker rm ${PROD_CONTAINER} || true
+        
+                        docker run -d \
+                          --name ${PROD_CONTAINER} \
+                          -p 8081:8081 \
+                          --restart unless-stopped \
+                          -e SPRING_PROFILES_ACTIVE=prod \
+                          -e DB_URL=jdbc:mysql://host.docker.internal:3306/db_kf_maintenance?allowPublicKeyRetrieval=true&useSSL=false \
+                          -e DB_USERNAME=${DB_CREDS_USR} \
+                          -e DB_PASSWORD=${DB_CREDS_PSW} \
+                          -e MAIL_USERNAME=${MAIL_CREDS_USR} \
+                          -e MAIL_PASSWORD=${MAIL_CREDS_PSW} \
+                          ${IMAGE_NAME}:latest
+        
+                        echo "📦 Container started, waiting 10 seconds..."
+                        sleep 10
+        
+                        echo "📜 Application logs:"
+                        docker logs ${PROD_CONTAINER}
+                    '''
+                }
+            }
+        }
 
         stage('Post-Deploy Health Check') {
             steps {
