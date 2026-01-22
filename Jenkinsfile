@@ -114,16 +114,10 @@ pipeline {
                 echo '🚀 Deploying backend using MySQL (Production)...'
         
                 withCredentials([
-                    usernamePassword(
-                        credentialsId: 'appuser',
-                        usernameVariable: 'DB_USERNAME',
-                        passwordVariable: 'DB_PASSWORD'
-                    ),
-                    usernamePassword(
-                        credentialsId: 'MAIL_USERNAME',
-                        usernameVariable: 'MAIL_USERNAME',
-                        passwordVariable: 'MAIL_PASSWORD'
-                    )
+                    string(credentialsId: 'appuser', variable: 'DB_USERNAME'),
+                    string(credentialsId: 'MYSQL_PASSWORD', variable: 'DB_PASSWORD'),
+                    string(credentialsId: 'MAIL_USERNAME', variable: 'MAIL_USERNAME'),
+                    string(credentialsId: 'GMAIL_APP_PASSWORD', variable: 'MAIL_PASSWORD')
                 ]) {
                     sh '''
                         docker stop ${PROD_CONTAINER} || true
